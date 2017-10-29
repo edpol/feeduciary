@@ -40,3 +40,18 @@ git status
 
 git branch
 
+
+// where did you clone from
+git config --get remote.origin.url
+
+
+on godaddy 
+git init .
+git remote set-url origin  https://github.com/edpol/feeduciary.git
+git remote -v // to verify above command
+git pull  https://github.com/edpol/feeduciary.git
+
+than it's the laravel stuff
+composer install
+
+composer update will update composer.lock
