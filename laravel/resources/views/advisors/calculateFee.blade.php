@@ -9,7 +9,7 @@ $fcount = (!isset($_SESSION["fcount"])) ? 0 : $_SESSION["fcount"];
 <section class="content-section-a">
     <div class="container">
         <div class="row">
-            <div class="col-lg-5 ml-auto">
+            <div>
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
 		    	<p>
@@ -17,7 +17,7 @@ $fcount = (!isset($_SESSION["fcount"])) ? 0 : $_SESSION["fcount"];
 					<span style="font-weight:bold;">zipcode</span> {{ $zipcode["zipcode"] }}<br />
 				</p>
 
-				<table cellspace=1>
+				<table>
 					<tr><th>id&nbsp;</th><th>Advisor</th><th>fee<br />type</th><th>Fee<br />Amount</th></tr>
 <?php 		 			$output = array_slice($final_list, $fcount, $limit); ?>
 						@foreach ( $output as $row )
@@ -30,7 +30,7 @@ $fcount = (!isset($_SESSION["fcount"])) ? 0 : $_SESSION["fcount"];
 							</tr>
 						@endforeach
 				</table>
-<?php 			echo "<a href='?'>&laquo;back</a> <a href='?'>next&raquo;</a>";
+<?php 			echo "<a href='?'>&laquo;back</a> &nbsp; <a href='?'>next&raquo;</a>";
 				$_SESSION["fcount"] = $fcount + $limit; 
 				$_SESSION["fcount"] = $fcount - $limit; 
 ?>
