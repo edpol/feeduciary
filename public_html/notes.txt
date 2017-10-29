@@ -1,0 +1,42 @@
+add now() to created_at and updated_at
+updated_at should have a default of now
+
+some of the emails had blank spaces in the beginning or the end
+
+phone numbers need to have the same format. Store as numbers, display with predefined formating
+
+some of the URL's have http://, some don't
+we could remove the www. and test to see if they still work.
+
+need a function that populates lat and lng whenver the address is changed.
+
+
+
+git essential training
+
+git init // new local git proj
+
+
+git add *    // git reset * undoes add
+git checkout -- public_html/blog.php   // I deleted file, had to remove from watch git list
+git rm public_html/blog.php            // this deletes the file and keeps record that it was deleted
+
+
+git commit -a -m "message to help you remember what this was" // add + commit 
+git commit    -m "message to help you remember what this was"
+
+// first time only
+git remote add origin https://github.com/edpol/feeduciary.git
+git push -u origin master	// link your master branch to origin created line above
+
+git push
+
+git config --global user.name "Edward Pol"
+git config user.name 
+git config user.email "edpol@p4bh.org" // don't want global flag here
+git config user.email
+
+git status
+
+git branch
+
