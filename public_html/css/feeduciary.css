@@ -1,0 +1,12 @@
+th { border-bottom: 2px solid black; }
+.grey   { background-color:#ddd; }
+.white  { background-color:#eee; }
+.right  { text-align:right;  }
+.center { text-align:center; }
+
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+   color: lightgrey;
+   text-decoration:none; 
+}
