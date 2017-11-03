@@ -7,13 +7,13 @@
 <meta name="author" content="">
 <title>Feeduciary | Welcome</title>
 <!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" />
 <!-- Custom fonts for this template -->
-<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" />
 <!-- Custom styles for this template -->
-<link href="css/landing-page.css" rel="stylesheet">
-<link href="css/feeduciary.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/landing-page.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('css/feeduciary.css') }}" />
 
 </head>
 <body>

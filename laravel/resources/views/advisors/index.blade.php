@@ -24,7 +24,7 @@
 				</p>
 			</div>
 		<div class="col-lg-5 mr-auto">
-		<img class="img-fluid" src="img/ipad.png" alt="">
+			<img class="img-fluid" src="{{ asset('img/ipad.png') }}" alt="">
 		</div>
 	</div>
 

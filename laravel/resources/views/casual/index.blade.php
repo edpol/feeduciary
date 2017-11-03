@@ -63,7 +63,7 @@
                 </p>
                 </div>
                 <div class="col-lg-5 ml-auto order-lg-1">
-                <img class="img-fluid" src="images/dog.png" alt="">
+                <img class="img-fluid" src="images/graph.jpg" alt="">
             </div>
         </div>
     </div>

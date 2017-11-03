@@ -46,7 +46,7 @@ class AdvisorsController extends Controller
     /*
      *  Calculate the advisors fee
      */
-    private function advisorFee ($advisor, $amount, $zipcode) {
+    private function advisorFee ($advisor, $amount) {
 
         $rate_list = Rate::where("advisor_id",$advisor->id)->orderBy('roof','ASC')->get();
         $investment = (float)$amount["amount"];
@@ -90,15 +90,25 @@ class AdvisorsController extends Controller
         $amount = request(['amount']);
         $zipcode = request(['zipcode']);
         $advisors = Advisor::where("minimum_amt", "<", $amount)->get();
-//      $advisors = Advisor::where("minimum_amt", "<", $amount)->simplePaginate(15);
 
-//      var_dump($advisor->rates);
         $list = array();
         foreach ($advisors as $advisor) {
-            $list[] = [ "id"=>$advisor->id, "totalFee"=>$this->advisorFee($advisor,$amount,$zipcode), "advisor"=>$advisor];
+
+            $advisor->totalFee=$this->advisorFee($advisor,$amount);
+
+            $list[] = [ "id"=>$advisor->id, "totalFee"=>$this->advisorFee($advisor,$amount), "advisor"=>$advisor];
         }
         $final_list = $this->bubble_sort($list);
+        $advisors = $advisors->sortBy('totalFee');
 
-        return view('advisors.calculateFee', compact('amount', 'zipcode', 'final_list'));
+        session(compact('amount', 'zipcode', 'advisors'));
+        return view('advisors.calculateFee');
+
+//        return view('advisors.calculateFee', compact('amount', 'zipcode', 'advisors'));
+    }
+
+    public function page($page)
+    {
+        return view('advisors.calculateFee', compact('page'));
     }
 }

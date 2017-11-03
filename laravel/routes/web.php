@@ -11,20 +11,22 @@
 |
 */
 
-Route::get('/',                   'CasualController@index');
+Route::get('/',                     'CasualController@index');
 
-Route::get('/about',              'CasualController@about');
+Route::get('/about',                'CasualController@about');
 
-Route::get('/blog',               'CasualController@blog');
+Route::get('/blog',                 'CasualController@blog');
 
-Route::get('/contact',            'CasualController@contact');
+Route::get('/contact',              'CasualController@contact');
 
-Route::get('/advisors',           'AdvisorsController@index');
+Route::get('/advisors',             'AdvisorsController@index');
 
-Route::get('/advisors/{advisor}', 'AdvisorsController@show'); 
+Route::get('/advisors/{advisor}',   'AdvisorsController@show'); 
 
-Route::get('/geocode',            'GeocodeController@index');
+Route::get('/advisors/page/{page}', 'AdvisorsController@page'); 
 
-Route::get('/geocode/{advisor}',  'GeocodeController@store');
+Route::get('/geocode',              'GeocodeController@index');
 
-Route::get('/calculateFee',       'AdvisorsController@calculateFee');
+Route::get('/geocode/{advisor}',    'GeocodeController@store');
+
+Route::get('/calculateFee',         'AdvisorsController@calculateFee');
