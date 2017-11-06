@@ -2,6 +2,7 @@ th { border-bottom: 2px solid black; }
 td { padding-right: 30px; }
 .grey   { background-color:#ddd; }
 .white  { background-color:#eee; }
+.left   { text-align:left;   }
 .right  { text-align:right;  }
 .center { text-align:center; }
 

@@ -1,13 +1,13 @@
 <?php
 use App\Pagination;
 
+	$per_page = 4;
+
 	$amount = session('amount');
 	$zipcode = session('zipcode');
 	$advisors = session('advisors');
 
 	$page = (!isset($page)) ? 1 : (int)$page;
-
-	$per_page = 10;
 
 	$start_slice = ($page-1) * $per_page + 1;
 
@@ -16,56 +16,74 @@ use App\Pagination;
 @extends('layouts.master')
 
 @section('box1')
-<section class="content-section-a">
-    <div class="container">
-        <div class="row">
-            <div>
-                <hr class="section-heading-spacer">
-                <div class="clearfix"></div>
-		    	<p>
-					<span style="font-weight:bold;">Investment Amount:</span> {{ number_format($amount["amount"],0) }}<br />
-					<span style="font-weight:bold;">zipcode</span> {{ $zipcode["zipcode"] }}<br />
-				</p>
 
-				<table>
-					<tr><th>id&nbsp;</th><th>Advisor</th><th>fee<br />type</th><th>Fee<br />Amount</th></tr>
-						@foreach ( $output as $advisor ) 
-<?php						$class = (!isset($class) || $class=="white" ) ? "grey" : "white"; ?>
-							<tr class=<?= $class ?>>
-								<td class='right'>{{ $advisor->id }}</td>
-								<td><a href="/advisors/{{ $advisor->id }}">{{ $advisor->name }}</a></td>
-								<td class='center'>{{ $advisor->feeCalculation }}</td>
-								<td class='right'>{{ $advisor->totalFee }}</td>
-							</tr>
-						@endforeach
-				</table>
+	<p>
+		<span style="font-weight:bold;">Investment Amount:</span> {{ number_format($amount["amount"],0) }}<br />
+		<span style="font-weight:bold;">zipcode</span> {{ $zipcode["zipcode"] }}<br />
+	</p>
 
+	@foreach ( $output as $advisor ) 
+		<?php
+		if (!isset($class) || $class=="content-section-b" ) {
+			$class = "content-section-a";
+			$align = "margin-left:0; margin-right:auto;";
+		} else {
+			$class = "content-section-b";
+			$align = "margin-left:auto; margin-right:0;";
+		}
+		?>
+		<section class="<?= $class; ?>">
+		    <div class="container">
+		        <div class="row">
+					<div style="width:300px; height:180px; padding:4px; <?= $align; ?>  box-shadow: 10px 10px 5px #888888;  background: url(images/paper.gif);">
+						{{ $advisor->id }}
+						<a href="/advisors/{{ $advisor->id }}">{{ $advisor->name }}</a><br />
+						{{ $advisor->company }}<br />
+						{{ $advisor->address1}}<br />
+@if (!empty($advisor->address2)) 
+{{ $advisor->address2 }}<br /> 
+@endif
+						{{ $advisor->city }}, {{ $advisor->at }} {{ $advisor->zip }}<br />
+<br />
+@if (empty($advisor->address2)) 
+<br />
+@endif						Approx Fee: <?= "$".number_format($advisor->totalFee,0); ?>
+
+					</div>
+					<br />
+				</div>
+			</div>
+		</section>
+	@endforeach
+
+	<section class="<?= $class; ?>">
+	    <div class="container">
+	        <div class="row">
+				<div style="margin-left:auto; margin-right:auto;">
 <?php
-	$pagination = new pagination($page, $per_page, count($advisors));
+					$pagination = new pagination($page, $per_page, count($advisors));
 
-	if($pagination->total_pages() > 1) {
-		
-		if($pagination->has_previous_page()) { 
-			echo '<a href="/advisors/page/' . $pagination->previous_page() . '">&laquo; Previous</a> '; 
-		}
+					if($pagination->total_pages() > 1) {
 
-		for($i=1; $i <= $pagination->total_pages(); $i++) {
-			if($i == $page) {
-				echo " <span class=\"selected\">{$i}</span> ";
-			} else {
-				echo " <a href=\"/advisors/page/{$i}\">{$i}</a> "; 
-			}
-		}
+						if($pagination->has_previous_page()) { 
+							echo '<a href="/advisors/page/' . $pagination->previous_page() . '">&laquo; Previous</a> '; 
+						}
 
-		if($pagination->has_next_page()) { 
-			echo ' <a href="/advisors/page/' . $pagination->next_page() . '">Next &raquo;</a> '; 
-		}
-		
-	}
+						for($i=1; $i <= $pagination->total_pages(); $i++) {
+							if($i == $page) {
+								echo " <span class=\"selected\">{$i}</span> ";
+							} else {
+								echo " <a href=\"/advisors/page/{$i}\">{$i}</a> "; 
+							}
+						}
 
-?>
-    		</div>
+						if($pagination->has_next_page()) { 
+							echo ' <a href="/advisors/page/' . $pagination->next_page() . '">Next &raquo;</a> '; 
+						}
+
+					}
+		?>    	</div>
+			</div>
     	</div>
-    </div>
-</section>
+	</section>
 @endsection

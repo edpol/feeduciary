@@ -1,6 +1,8 @@
+ls -al
 /laravel/node_modules
 /laravel/public_html/hot
 /public_html/storage
+public_html/error_log
 public_html/notes.txt
 /laravel/storage/*.key
 /laravel/vendor
@@ -19,6 +21,7 @@ public_html/notes.txt
 .lastlogin
 .md5sum
 /.mysql_backup
+.mysql_history
 /.ssh
 /.trash
 .viminfo
