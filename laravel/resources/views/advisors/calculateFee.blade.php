@@ -32,22 +32,31 @@ use App\Pagination;
 			$align = "margin-left:auto; margin-right:0;";
 		}
 		?>
+
 		<section class="<?= $class; ?>">
 		    <div class="container">
 		        <div class="row">
-					<div style="width:300px; height:180px; padding:4px; <?= $align; ?>  box-shadow: 10px 10px 5px #888888;  background: url(images/paper.gif);">
-						{{ $advisor->id }}
-						<a href="/advisors/{{ $advisor->id }}">{{ $advisor->name }}</a><br />
-						{{ $advisor->company }}<br />
-						{{ $advisor->address1}}<br />
-@if (!empty($advisor->address2)) 
-{{ $advisor->address2 }}<br /> 
-@endif
-						{{ $advisor->city }}, {{ $advisor->at }} {{ $advisor->zip }}<br />
-<br />
-@if (empty($advisor->address2)) 
-<br />
-@endif						Approx Fee: <?= "$".number_format($advisor->totalFee,0); ?>
+					<div style="width:400px; height:220px; padding:20px 8px; <?= $align; ?>  box-shadow: 10px 10px 5px #888888;  background: url({{ asset('images/paper.gif') }});">
+
+						<p style="margin:0 auto; text-align:center; border-top:solid black 1px; border-bottom:solid black 1px; width:80%; ">
+							<a href="/advisors/{{ $advisor->id }}">{{ $advisor->name }}</a> ({{ $advisor->id }})<br />
+						</p>
+						<p style="margin:0 auto; text-align:center;">
+								{{ $advisor->company }}<br /><br />
+						</p>
+						<div style="float:right;">
+							{{ $advisor->address1}}<br />
+							@if (!empty($advisor->address2)) 
+								{{ $advisor->address2 }}<br /> 
+							@endif
+							{{ $advisor->city }}, {{ $advisor->st }} {{ $advisor->zip }}<br />
+							<br />
+							@if (empty($advisor->address2)) 
+								<br />
+							@endif
+						</div>
+						<br clear="all" />
+						Approx Fee: <?= "$".number_format($advisor->totalFee,0); ?>
 
 					</div>
 					<br />
