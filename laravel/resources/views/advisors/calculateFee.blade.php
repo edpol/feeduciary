@@ -1,7 +1,7 @@
 <?php
 use App\Pagination;
 
-	$per_page = 4;
+	$per_page = 10;
 
 	$amount = session('amount');
 	$zipcode = session('zipcode');
