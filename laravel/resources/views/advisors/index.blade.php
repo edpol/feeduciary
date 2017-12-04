@@ -1,6 +1,11 @@
 @extends('layouts.master')
 
 @section('box1')
+    <header class="intro-header">
+    </header>
+@endsection
+
+@section('box2')
 
  <!-- Page Content -->
 <section class="content-section-a">
@@ -10,7 +15,7 @@
 			<div class="col-lg-5 ml-auto">
 				<hr class="section-heading-spacer">
 				<div class="clearfix"></div>
-				<h2 class="section-heading">Death to the Stock Photo:<br>Special Thanks</h2>
+				<h2 class="section-heading">Advisors Listing</h2>
 				<p class="lead">
 					<ul>
 				    	@foreach( $advisors as $advisor )

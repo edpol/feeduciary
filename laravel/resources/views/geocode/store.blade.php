@@ -1,6 +1,11 @@
+<?php $tab = "Geocode"; ?>
 @extends('layouts.master')
 
 @section('box1')
+    @include('layouts.header')
+@endsection
+
+@section('box2')
 <div class="bg-faded p-4 my-4">
     <div style='color:red;'>{{ $msg }}</div>
     <a href="/advisors/{{ $advisor->id }}"> 

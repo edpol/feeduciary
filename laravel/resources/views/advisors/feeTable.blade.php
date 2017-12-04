@@ -1,5 +1,5 @@
 <?php
-use App\Pagination;
+use App\Pages;
 
 	$per_page = 10;
 
@@ -12,10 +12,17 @@ use App\Pagination;
 	$start_slice = ($page-1) * $per_page + 1;
 
 	$output = $advisors->slice($start_slice, $per_page);
+
+	$tab = "Fees";
 ?>
 @extends('layouts.master')
 
 @section('box1')
+    <header class="intro-header">
+    </header>
+@endsection
+
+@section('box2')
 <section class="content-section-a">
     <div class="container">
         <div class="row">
@@ -40,7 +47,7 @@ use App\Pagination;
 						@endforeach
 				</table>
 
-<?php			$pagination = new pagination($page, $per_page, count($advisors));
+<?php			$pagination = new pages($page, $per_page, count($advisors));
 
 				if($pagination->total_pages() > 1) {
 

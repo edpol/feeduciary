@@ -1,5 +1,5 @@
+<?php $tab = "Home"; ?>
 @extends('layouts.master')
-
 
 @section('box1')
     @include('layouts.header')
@@ -71,9 +71,5 @@
 </section>
 <!-- /.content-section-b -->
 
-@endsection
-
-@section('box4')
-    @include('layouts.banner')
 @endsection
 

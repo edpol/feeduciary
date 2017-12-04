@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/',                     'CasualController@index');
 
 Route::get('/about',                'CasualController@about');
@@ -25,8 +14,28 @@ Route::get('/advisors/{advisor}',   'AdvisorsController@show');
 
 Route::get('/advisors/page/{page}', 'AdvisorsController@page'); 
 
+Route::post('/store',               'AdvisorsController@store'); 
+
+Route::get('/calculateFee',         'AdvisorsController@calculateFee');
+
+Route::post('/storeRates',          'RatesController@store'); 
+
+Route::get('/finishedRates',        'RatesController@show'); 
+
+Route::get('/ratesInfo',            'RatesController@index');
+
 Route::get('/geocode',              'GeocodeController@index');
 
 Route::get('/geocode/{advisor}',    'GeocodeController@store');
 
-Route::get('/calculateFee',         'AdvisorsController@calculateFee');
+Auth::routes();
+
+Route::get('/register',   'RegistrationController@index');
+
+Route::post('/register', [ 'as' => 'register', 'uses' => 'RegistrationController@store']);
+
+Route::get('/logout',     'SessionsController@destroy');
+
+Route::get('/create', 'Auth\LoginController@create');
+
+Route::get('/rss',    'Controller@rss');

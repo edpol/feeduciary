@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
+use App\Rate;
+use App\Advisor;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -25,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/create';
 
     /**
      * Create a new controller instance.
@@ -34,6 +37,33 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout')->except('create');
     }
+
+    /* index, store, show, create, edit, update, destroy */
+
+    public function create() {
+
+        // grab record from USER Table
+        $user = Auth::user();
+
+        // use user->id to get record from ADVISOR table
+        // if there is no advisor entry, go to advisor entry page
+        $advisor = Advisor::where("user_id",$user->id)->first();
+
+        if ($advisor->count()==0) {
+            return view('advisors.entry', compact('user'));
+        }
+
+        // use advisor->id to search for a RATES entry
+        // if there is no rates entry, go to rates entry
+        $rates = Rate::where("advisor_id",$advisor->id)->get();
+        if ($rates->count()==0) {
+            return view('advisors.rates', compact('advisor'));
+        }
+
+        return view('advisors.edit', compact('advisor','rates'));
+
+    }
+
 }

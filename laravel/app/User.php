@@ -26,4 +26,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function rates() {
+        return $this->hasMany(Rate::class);
+    }
+
+    public function advisor() {
+        return $this->belongsTo(Advisor::class);
+    }
+
 }

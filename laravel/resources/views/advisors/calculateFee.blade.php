@@ -1,5 +1,5 @@
 <?php
-use App\Pagination;
+use App\Pages;
 
 	$per_page = 10;
 
@@ -12,16 +12,24 @@ use App\Pagination;
 	$start_slice = ($page-1) * $per_page + 1;
 
 	$output = $advisors->slice($start_slice, $per_page);
+
+	$tab = "Fees";
 ?>
 @extends('layouts.master')
 
 @section('box1')
+    <header class="intro-header">
+    </header>
+@endsection
 
-	<p>
-		<span style="font-weight:bold;">Investment Amount:</span> {{ number_format($amount["amount"],0) }}<br />
-		<span style="font-weight:bold;">zipcode</span> {{ $zipcode["zipcode"] }}<br />
-	</p>
-
+@section('box2')
+<?php	$class = "content-section-b"; ?>
+		<section class="<?= $class; ?>">
+		    <div class="container">
+				<p><span style="font-weight:bold;">Investment Amount:</span> {{ number_format($amount,2) }}</p>
+				<p><span style="font-weight:bold;">zipcode:</span> {{ $zipcode }}</p>
+			</div>
+		</section>
 	@foreach ( $output as $advisor ) 
 		<?php
 		if (!isset($class) || $class=="content-section-b" ) {
@@ -70,15 +78,15 @@ use App\Pagination;
 	        <div class="row">
 				<div style="margin-left:auto; margin-right:auto;">
 <?php
-					$pagination = new pagination($page, $per_page, count($advisors));
+					$pages = new Pages($page, $per_page, count($advisors));
 
-					if($pagination->total_pages() > 1) {
+					if($pages->total_pages() > 1) {
 
-						if($pagination->has_previous_page()) { 
-							echo '<a href="/advisors/page/' . $pagination->previous_page() . '">&laquo; Previous</a> '; 
+						if($pages->has_previous_page()) { 
+							echo '<a href="/advisors/page/' . $pages->previous_page() . '">&laquo; Previous</a> '; 
 						}
 
-						for($i=1; $i <= $pagination->total_pages(); $i++) {
+						for($i=1; $i <= $pages->total_pages(); $i++) {
 							if($i == $page) {
 								echo " <span class=\"selected\">{$i}</span> ";
 							} else {
@@ -86,12 +94,12 @@ use App\Pagination;
 							}
 						}
 
-						if($pagination->has_next_page()) { 
-							echo ' <a href="/advisors/page/' . $pagination->next_page() . '">Next &raquo;</a> '; 
+						if($pages->has_next_page()) { 
+							echo ' <a href="/advisors/page/' . $pages->next_page() . '">Next &raquo;</a> '; 
 						}
 
 					}
-		?>    	</div>
+?>		    	</div>
 			</div>
     	</div>
 	</section>

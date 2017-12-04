@@ -1,6 +1,11 @@
 @extends('layouts.master')
 
 @section('box1')
+    <header class="intro-header">
+    </header>
+@endsection
+
+@section('box2')
 <section class="content-section-a">
     <div class="container">
         <div class="row">
@@ -20,9 +25,7 @@
                     minimum fee: <br />
                     fee calculatuin: <br />
                     lat/lng: <br />
-                    brochure: <br />
-                    created: <br />
-                    updated: <br />
+                    <br />
                 </div>
 
                 <div style="float:left;">
@@ -31,7 +34,7 @@
                     {{ $advisor->email }} <br />
 
                     @if(isset($advisor->url) && !empty($advisor->url))
-                        <a href="{{ $advisor->url }}" target="_blank"> 
+                        <a href="{{ App\Advisor::addScheme($advisor->url) }}" target="_blank">
                     @endif
                     {{ $advisor->company }} 
                     @if(isset($advisor->url) && !empty($advisor->url))
@@ -48,7 +51,7 @@
                     {{ number_format($advisor->minimum_fee, 0) }} <br />
                     {{ $advisor->feeCalculation }} <br />
                     {{ $advisor->lat }}   {{ $advisor->lng }} <br />
-                    <a href="{{ $advisor->brochure }}" target="_blank">Brochure</a> <br />
+                    <a href="{{ $advisor->brochure }}" target="_blank">Part 2 Brochure</a> <br />
                 </div>
                 <br clear="all" />
                     desc: &nbsp; {{ $advisor->blurb }} 

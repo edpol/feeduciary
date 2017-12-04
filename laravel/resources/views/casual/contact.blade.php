@@ -1,10 +1,16 @@
+<?php $tab = "Contact"; ?>
 @extends('layouts.master')
 
 @section('box1')
+    <header class="intro-header">
+    </header>
+@endsection
+
+@section('box2')
       <div class="bg-faded p-4 my-4">
         <hr class="divider">
-        <h2 class="text-center text-lg text-uppercase my-0">Contact
-          <strong>Business Casual</strong>
+        <h2 class="text-center text-lg text-uppercase my-0">
+          <strong>Feeduciary Contact Form</strong>
         </h2>
         <hr class="divider">
         <div class="row">
@@ -31,7 +37,7 @@
       </div>
 @endsection
 
-@section('box2')
+@section('box3')
       <div class="bg-faded p-4 my-4">
         <hr class="divider">
         <h2 class="text-center text-lg text-uppercase my-0">Contact

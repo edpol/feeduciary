@@ -35,6 +35,7 @@ class CreateAdvisorsTable extends Migration
             $table->timestamps();
             $table->string('brochure')->nullable();
             $table->text('blurb')->nullable();
+            $table->integer('user_id')->unsigned()->default(0);
         });
     }
 

@@ -1,0 +1,35 @@
+app\Http\Controllers\Auth\LoginController.php:        $this->middleware('guest')->except('logout')->except('postLogin');
+app\Http\Controllers\SessionsController.php:    	auth()->logout();
+resources\views\layouts\app.blade.php:                                        <a href="{{ route('logout') }}"
+resources\views\layouts\app.blade.php:                                                     document.getElementById('logout-form').submit();">
+resources\views\layouts\app.blade.php:                                            Logout
+resources\views\layouts\app.blade.php:                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+resources\views\layouts\footer.blade.php:                        <a href="{{ route('logout') }}">Logout</a>
+resources\views\layouts\nav.blade.php:                                    <a class="nav-link" href="{{ route('logout') }}"
+resources\views\layouts\nav.blade.php:                                                 document.getElementById('logout-form').submit();">
+resources\views\layouts\nav.blade.php:                                        Logout
+resources\views\layouts\nav.blade.php:                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+routes\web.php:Route::post('/logout',     'SessionsController@destroy');
+storage\framework\views\85aa35c0a591902387dc2516d0e16f880e240793.php:                        <a href="<?php echo e(route('logout')); ?>">Logout</a>
+storage\framework\views\eff99ef6e14a19966b32aefb910e141740ead0c3.php:                                    <a class="nav-link" href="<?php echo e(route('logout')); ?>"
+storage\framework\views\eff99ef6e14a19966b32aefb910e141740ead0c3.php:                                                 document.getElementById('logout-form').submit();">
+storage\framework\views\eff99ef6e14a19966b32aefb910e141740ead0c3.php:                                        Logout
+storage\framework\views\eff99ef6e14a19966b32aefb910e141740ead0c3.php:                                    <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
+vendor\composer\autoload_classmap.php:    'Illuminate\\Auth\\Events\\Logout' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/Events/Logout.php',
+vendor\composer\autoload_static.php:        'Illuminate\\Auth\\Events\\Logout' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Events/Logout.php',
+vendor\laravel\framework\src\Illuminate\Auth\Events\Logout.php:class Logout
+vendor\laravel\framework\src\Illuminate\Auth\SessionGuard.php:     * Indicates if the logout method has been called.
+vendor\laravel\framework\src\Illuminate\Auth\SessionGuard.php:        // based on the login and logout events fired from the guard instances.
+vendor\laravel\framework\src\Illuminate\Auth\SessionGuard.php:    public function logout()
+vendor\laravel\framework\src\Illuminate\Auth\SessionGuard.php:        // If we have an event dispatcher instance, we can fire off the logout event
+vendor\laravel\framework\src\Illuminate\Auth\SessionGuard.php:            $this->events->dispatch(new Events\Logout($user));
+vendor\laravel\framework\src\Illuminate\Auth\SessionGuard.php:        // Once we have fired the logout event we will clear the users out of memory
+vendor\laravel\framework\src\Illuminate\Contracts\Auth\StatefulGuard.php:    public function logout();
+vendor\laravel\framework\src\Illuminate\Foundation\Auth\AuthenticatesUsers.php:    public function logout(Request $request)
+vendor\laravel\framework\src\Illuminate\Foundation\Auth\AuthenticatesUsers.php:        $this->guard()->logout();
+vendor\laravel\framework\src\Illuminate\Routing\Router.php:        $this->post('logout', 'Auth\LoginController@logout')->name('logout');
+vendor\laravel\framework\src\Illuminate\Session\Middleware\AuthenticateSession.php:                $this->logout($request);
+vendor\laravel\framework\src\Illuminate\Session\Middleware\AuthenticateSession.php:            $this->logout($request);
+vendor\laravel\framework\src\Illuminate\Session\Middleware\AuthenticateSession.php:    protected function logout($request)
+vendor\laravel\framework\src\Illuminate\Session\Middleware\AuthenticateSession.php:        $this->auth->logout();
+vendor\laravel\framework\src\Illuminate\Support\Facades\Auth.php: * @method static void logout()

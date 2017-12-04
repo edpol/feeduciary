@@ -6,6 +6,7 @@
                 <h1>Feeduciary.com</h1>
                 <h3>Clarity is Power</h3>
                 <hr class="intro-divider">
+<!--
                 <ul class="list-inline intro-social-buttons">
                     <li class="list-inline-item">
                         <a href="#" class="btn btn-secondary btn-lg">
@@ -26,6 +27,7 @@
                         </a>
                     </li>
                 </ul>
+-->
             </div>
         </div>
     </header>

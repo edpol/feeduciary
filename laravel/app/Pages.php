@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Pagination extends Model {
-	
-	public $current_page;
+class Pages extends Model
+{
+  	public $current_page;
 	public $per_page;
 	public $total_count;
 

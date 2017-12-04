@@ -1,6 +1,12 @@
+<?php $tab = "About"; ?>
 @extends('layouts.master')
 
 @section('box1')
+	<header class="intro-header">
+	</header>
+@endsection
+
+@section('box2')
 <!-- Page Content -->
 <section class="content-section-a">
 	<div class="container">
@@ -22,7 +28,7 @@
 </section>
 @endsection
 
-@section('box2')
+@section('box3')
 <section class="content-section-b">
 	<div class="container">
 		<div class="row">
@@ -43,7 +49,7 @@
 </section>
 @endsection
 
-@section('box3')
+@section('box4')
 <!-- Page Content -->
 <section class="content-section-a">
 	<div class="container">
