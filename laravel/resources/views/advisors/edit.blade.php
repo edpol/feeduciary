@@ -107,11 +107,8 @@ use App\Http\Controllers;
                         <div class="form-group{{ $errors->has('st') ? ' has-error' : '' }}">
                             <label for="st" class="col-md-8 control-label">State</label>
                             <div class="col-md-8 {{ $errors->has('st') ? ' has-error' : '' }}">
- 	
- 								@include('layouts.states')
-
-<!-- //Controller::editState({{ $advisor->st }}); -->
-
+                                <!-- html_entity_decode -->
+                                {!! $state !!}
                                 @if ($errors->has('st'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('st') }}</strong>
@@ -198,8 +195,13 @@ use App\Http\Controllers;
 							</label>
                             <div class="col-md-8" {{ $errors->has('feeCalculation') ? ' has-error' : '' }}>
 
-				                <input id="feeCalculation" type="radio" name="feeCalculation" value="0" /> Cumulative rates per tier<br />
-				                <input id="feeCalculation" type="radio" name="feeCalculation" value="1" /> Rate changes with investment amount<br />
+@if ($advisor->feeCalculation == 0) 
+                                <input id="feeCalculation" type="radio" name="feeCalculation" value="0" checked /> Cumulative rates per tier<br />
+                                <input id="feeCalculation" type="radio" name="feeCalculation" value="1" /> Rate changes with investment amount<br />
+@else
+                                <input id="feeCalculation" type="radio" name="feeCalculation" value="0" /> Cumulative rates per tier<br />
+                                <input id="feeCalculation" type="radio" name="feeCalculation" value="1" checked /> Rate changes with investment amount<br />
+@endif
                                 @if ($errors->has('feeCalculation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('feeCalculation') }}</strong>
@@ -213,7 +215,7 @@ use App\Http\Controllers;
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Add Advisor
+                                    Update Advisor
                                 </button>
                             </div>
                         </div>

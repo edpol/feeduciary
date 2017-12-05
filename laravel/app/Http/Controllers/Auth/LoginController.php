@@ -62,7 +62,9 @@ class LoginController extends Controller
             return view('advisors.rates', compact('advisor'));
         }
 
-        return view('advisors.edit', compact('advisor','rates'));
+        $state = $this->editState($advisor->st);
+
+        return view('advisors.edit', compact('advisor','rates', 'state'));
 
     }
 
