@@ -16,6 +16,10 @@ Route::get('/advisors/page/{page}', 'AdvisorsController@page');
 
 Route::post('/store',               'AdvisorsController@store'); 
 
+Route::post('/edit/{advisor}',      'AdvisorsController@edit'); 
+
+Route::post('/update/{advisor}',    'AdvisorsController@update'); 
+
 Route::get('/calculateFee',         'AdvisorsController@calculateFee');
 
 Route::post('/storeRates',          'RatesController@store'); 
@@ -36,6 +40,6 @@ Route::post('/register', [ 'as' => 'register', 'uses' => 'RegistrationController
 
 Route::get('/logout',     'SessionsController@destroy');
 
-Route::get('/create', 'Auth\LoginController@create');
+Route::get('/create',     'Auth\LoginController@create');
 
-Route::get('/rss',    'Controller@rss');
+Route::get('/rss',        'Controller@rss');

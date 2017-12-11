@@ -38,7 +38,7 @@ class Controller extends BaseController
         return view('casual.rss');
     }
 
-    public function editState ($state="XX") {
+    public function optionState ($state="XX") {
 
         $us_states = array (
             "AL" => ["Alabama", "", ""],

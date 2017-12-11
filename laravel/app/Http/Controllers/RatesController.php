@@ -28,12 +28,24 @@ class RatesController extends Controller
 
         $roof = $this->cleanMoney(request('roof'));
         $rate = $this->cleanPercent(request('rate'));
+        $advisor_id = request('advisor_id');
+        $msg = "";
 
- 		$rate = Rate::create([
-            'roof'       => $roof,
-            'rate'       => $rate,
-            'advisor_id' => request('advisor_id')
-		]);
+        $advisorsRates = Rate::where("advisor_id",$advisor_id)->where("roof",$roof)->orderBy('roof', 'DESC')->get();
+
+echo "COUNT: " . count($advisorsRates) . "<br />";
+die();
+        $count = (is_null($dvisorsRates)) ? 0 : $dvisorsRates->count();
+        if ($count==0) {
+            // can't have same rate for an advisor
+     		$rate = Rate::create([
+                'roof'       => $roof,
+                'rate'       => $rate,
+                'advisor_id' => $advisor_id
+    		]);
+        } else {
+            $msg = "Already have an entry for " . number_format($roof);
+        }
 
 		// when we come from /login $advisor is an object
 		// when we come from rates.blade.php it's a JSON string
@@ -47,7 +59,7 @@ class RatesController extends Controller
 			}
 		}
         // After creating your ADVISOR information, we need your RATES information
-        return view('advisors.rates', compact('advisor'));
+        return view('advisors.rates', compact('advisor','msg','advisorsRates'));
     }
 
     public function show() {

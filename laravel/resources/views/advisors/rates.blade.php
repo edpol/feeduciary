@@ -27,6 +27,7 @@
                                         <strong>{{ $errors->first('roof') }}</strong>
                                     </span>
                                 @endif
+                                {{ $msg }}
                             </div>
                         </div>
 

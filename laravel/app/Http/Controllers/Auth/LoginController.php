@@ -51,8 +51,10 @@ class LoginController extends Controller
         // if there is no advisor entry, go to advisor entry page
         $advisor = Advisor::where("user_id",$user->id)->first();
 
-        if ($advisor->count()==0) {
-            return view('advisors.entry', compact('user'));
+        $count = (is_null($advisor)) ? 0 : $advisor->count();
+        if ($count==0) {
+            $state = $this->optionState();
+            return view('advisors.entry', compact('user','state'));
         }
 
         // use advisor->id to search for a RATES entry
@@ -62,7 +64,7 @@ class LoginController extends Controller
             return view('advisors.rates', compact('advisor'));
         }
 
-        $state = $this->editState($advisor->st);
+        $state = $this->optionState($advisor->st);
 
         return view('advisors.edit', compact('advisor','rates', 'state'));
 

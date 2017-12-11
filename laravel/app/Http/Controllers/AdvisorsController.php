@@ -95,7 +95,49 @@ class AdvisorsController extends Controller
         return view('advisors.calculateFee', compact('page'));
     }
 
-    public function store () {
+    public function buildArray(){
+        $minimum_amt = $this->cleanMoney(request('minimum_amt'));
+        $maximum_amt = $this->cleanMoney(request('maximum_amt'));
+        $minimum_fee = $this->cleanMoney(request('minimum_fee'));
+        $user_id = (request('user_id') === null) ? 0 : request('user_id');
+
+        $data = array(
+            'name'            => request('name'),
+            'phone'           => request('phone'),
+            'email'           => request('email'),
+            'company'         => request('company'),
+            'address1'        => request('address1'),
+            'address2'        => request('address2'),
+            'city'            => request('city'),
+            'st'              => request('st'),
+            'zip'             => request('zip'),
+            'url'             => request('url'),
+            'minimum_amt'     => $minimum_amt,
+            'maximum_amt'     => $maximum_amt,
+            'minimum_fee'     => $minimum_fee,
+            'feeCalculation'  => request('feeCalculation'),
+            'facebook'        => request('facebook'),
+            'finraBrokercheck'=> request('finraBrokercheck'),
+            'linkedin'        => request('linkedin'),
+            'twitter'         => request('twitter'),
+            'discretionaryAUM'=> request('discretionaryAUM'),
+            'brochure'        => request('brochure'),
+            'bio'             => request('bio'),
+            'user_id'         => $user_id
+        );
+
+        // if not pull address out of function and build it outside
+        $object = json_decode(json_encode($data), FALSE); // array -> JSON -> object
+        $location = GeocodeController::geocode($object);
+        if ($location!==false) {
+            $data['lat'] = $location['lat'];
+            $data['lng'] = $location['lng'];
+        }
+
+        return $data;
+    }
+
+    public function store() {
         // Validate the form.  email checks email format
         $this->validate(request(), [
             'name'     => 'required',
@@ -103,44 +145,28 @@ class AdvisorsController extends Controller
             'feeCalculation' => 'required'
         ]);
 
-        $minimum_amt = $this->cleanMoney(request('minimum_amt'));
-        $maximum_amt = $this->cleanMoney(request('maximum_amt'));
-        $minimum_fee = $this->cleanMoney(request('minimum_fee'));
-
-        $data = array(            
-            'name'        => request('name'),
-            'phone'       => request('phone'),
-            'email'       => request('email'),
-            'company'     => request('company'),
-            'address1'    => request('address1'),
-            'address2'    => request('address2'),
-            'city'        => request('city'),
-            'st'          => request('st'),
-            'zip'         => request('zip'),
-            'url'         => request('url'),
-            'minimum_amt' => $minimum_amt,
-            'maximum_amt' => $maximum_amt,
-            'minimum_fee' => $minimum_fee,
-            'feeCalculation' => request('feeCalculation'),
-            'brochure'    => request('brochure'),
-            'blurb'       => request('blurb'),
-            'user_id'     => request('user_id')
-        );
-
-        // if not pull address out of function and build it outside
-        $object = json_decode(json_encode($data), FALSE);
-        $location = GeocodeController::geocode($object);
-        if ($location!==false) {
-            $data['lat'] = $location['lat'];
-            $data['lng'] = $location['lng'];
-        }
+        $data = $this->buildArray();
 
         $advisor = Advisor::create($data);
 
         // After creating your ADVISOR information, we need your RATES information
         return view('advisors.rates', compact('advisor'));
     }
+
+    // this goes to the form to get new advisor information
+    public function edit(Advisor $advisor) {
+//$advisor = $jsonString;
+        $state = $this->optionState($advisor->st);
+        return view('advisors.update', compact('advisor','state'));
+    }
+
+    public function update(Advisor $advisor) {
+        //advisor has the old data, request has the new
+        $data = $this->buildArray();
+        $advisor->update($data);
+        return view('advisors.edit', compact('advisor'));
+    }
 }
 
-/*  index, store, show, 
-    create, edit, update, destroy */
+/*  index, store, show, update, edit,
+    create, destroy */

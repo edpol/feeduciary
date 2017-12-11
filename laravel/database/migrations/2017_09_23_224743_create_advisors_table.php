@@ -26,6 +26,11 @@ class CreateAdvisorsTable extends Migration
             $table->string('st')->nullable();
             $table->string('zip')->nullable();
             $table->string('url')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('finraBrokercheck')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('discretionaryAUM')->nullable();
             $table->integer('minimum_amt')->unsigned()->default(0);
             $table->integer('maximum_amt')->unsigned()->default(10000000);
             $table->integer('minimum_fee')->unsigned()->default(0);
@@ -34,7 +39,7 @@ class CreateAdvisorsTable extends Migration
             $table->decimal('lng', 11, 7)->default(0);
             $table->timestamps();
             $table->string('brochure')->nullable();
-            $table->text('blurb')->nullable();
+            $table->text('bio')->nullable();
             $table->integer('user_id')->unsigned()->default(0);
         });
     }

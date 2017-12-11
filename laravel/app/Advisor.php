@@ -11,8 +11,8 @@ class Advisor extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'is_active', 'name', 'phone', 'email', 'company', 'address1', 'address2', 'city', 'st', 'zip', 'url', 'minimum_amt', 'maximum_amt', 'minimum_fee', 'feeCalculation', 'lat', 'lng', 'brochure', 'blurb', 'user_id'
+    // the user_id connects the advisor to the user table. virtual fk
+    protected $fillable = ['is_active', 'name', 'phone', 'email', 'company', 'address1', 'address2', 'city', 'st', 'zip', 'url', 'minimum_amt', 'maximum_amt', 'minimum_fee', 'feeCalculation', 'lat', 'lng', 'brochure', 'bio', 'user_id', 'facebook', 'finraBrokercheck', 'linkedin', 'twitter', 'discretionaryAUM'
     ];
 
     // we call this with App\Task::incomplete1();

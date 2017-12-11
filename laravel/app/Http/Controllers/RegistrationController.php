@@ -49,7 +49,8 @@ class RegistrationController extends Controller
  		auth()->login($user);
 
  		// After creating your USER information, we need your ADVISOR information
-        return view('advisors.entry', compact('user'));
+        $state = $this->optionState();
+        return view('advisors.entry', compact('user','state'));
  	}
 
     /**
