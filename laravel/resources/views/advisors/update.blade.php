@@ -190,6 +190,74 @@ use App\Http\Controllers;
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="facebook" class="col-md-8 control-label">
+                                <a href="https://facebook.com" target="_blank">Facebook</a>
+                            </label>
+                            <div class="col-md-8 {{ $errors->has('facebook') ? ' has-error' : '' }}">
+                                <input id="facebook" type="url" class="form-control" name="facebook" value="{{ old('facebook', $advisor->facebook) }}" />
+                                @if ($errors->has('facebook'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('facebook') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="finraBrokercheck" class="col-md-8 control-label">
+                                <a href="https://brokercheck.finra.org/" target="_blank">Finra Brokercheck</a>
+                            </label>
+                            <div class="col-md-8 {{ $errors->has('finraBrokercheck') ? ' has-error' : '' }}">
+                                <input id="finraBrokercheck" type="url" class="form-control" name="finraBrokercheck" value="{{ old('finraBrokercheck', $advisor->finraBrokercheck) }}" />
+                                @if ($errors->has('finraBrokercheck'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('finraBrokercheck') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="linkedin" class="col-md-8 control-label">
+                                <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
+                            </label>
+                            <div class="col-md-8 {{ $errors->has('linkedin') ? ' has-error' : '' }}">
+                                <input id="linkedin" type="url" class="form-control" name="linkedin" value="{{ old('linkedin', $advisor->linkedin) }}" />
+                                @if ($errors->has('linkedin'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('linkedin') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="twitter" class="col-md-8 control-label">
+                                <a href="https://twitter.com/" target="_blank">Twitter</a>
+                            </label>
+                            <div class="col-md-8 {{ $errors->has('twitter') ? ' has-error' : '' }}">
+                                <input id="twitter" type="url" class="form-control" name="twitter" value="{{ old('twitter', $advisor->twitter) }}" />
+                                @if ($errors->has('twitter'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('twitter') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="discretionaryAUM" class="col-md-8 control-label">Discretionary AUM</label>
+                            <div class="col-md-8 {{ $errors->has('discretionaryAUM') ? ' has-error' : '' }}">
+                                <input id="discretionaryAUM" type="text" class="form-control" name="discretionaryAUM" value="{{ old('discretionaryAUM', $advisor->discretionaryAUM) }}" />
+                                @if ($errors->has('discretionaryAUM'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('discretionaryAUM') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('feeCalculation') ? ' has-error' : '' }}">
                             <label class="col-md-8 control-label">Fee Calculation Formula
 								<a id="popup" target="_blank" href="/ratesInfo"><img src="{{ asset('images/information.gif') }}" alt="Rate Plans" title"information"/></a>
@@ -211,6 +279,7 @@ use App\Http\Controllers;
                             </div>
                         </div>
 
+                        <input id="user_id"    type="hidden" class="form-control" name="user_id"    value="{{ $advisor->user_id }}" />
                         <input id="advisor_id" type="hidden" class="form-control" name="advisor_id" value="{{ $advisor->id }}" />
                         <input id="advisor"    type="hidden" class="form-control" name="advisor"    value="{{ $advisor }}" />
 

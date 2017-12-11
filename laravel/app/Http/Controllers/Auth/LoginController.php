@@ -50,7 +50,6 @@ class LoginController extends Controller
         // use user->id to get record from ADVISOR table
         // if there is no advisor entry, go to advisor entry page
         $advisor = Advisor::where("user_id",$user->id)->first();
-
         $count = (is_null($advisor)) ? 0 : $advisor->count();
         if ($count==0) {
             $state = $this->optionState();

@@ -155,7 +155,6 @@ class AdvisorsController extends Controller
 
     // this goes to the form to get new advisor information
     public function edit(Advisor $advisor) {
-//$advisor = $jsonString;
         $state = $this->optionState($advisor->st);
         return view('advisors.update', compact('advisor','state'));
     }
@@ -163,6 +162,7 @@ class AdvisorsController extends Controller
     public function update(Advisor $advisor) {
         //advisor has the old data, request has the new
         $data = $this->buildArray();
+// I dont want to update the user_id or admin_id???
         $advisor->update($data);
         return view('advisors.edit', compact('advisor'));
     }
