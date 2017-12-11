@@ -6,9 +6,15 @@ td { padding-right: 30px; }
 .right  { text-align:right;  }
 .center { text-align:center; }
 
+a img{ border:0; }
+
 a.disabled {
    pointer-events: none;
    cursor: default;
    color: lightgrey;
    text-decoration:none; 
 }
+
+.has-error .help-block {color:red;}
+
+.has-error input {background-color:#FFEEEE;}
