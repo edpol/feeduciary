@@ -60,7 +60,7 @@
                             <button type="submit" class="btn btn-primary">
                                 Add Rate ({{ $advisor->name }})
                             </button>
-                            <button style="float:right;" type="submit" class="btn btn-primary" formaction="/finishedRates">
+                            <button style="float:right;" type="submit" class="btn btn-primary" formaction="/edit/{{ $advisor->id }}">
                                 Done
                             </button>
                             <button formaction="/zipper/{{ $advisor->id }}" formmethod="post" type="submit" style="float:right;"  class="btn btn-primary" formaction="/finishedRates">
