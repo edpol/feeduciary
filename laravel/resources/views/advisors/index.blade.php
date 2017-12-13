@@ -1,13 +1,12 @@
 @extends('layouts.master')
 
 @section('box1')
-    <header class="intro-header">
-    </header>
+<div class="paddingForHeader">
+</div>
 @endsection
 
 @section('box2')
-
- <!-- Page Content -->
+<!-- Page Content -->
 <section class="content-section-a">
 
 	<div class="container">
@@ -28,10 +27,10 @@
 				    </ul>
 				</p>
 			</div>
-		<div class="col-lg-5 mr-auto">
-			<img class="img-fluid" src="{{ asset('img/ipad.png') }}" alt="">
+			<div class="col-lg-5 mr-auto">
+				<img class="img-fluid" src="{{ asset('img/ipad.png') }}" alt="">
+			</div>
 		</div>
-	</div>
 
 	</div>
 <!-- /.container -->

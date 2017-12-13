@@ -33,9 +33,7 @@ class RatesController extends Controller
 
         $advisorsRates = Rate::where("advisor_id",$advisor_id)->where("roof",$roof)->orderBy('roof', 'DESC')->get();
 
-echo "COUNT: " . count($advisorsRates) . "<br />";
-die();
-        $count = (is_null($dvisorsRates)) ? 0 : $dvisorsRates->count();
+        $count = (is_null($advisorsRates)) ? 0 : $advisorsRates->count();
         if ($count==0) {
             // can't have same rate for an advisor
      		$rate = Rate::create([
@@ -58,8 +56,9 @@ die();
 				$advisor->{$key} = $value;
 			}
 		}
+        $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
         // After creating your ADVISOR information, we need your RATES information
-        return view('advisors.rates', compact('advisor','msg','advisorsRates'));
+        return view('rates.store', compact('advisor','msg','rates'));
     }
 
     public function show() {
@@ -71,5 +70,55 @@ die();
     	echo "or login in after checking that all of the data has been input <br />";
     	die();
 
+    }
+
+    public function edit(Advisor $advisor){
+        // they just pushed the edit rates button
+//        $rates->where("advisor_id",$advisor->id)->orderBy('roof', 'DESC');
+        $msg = "";
+        $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
+        return view('rates.edit', compact('advisor','msg','rates'));
+    }
+
+    public function newRate(Advisor $advisor){
+        // Validate the form.  email checks email format
+
+        $this->validate(request(), [
+            'roof'       => 'required',
+            'rate'       => 'required',
+            'advisor_id' => 'required'
+        ]);
+
+        $roof = $this->cleanMoney(request('roof'));
+        $rate = $this->cleanPercent(request('rate'));
+        $advisor_id = request('advisor_id');
+        $msg = "";
+
+        $advisorsRates = Rate::where("advisor_id",$advisor_id)->where("roof",$roof)->orderBy('roof', 'DESC')->get();
+
+        $count = (is_null($advisorsRates)) ? 0 : $advisorsRates->count();
+        if ($count==0) {
+            // can't have same rate for an advisor
+            $rate = Rate::create([
+                'roof'       => $roof,
+                'rate'       => $rate,
+                'advisor_id' => $advisor_id
+            ]);
+        } else {
+            $msg = "Already have an entry for " . number_format($roof);
+        }
+
+        $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
+//      $advisor = $rates->advisor;
+        return view('rates.edit', compact('advisor','msg','rates'));
+    }
+
+    public function destroy(Advisor $advisor){
+        $msg = "";
+        $target = request("delete");
+        echo "Deleting " . $target . "<br />\n";
+        $rate = Rate::find($target)->delete(); 
+        $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
+        return view('rates.edit', compact('advisor','msg','rates'));
     }
 }

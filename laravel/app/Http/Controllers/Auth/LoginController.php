@@ -60,12 +60,11 @@ class LoginController extends Controller
         // if there is no rates entry, go to rates entry
         $rates = Rate::where("advisor_id",$advisor->id)->get();
         if ($rates->count()==0) {
-            return view('advisors.rates', compact('advisor'));
+            return view('rates.store', compact('advisor'));
         }
 
-        $state = $this->optionState($advisor->st);
-
-        return view('advisors.edit', compact('advisor','rates', 'state'));
+        // advisor.edit is in LoginController and AdvisorController
+        return view('advisors.edit', compact('advisor', 'rates'));
 
     }
 

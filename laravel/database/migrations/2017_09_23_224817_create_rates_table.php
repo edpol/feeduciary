@@ -16,7 +16,7 @@ class CreateRatesTable extends Migration
         Schema::create('rates', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('roof')->unsigned();
-            $table->decimal('rate',10,4)->nullable(false);
+            $table->decimal('rate',10,6)->nullable(false);
             $table->integer('advisor_id')->nullable(false)->unsigned();
             $table->foreign('advisor_id')->references('id')->on('advisors');
             $table->unique(['advisor_id','roof']);

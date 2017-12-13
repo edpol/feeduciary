@@ -18,18 +18,17 @@ use App\Pages;
 @extends('layouts.master')
 
 @section('box1')
-    <header class="intro-header">
-    </header>
+<div class="paddingForHeader">
+</div>
 @endsection
 
 @section('box2')
-<?php	$class = "content-section-b"; ?>
-		<section class="<?= $class; ?>">
-		    <div class="container">
-				<p><span style="font-weight:bold;">Investment Amount:</span> {{ number_format($amount,2) }}</p>
-				<p><span style="font-weight:bold;">zipcode:</span> {{ $zipcode }}</p>
-			</div>
-		</section>
+	<section class="content-section-b">
+	    <div class="container">
+			<p><span style="font-weight:bold;">Investment Amount:</span> {{ number_format($amount,2) }}</p>
+			<p><span style="font-weight:bold;">zipcode:</span> {{ $zipcode }}</p>
+		</div>
+	</section>
 	@foreach ( $output as $advisor ) 
 		<?php
 		if (!isset($class) || $class=="content-section-b" ) {

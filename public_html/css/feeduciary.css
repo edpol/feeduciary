@@ -1,7 +1,10 @@
-th { border-bottom: 2px solid black; }
-td { padding-right: 30px; }
-.grey   { background-color:#ddd; }
-.white  { background-color:#eee; }
+.paddingForHeader { padding-top: 70px; }
+
+th { border-bottom: 1px solid black; text-align: center; }
+td { padding: 2px 10px; text-align: right; }
+.grey   { background-color:#efefef; }
+.white  { background-color:#fafafa; }
+.blue   { background-color:#f0f0ff; }
 .left   { text-align:left;   }
 .right  { text-align:right;  }
 .center { text-align:center; }
@@ -18,3 +21,49 @@ a.disabled {
 .has-error .help-block {color:red;}
 
 .has-error input {background-color:#FFEEEE;}
+
+
+.red_up, .red_down, .green_up, .green_down, .blue_up, .blue_down, .pink_up, .pink_down, .admin_up, .admin_down, .del_up, .del_down {
+	min-width:160px;
+	padding:12px 20px; 
+	font-size:18px; 
+	border-radius:24px; 
+	color:white; 
+	border:none; 
+	font-weight:bold; 
+	font-family:Arial, Helvetica, sans-serif;
+	text-decoration:none; 
+/*	letter-spacing:.1em;  */
+}
+.admin_up, .admin_down { width:180px; }
+.pink_up,  .pink_down  { width:220px; }
+
+.red_up     { background-image:linear-gradient(to bottom, #FF8888 0%, #CC3333 100%); }
+.red_down   { background-image:linear-gradient(to bottom, #CC3333 0%, #FF8888 100%); }
+.green_up   { background-image:linear-gradient(to bottom, #BBc577 0%, #61923b 100%); }
+.green_down { background-image:linear-gradient(to bottom, #61923b 0%, #BBc577 100%); }
+.blue_up    { background-image:linear-gradient(to bottom, #59707E 0%, #0E1F33 100%); }
+.blue_down  { background-image:linear-gradient(to bottom, #0E1F33 0%, #59707E 100%); }
+.pink_up    { background-image:linear-gradient(to bottom, #FFBBFF 0%, #FF66FF 100%); }
+.pink_down  { background-image:linear-gradient(to bottom, #FF66FF 0%, #FFBBFF 100%); }
+.del_up     { background-image:linear-gradient(to bottom, #FF8888 0%, #CC3333 100%); }
+.del_down   { background-image:linear-gradient(to bottom, #CC3333 0%, #FF8888 100%); }
+.admin_up   { background-image:linear-gradient(to bottom, #6F735A 0%, #070D0D 100%); }
+.admin_down { background-image:linear-gradient(to bottom, #070D0D 0%, #6F735A 100%); }
+/*
+.admin_up   { background-image:linear-gradient(to bottom, #458575 0%, #013133 100%); }
+.admin_down { background-image:linear-gradient(to bottom, #013133 0%, #458575 100%); }
+*/
+a.blue_up, a.blue_down, a.pink_up, a.pink_down {
+	padding:12px 50px; 
+}
+.del_up, .del_down {
+	min-width:24px;
+	padding:4px 0px; 
+	font-size:11px; 
+}
+
+.bluebox {
+	padding:20px; border-radius:20px;
+	background:rgba(206, 255, 252, 0.4);
+}

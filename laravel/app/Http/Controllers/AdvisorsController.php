@@ -150,7 +150,7 @@ class AdvisorsController extends Controller
         $advisor = Advisor::create($data);
 
         // After creating your ADVISOR information, we need your RATES information
-        return view('advisors.rates', compact('advisor'));
+        return view('rates.store', compact('advisor'));
     }
 
     // this goes to the form to get new advisor information
@@ -162,9 +162,16 @@ class AdvisorsController extends Controller
     public function update(Advisor $advisor) {
         //advisor has the old data, request has the new
         $data = $this->buildArray();
-// I dont want to update the user_id or admin_id???
         $advisor->update($data);
-        return view('advisors.edit', compact('advisor'));
+
+        $rates = Rate::where("advisor_id",$advisor->id)->get();
+        if ($rates->count()==0) {
+            return view('rates.store', compact('advisor'));
+        }
+
+        // advisor.edit is in LoginController and AdvisorController
+        return view('advisors.edit', compact('advisor', 'rates'));
+
     }
 }
 

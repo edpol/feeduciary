@@ -1,8 +1,9 @@
 /laravel/node_modules
 /laravel/public_html/hot
-/public_html/storage
+public_html/storage
 public_html/error_log
-public_html/notes.*
+public_html/notes.txt
+public_html/notes.pdn
 public_html/whoami.php
 /laravel/storage/*.key
 /laravel/vendor

@@ -2,8 +2,7 @@
 @extends('layouts.master')
 
 @section('box1')
-<div class="container">
-    &nbsp;
+<div class="paddingForHeader">
 </div>
 @endsection
 

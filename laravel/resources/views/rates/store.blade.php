@@ -1,9 +1,9 @@
-<?php $tab="Rates"; ?>
+<?php $tab="Store Rates"; ?>
 @extends('layouts.master')
 
 @section('box1')
-    <header class="intro-header">
-    </header>
+<div class="paddingForHeader">
+</div>
 @endsection
 
 @section('box2')

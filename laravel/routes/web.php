@@ -24,6 +24,12 @@ Route::get('/calculateFee',         'AdvisorsController@calculateFee');
 
 Route::post('/storeRates',          'RatesController@store'); 
 
+Route::post('/newRate/{advisor}',   'RatesController@newRate'); 
+
+Route::post('/rates/{advisor}',     'RatesController@edit'); 
+
+Route::post('/zipper/{advisor}',   'RatesController@destroy'); 
+
 Route::get('/finishedRates',        'RatesController@show'); 
 
 Route::get('/ratesInfo',            'RatesController@index');
