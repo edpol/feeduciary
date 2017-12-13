@@ -138,6 +138,7 @@ class AdvisorsController extends Controller
     }
 
     public function store() {
+        $msg = "";
         // Validate the form.  email checks email format
         $this->validate(request(), [
             'name'     => 'required',
@@ -148,9 +149,10 @@ class AdvisorsController extends Controller
         $data = $this->buildArray();
 
         $advisor = Advisor::create($data);
+$rates = $advisor->rate;
 
         // After creating your ADVISOR information, we need your RATES information
-        return view('rates.store', compact('advisor'));
+        return view('rates.store', compact('advisor','msg','rates'));
     }
 
     // this goes to the form to get new advisor information
@@ -160,13 +162,15 @@ class AdvisorsController extends Controller
     }
 
     public function update(Advisor $advisor) {
+        $msg = "";
         //advisor has the old data, request has the new
         $data = $this->buildArray();
         $advisor->update($data);
 
         $rates = Rate::where("advisor_id",$advisor->id)->get();
         if ($rates->count()==0) {
-            return view('rates.store', compact('advisor'));
+$rates = $advisor->rate;
+            return view('rates.store', compact('advisor','msg','rates'));
         }
 
         // advisor.edit is in LoginController and AdvisorController

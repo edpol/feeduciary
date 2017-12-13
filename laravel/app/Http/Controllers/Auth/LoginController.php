@@ -43,7 +43,7 @@ class LoginController extends Controller
     /* index, store, show, create, edit, update, destroy */
 
     public function create() {
-
+        $msg = "";
         // grab record from USER Table
         $user = Auth::user();
 
@@ -58,9 +58,9 @@ class LoginController extends Controller
 
         // use advisor->id to search for a RATES entry
         // if there is no rates entry, go to rates entry
-        $rates = Rate::where("advisor_id",$advisor->id)->get();
+        $rates = $advisor->rate;
         if ($rates->count()==0) {
-            return view('rates.store', compact('advisor'));
+            return view('rates.store', compact('advisor', 'msg', 'rates'));
         }
 
         // advisor.edit is in LoginController and AdvisorController
