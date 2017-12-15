@@ -1,3 +1,18 @@
+Multiple Regla accounts
+Check email address
+
+del on rates does not work
+one for tag per page?
+need to revire the has many relationships between files, what do i gain?
+
+timeout logs you off?
+
+display for rates needs to be added 
+and an edit for same
+
+
+
+
 add now() to created_at and updated_at
 updated_at should have a default of now
 

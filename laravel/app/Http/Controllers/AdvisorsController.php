@@ -31,7 +31,7 @@ class AdvisorsController extends Controller
     /*
      *  Calculate the advisors fee
      */
-    private function advisorFee ($advisor, $amount) {
+    private function advisorFee($advisor, $amount) {
         $rate_list = Rate::where("advisor_id",$advisor->id)->orderBy('roof','ASC')->get();
         $investment = (float)$amount;
         $base = (float) 0;
@@ -69,7 +69,7 @@ class AdvisorsController extends Controller
         return $totalFee;
     }
 
-    public function calculateFee () {
+    public function calculateFee() {
         $this->validate(request(), ['amount'=>'required']);
         $tmp = implode('',request(['amount'])); // array to string
         $amount = $this->cleanMoney($tmp);
@@ -95,7 +95,7 @@ class AdvisorsController extends Controller
         return view('advisors.calculateFee', compact('page'));
     }
 
-    public function buildArray(){
+    public function buildArray() {
         $minimum_amt = $this->cleanMoney(request('minimum_amt'));
         $maximum_amt = $this->cleanMoney(request('maximum_amt'));
         $minimum_fee = $this->cleanMoney(request('minimum_fee'));
@@ -142,14 +142,14 @@ class AdvisorsController extends Controller
         // Validate the form.  email checks email format
         $this->validate(request(), [
             'name'     => 'required',
-            'email'    => 'required|email',
+            'email'    => 'required|email:unique:advisors',
             'feeCalculation' => 'required'
         ]);
 
         $data = $this->buildArray();
 
         $advisor = Advisor::create($data);
-$rates = $advisor->rate;
+        $rates = $advisor->rate;
 
         // After creating your ADVISOR information, we need your RATES information
         return view('rates.store', compact('advisor','msg','rates'));
@@ -169,7 +169,7 @@ $rates = $advisor->rate;
 
         $rates = Rate::where("advisor_id",$advisor->id)->get();
         if ($rates->count()==0) {
-$rates = $advisor->rate;
+            $rates = $advisor->rate;
             return view('rates.store', compact('advisor','msg','rates'));
         }
 

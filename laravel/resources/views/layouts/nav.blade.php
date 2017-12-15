@@ -39,6 +39,9 @@
                                         {{ csrf_field() }}
                                     </form>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/update">Update</a>
+                                </li>
                             </ul>
                         </li>
                     @else

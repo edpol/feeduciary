@@ -28,7 +28,7 @@ Route::post('/newRate/{advisor}',   'RatesController@newRate');
 
 Route::post('/rates/{advisor}',     'RatesController@edit'); 
 
-Route::post('/zipper/{advisor}',   'RatesController@destroy'); 
+Route::post('/done/{advisor}',      'RatesController@done'); 
 
 Route::get('/finishedRates',        'RatesController@show'); 
 
@@ -46,6 +46,6 @@ Route::post('/register', [ 'as' => 'register', 'uses' => 'RegistrationController
 
 Route::get('/logout',     'SessionsController@destroy');
 
-Route::get('/create',     'Auth\LoginController@create');
+Route::get('/update',     'Auth\LoginController@update');
 
 Route::get('/rss',        'Controller@rss');

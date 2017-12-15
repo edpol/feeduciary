@@ -23,7 +23,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <h2>Edit Rates fo {{ $advisor->name }}</h2>
+                <h2>Edit Rates for {{ $advisor->name }}</h2>
                 <form class="form-horimaximum_amtontal " method="POST" action="/newRate/{{ $advisor->id }}">
                     {{ csrf_field() }}
 
@@ -60,38 +60,36 @@
                             <button type="submit" class="btn btn-primary">
                                 Add Rate ({{ $advisor->name }})
                             </button>
-                            <button style="float:right;" type="submit" class="btn btn-primary" formaction="/edit/{{ $advisor->id }}">
+                            <button style="float:right;" type="submit" class="btn btn-primary" formaction="/done/{{ $advisor->id }}">
                                 Done
-                            </button>
-                            <button formaction="/zipper/{{ $advisor->id }}" formmethod="post" type="submit" style="float:right;"  class="btn btn-primary" formaction="/finishedRates">
-                                post
                             </button>
                         </div>
                     </div>
                     @include('layouts.errors')
                 </form>
             </div>
-            <div class="col-lg-6 bluebox">
 
-<form id="form1" action="/zipper/{{ $advisor->id }}" autocomplete="off" method="post"> <!-- onKeyDown="pressed(event)"> -->
+            <!-- 2nd Column -->
+            <div class="col-lg-6 bluebox">
+                <form id="form1" action="/zipper/{{ $advisor->id }}" autocomplete="off" method="post"> <!-- onKeyDown="pressed(event)"> -->
                     {{ csrf_field() }}
                     <input id="advisor_id" type="hidden" class="form-control" name="advisor_id" value="{{ $advisor->id }}" />
                     <input id="advisor"    type="hidden" class="form-control" name="advisor"    value="{{ $advisor }}" />
 
-               <table border=0>
-                    <tr><th>&nbsp;</th><th>Roof</th><th>Rate</th></tr>
-                    @foreach ($rates as $rate)
-                    <tr>
-<?php $class = (!isset($class)||$class=="white") ? "grey" : "white"; ?>
-                        <td class="<?= $class; ?>">
-                            <button formaction="/zipper/{{ $advisor->id }}" formmethod="post" type="submit" name='delete' class='del_up' value='{{ $rate->id }}'>del</button>
-                        </td>
-                        <td class="<?= $class; ?>">${{ number_format($rate->roof, 0) }}</td>
-                        <td class="<?= $class; ?>">{{ number_format($rate->rate*100, 3) }}%</td>
-                        <td class="<?= $class; ?>">{{ $rate->rate*100 }}</td>
-                    </tr>
-                    @endforeach
-                </table>
+                   <table border=0>
+                        <tr><th>&nbsp;</th><th>Roof</th><th>Rate</th></tr>
+                        @foreach ($rates as $rate)
+                        <tr>
+<?php                       $class = (!isset($class)||$class=="white") ? "grey" : "white"; ?>
+                            <td class="<?= $class; ?>">
+                                <button formaction="/zipper/{{ $advisor->id }}" formmethod="post" type="submit" name='delete' class='del_up' value='{{ $rate->id }}'>del</button>
+                            </td>
+                            <td class="<?= $class; ?>">${{ number_format($rate->roof, 0) }}</td>
+                            <td class="<?= $class; ?>">{{ number_format($rate->rate*100, 3) }}%</td>
+                            <td class="<?= $class; ?>">{{ $rate->rate*100 }}</td>
+                        </tr>
+                        @endforeach
+                    </table>
 </form>
             </div>
         </div>

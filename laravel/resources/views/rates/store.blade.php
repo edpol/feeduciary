@@ -9,7 +9,7 @@
 @section('box2')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-6 col-md-offset-2">
             <div class="panel panel-default">
                 <h1>Register</h1>
                 <br />
@@ -19,7 +19,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('roof') ? ' has-error' : '' }}">
-                            <label for="roof" class="col-md-8 control-label">Roof</label>
+                            <label for="roof" class="col-md-4 control-label">Roof</label>
                             <div class="col-md-8">
                                 <input id="roof" type="text" class="form-control" name="roof" value="{{ old('roof') }}" />
                                 @if ($errors->has('roof'))
@@ -47,20 +47,30 @@
                         <input id="advisor"    type="hidden" class="form-control" name="advisor"    value="{{ $advisor }}" />
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
+                            <div class="col-md-6">
                                 <button type="submit" class="btn btn-primary">
                                     Add Rate ({{ $advisor->name }})
                                 </button>
-                                <button type="submit" class="btn btn-primary" formaction="/finishedRates">
-                                    Done
-                                </button>
                             </div>
                         </div>
-
-                        @include('layouts.errors')
                     </form>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <form method="get" action="/update">
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-primary">
+                                    Done
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    @include('layouts.errors')
                 </div>
             </div>
+        </div>
+        <div class="col-md-4">
+                <h2>Rates Table</h2>
+                @include('rates.display')
         </div>
     </div>
 </div>

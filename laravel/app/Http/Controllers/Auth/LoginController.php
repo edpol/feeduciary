@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/create';
+    protected $redirectTo = '/update';
 
     /**
      * Create a new controller instance.
@@ -37,12 +37,12 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout')->except('create');
+        $this->middleware('guest')->except('logout')->except('update');
     }
 
     /* index, store, show, create, edit, update, destroy */
 
-    public function create() {
+    public function update() {
         $msg = "";
         // grab record from USER Table
         $user = Auth::user();

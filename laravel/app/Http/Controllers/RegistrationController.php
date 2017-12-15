@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\User;
-
 use Hash;
 
 class RegistrationController extends Controller
@@ -22,16 +20,16 @@ class RegistrationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
  		return view('auth.register');
     }
 
  	public function store() {
+
  		// Validate the form.  email checks email format
  		$this->validate(request(), [
 			'name'     => 'required',
-			'email'    => 'required|email|unique:users,email',
+			'email'    => 'required|email|unique:users',
 			'password' => 'required|min:3|confirmed',
 			'password_confirmation' => 'required|min:3'
  		]);

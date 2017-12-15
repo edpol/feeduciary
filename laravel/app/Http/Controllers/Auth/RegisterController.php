@@ -34,9 +34,12 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('guest');
+    }
+
+    public function index() {
+        return view('auth.register');
     }
 
     /**
@@ -64,9 +67,15 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'name'     => $data['name'],
+            'email'    => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    // I'm guessing here
+    pubilic function store() {
+        $data = $this->validator(request());
+        $user = $this->create($data);
     }
 }

@@ -5,6 +5,9 @@
                         email: <br />
                         company: <br />
                         address: <br />
+                        @if(isset($advisor->address2) && !empty($advisor->address2))
+                            <br />
+                        @endif
                         <br />
                         minimum amount: <br />
                         maximum amount: <br />
@@ -32,8 +35,10 @@
                             </a> 
                         @endif
                         <br />
-                        {{ $advisor->address1 }} 
-                        {{ $advisor->address2 }} <br />
+                        {{ $advisor->address1 }} <br />
+                        @if(isset($advisor->address2) && !empty($advisor->address2))
+                            {{ $advisor->address2 }} <br />
+                        @endif
                         {{ $advisor->city }}, {{ $advisor->st }} {{ $advisor->zip }} <br />
 
                         {{ number_format($advisor->minimum_amt, 0) }} <br />
@@ -54,6 +59,13 @@
                         <a href="{{ $advisor->brochure }}" target="_blank">Part 2 Brochure</a> <br />
                     </div>
                     <br clear="all" />
-                    <p>
-                        Bio: &nbsp; {{ $advisor->bio }} 
-                    </p>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-1">
+                            Bio:
+                        </div>
+                        <div class="col-lg-11">
+                            {{ $advisor->bio }}
+                        </div>
+                    </div>
+                    <br />

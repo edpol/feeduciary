@@ -121,4 +121,9 @@ class RatesController extends Controller
         $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
         return view('rates.edit', compact('advisor','msg','rates'));
     }
+
+    public function done(Advisor $advisor){
+        $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
+        return view('advisors.edit', compact('advisor', 'rates'));
+    }
 }

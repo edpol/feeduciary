@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <h2>Advisor Information</h2>
+                <h3>Advisor Information</h3>
                 @include('advisors.display')
                 <form class="form-horimaximum_amtontal " method="POST" action="/edit/{{ $advisor->id }}">
                     {{ csrf_field() }}
@@ -30,8 +30,8 @@
                 </form>
             </div>
 
-            <div class="col-lg-6">
-                <h2>Rates Information</h2>
+            <div class="col-lg-3">
+                <h3>Rates Information</h3>
                 @include('rates.display')
                 <form class="form-horimaximum_amtontal " method="POST" action="/rates/{{ $advisor->id }}">
                     {{ csrf_field() }}
