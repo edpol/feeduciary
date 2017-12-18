@@ -97,7 +97,7 @@
                         @endif
                         <br />
 
-                        @if(isset($advisor->discretionaryAUM) && !empty($advisor->mindiscretionaryAUMimum_fee))
+                        @if(isset($advisor->discretionaryAUM) && !empty($advisor->discretionaryAUM))
                             ${{ number_format($advisor->discretionaryAUM, 0) }} 
                         @endif
                         <br />
