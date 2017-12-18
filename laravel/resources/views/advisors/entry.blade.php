@@ -19,7 +19,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group">
-                            <label for="name" class="col-md-8 control-label">Name</label>
+                            <label for="name" class="col-md-8 control-label">Name*</label>
                             <div class="col-md-8 {{ $errors->has('name') ? ' has-error' : '' }}">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name',$user->name ) }}" autofocus />
                                 @if ($errors->has('name')) 
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="email" class="col-md-8 control-label">E-mail Address</label>
+                            <label for="email" class="col-md-8 control-label">E-mail Address*</label>
                             <div class="col-md-8 {{ $errors->has('email') ? ' has-error' : '' }}">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $user->email) }}" />
                                 @if ($errors->has('email'))
@@ -256,7 +256,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-8 control-label">Fee Calculation Formula
+                            <label class="col-md-8 control-label">Fee Calculation Formula*
 								<a id="popup" target="_blank" href="/ratesInfo"><img src="{{ asset('images/information.gif') }}" alt="Rate Plans" title"information"/></a>
 							</label>
                             <div class="col-md-8" {{ $errors->has('feeCalculation') ? ' has-error' : '' }}>

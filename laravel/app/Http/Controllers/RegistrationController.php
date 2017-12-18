@@ -28,7 +28,7 @@ class RegistrationController extends Controller
 
  		// Validate the form.  email checks email format
  		$this->validate(request(), [
-			'name'     => 'required',
+			'name'     => 'required|min:2',
 			'email'    => 'required|email|unique:users',
 			'password' => 'required|min:3|confirmed',
 			'password_confirmation' => 'required|min:3'

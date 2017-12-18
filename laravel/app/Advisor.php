@@ -21,7 +21,7 @@ class Advisor extends Model
     }
 
     public function rate() {
-    	return $this->hasMany(Rate::class);
+    	return $this->hasMany(Rate::class)->orderBy('roof', 'DESC');
 		// Comment::class will return the namespace of the Comment class, i.e. ('App\Comment');
     }
 

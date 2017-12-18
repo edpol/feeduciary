@@ -60,7 +60,7 @@ class LoginController extends Controller
         // if there is no rates entry, go to rates entry
         $rates = $advisor->rate;
         if ($rates->count()==0) {
-            return view('rates.store', compact('advisor', 'msg', 'rates'));
+            return view('rates.edit', compact('advisor', 'msg', 'rates'));
         }
 
         // advisor.edit is in LoginController and AdvisorController

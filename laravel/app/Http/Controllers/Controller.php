@@ -38,9 +38,18 @@ class Controller extends BaseController
         return view('casual.rss');
     }
 
-    public function optionState ($state="XX") {
+    /*
+     *  if the url is missing the http:// string, prepend it
+     *  we can also add whatever is supplied in the scheme parameter
+     */
+    public static function addScheme($url, $scheme = 'http://') {
+        return is_null(parse_url($url, PHP_URL_SCHEME)) ? "http://" . $url : $url;
+    }
+
+    public function optionState ($state="") {
 
         $us_states = array (
+             ""  => ["Choose", "", "disabled"],
             "AL" => ["Alabama", "", ""],
             "AK" => ["Alaska", "", ""],
             "AS" => ["American Samoa", "", ""],
@@ -106,15 +115,17 @@ class Controller extends BaseController
         if (array_key_exists($state, $us_states)) {
             $us_states[$state][1] = " selected";
         } else {
-            $us_state["XX"] = ["Choose", "selected", "disabled"];
+            $us_state[""] = ["Choose", "selected", "disabled"];
         }
 
         $msg = '<select id="st" name="st" class="form-control">' . "\n";
         foreach ($us_states as $abbr => $name) {
+            $state    = $name[0];
             $selected = $name[1];
-            $msg .= "\t" . '<option' . $selected . ' value="' . $abbr . '">' . $name[0] . "</option>\n";
+            $disabled = $name[2];
+            $msg .= "\t\t\t\t\t\t\t\t\t<option {$selected} {$disabled} value='{$abbr}'>{$state}</option>\n";
         }
-        $msg .= "</select>\n";
+        $msg .= "\t\t\t\t\t\t\t\t</select>\n";
         return $msg;    
 
     }

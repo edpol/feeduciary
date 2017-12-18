@@ -13,7 +13,7 @@
             <div class="col-lg-6">
                 <h3>Advisor Information</h3>
                 @include('advisors.display')
-                <form class="form-horimaximum_amtontal " method="POST" action="/edit/{{ $advisor->id }}">
+                <form class="form-horimaximum_amtontal " method="GET" action="/edit/{{ $advisor->id }}">
                     {{ csrf_field() }}
                     <input id="advisor_id" type="hidden" class="form-control" name="advisor_id" value="{{ $advisor->id }}" />
                     <input id="advisor"    type="hidden" class="form-control" name="advisor"    value="{{ $advisor }}" />
@@ -33,7 +33,7 @@
             <div class="col-lg-3">
                 <h3>Rates Information</h3>
                 @include('rates.display')
-                <form class="form-horimaximum_amtontal " method="POST" action="/rates/{{ $advisor->id }}">
+                <form class="form-horimaximum_amtontal " method="GET" action="/rates/{{ $advisor->id }}">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">

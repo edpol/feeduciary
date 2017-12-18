@@ -16,7 +16,7 @@ Route::get('/advisors/page/{page}', 'AdvisorsController@page');
 
 Route::post('/store',               'AdvisorsController@store'); 
 
-Route::post('/edit/{advisor}',      'AdvisorsController@edit'); 
+Route::get('/edit/{advisor}',       'AdvisorsController@edit'); 
 
 Route::post('/update/{advisor}',    'AdvisorsController@update'); 
 
@@ -24,28 +24,34 @@ Route::get('/calculateFee',         'AdvisorsController@calculateFee');
 
 Route::post('/storeRates',          'RatesController@store'); 
 
-Route::post('/newRate/{advisor}',   'RatesController@newRate'); 
+// validator fail is a GET, but we used POST because we are POSTing
+Route::get('/newRate/{advisor}',   'RatesController@newRate'); 
 
-Route::post('/rates/{advisor}',     'RatesController@edit'); 
+Route::get('/rates/{advisor}',     'RatesController@edit'); 
 
-Route::post('/done/{advisor}',      'RatesController@done'); 
+Route::match(['get', 'post'], '/done/{advisor}',      'RatesController@done'); 
 
 Route::get('/finishedRates',        'RatesController@show'); 
 
 Route::get('/ratesInfo',            'RatesController@index');
 
+Route::post('/destroy/{advisor}',   'RatesController@destroy');
+
 Route::get('/geocode',              'GeocodeController@index');
 
 Route::get('/geocode/{advisor}',    'GeocodeController@store');
 
+Route::get('/rss',                  'Controller@rss');
+
+/* Login */
 Auth::routes();
 
+Route::get('/update',     'Auth\LoginController@update');
+
+/* Register */
 Route::get('/register',   'RegistrationController@index');
 
 Route::post('/register', [ 'as' => 'register', 'uses' => 'RegistrationController@store']);
 
 Route::get('/logout',     'SessionsController@destroy');
 
-Route::get('/update',     'Auth\LoginController@update');
-
-Route::get('/rss',        'Controller@rss');

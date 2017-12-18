@@ -96,9 +96,11 @@ class AdvisorsController extends Controller
     }
 
     public function buildArray() {
-        $minimum_amt = $this->cleanMoney(request('minimum_amt'));
-        $maximum_amt = $this->cleanMoney(request('maximum_amt'));
-        $minimum_fee = $this->cleanMoney(request('minimum_fee'));
+        $minimum_amt      = $this->cleanMoney(request('minimum_amt'));
+        $maximum_amt      = $this->cleanMoney(request('maximum_amt'));
+        $minimum_fee      = $this->cleanMoney(request('minimum_fee'));
+        $discretionaryAUM = $this->cleanMoney(request('discretionaryAUM'));
+
         $user_id = (request('user_id') === null) ? 0 : request('user_id');
 
         $data = array(
@@ -120,7 +122,7 @@ class AdvisorsController extends Controller
             'finraBrokercheck'=> request('finraBrokercheck'),
             'linkedin'        => request('linkedin'),
             'twitter'         => request('twitter'),
-            'discretionaryAUM'=> request('discretionaryAUM'),
+            'discretionaryAUM'=> $discretionaryAUM,
             'brochure'        => request('brochure'),
             'bio'             => request('bio'),
             'user_id'         => $user_id
@@ -137,22 +139,26 @@ class AdvisorsController extends Controller
         return $data;
     }
 
-    public function store() {
-        $msg = "";
+    public function validating() {
         // Validate the form.  email checks email format
-        $this->validate(request(), [
-            'name'     => 'required',
-            'email'    => 'required|email:unique:advisors',
+        $validation = $this->validate(request(), [
+            'name'        => 'required|string|min:2',
+            'email'       => 'required|email:unique:advisors',
             'feeCalculation' => 'required'
         ]);
+        return $validation;
+    }
 
+    public function store() {
+        $validation = $this->validating();
+        $msg = "";
         $data = $this->buildArray();
 
         $advisor = Advisor::create($data);
         $rates = $advisor->rate;
 
         // After creating your ADVISOR information, we need your RATES information
-        return view('rates.store', compact('advisor','msg','rates'));
+        return view('rates.edit', compact('advisor','msg','rates'));
     }
 
     // this goes to the form to get new advisor information
@@ -162,6 +168,7 @@ class AdvisorsController extends Controller
     }
 
     public function update(Advisor $advisor) {
+        $validation = $this->validating();
         $msg = "";
         //advisor has the old data, request has the new
         $data = $this->buildArray();
@@ -170,7 +177,7 @@ class AdvisorsController extends Controller
         $rates = Rate::where("advisor_id",$advisor->id)->get();
         if ($rates->count()==0) {
             $rates = $advisor->rate;
-            return view('rates.store', compact('advisor','msg','rates'));
+            return view('rates.edit', compact('advisor','msg','rates'));
         }
 
         // advisor.edit is in LoginController and AdvisorController

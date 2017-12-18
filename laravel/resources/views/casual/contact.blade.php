@@ -32,6 +32,7 @@ ll latitude and longitude of map center
             </div>
         </div>
 
+<!--
         <div style="overflow:hidden;max-width:100%;width:500px;height:500px;">
             <div id="mymap-display" style="height:100%; width:100%;max-width:100%;">
                 <iframe style="height:100%;width:100%;border:0;" frameborder="0" 
@@ -56,7 +57,7 @@ ll latitude and longitude of map center
             <style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
         </div> 
         <script type='text/javascript' src='https://embedmaps.com/google-maps-authorization/script.js?id=0771ce9aced1b4dff2fdfd40fffc7b51d081e21f'></script><script type='text/javascript'>function init_map(){var myOptions = {zoom:14,center:new google.maps.LatLng(25.9866988,-80.12890500000003),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(25.9866988,-80.12890500000003)});infowindow = new google.maps.InfoWindow({content:'<strong></strong><br>1835 East Hallandale Bch Blvd, Suite 817<br>33009 Hallandale Beach<br>'});google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);</script>
-
+-->
 
 
         <div class="col-lg-4">

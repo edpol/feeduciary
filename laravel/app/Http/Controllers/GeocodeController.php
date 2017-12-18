@@ -52,7 +52,7 @@ class GeocodeController extends Controller
         return $location;
     }
 
-    public static function geocode2 ($avisor) {
+    public static function geocode2 ($advisor) {
         $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
         $clean_address =  urlencode($address);
  

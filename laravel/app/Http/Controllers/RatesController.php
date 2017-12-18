@@ -31,9 +31,9 @@ class RatesController extends Controller
         $advisor_id = request('advisor_id');
         $msg = "";
 
-        $advisorsRates = Rate::where("advisor_id",$advisor_id)->where("roof",$roof)->orderBy('roof', 'DESC')->get();
-
-        $count = (is_null($advisorsRates)) ? 0 : $advisorsRates->count();
+        $checkRate = Rate::where("advisor_id",$advisor_id)->where("roof",$roof)->orderBy('roof', 'DESC')->get();
+//        $checkRate = $rate->doesRateExist($advisor_id,$roof);
+        $count = (is_null($checkRate)) ? 0 : $checkRate->count();
         if ($count==0) {
             // can't have same rate for an advisor
      		$rate = Rate::create([
@@ -57,8 +57,9 @@ class RatesController extends Controller
 			}
 		}
         $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
+$rates = $advisor->rate;
         // After creating your ADVISOR information, we need your RATES information
-        return view('rates.store', compact('advisor','msg','rates'));
+        return view('rates.edit', compact('advisor','msg','rates'));
     }
 
     public function show() {
@@ -82,21 +83,19 @@ class RatesController extends Controller
 
     public function newRate(Advisor $advisor){
         // Validate the form.  email checks email format
-
-        $this->validate(request(), [
-            'roof'       => 'required',
-            'rate'       => 'required',
-            'advisor_id' => 'required'
+        $validator = $this->validate(request(), [
+            'roof'       => 'required|string',
+            'rate'       => 'required|string',
+            'advisor_id' => 'required|numeric'
         ]);
 
         $roof = $this->cleanMoney(request('roof'));
         $rate = $this->cleanPercent(request('rate'));
         $advisor_id = request('advisor_id');
         $msg = "";
-
-        $advisorsRates = Rate::where("advisor_id",$advisor_id)->where("roof",$roof)->orderBy('roof', 'DESC')->get();
-
-        $count = (is_null($advisorsRates)) ? 0 : $advisorsRates->count();
+//      $checkRate = Rate::where("advisor_id",$advisor_id)->where("roof",$roof)->orderBy('roof', 'DESC')->get();
+        $checkRate = Rate::doesRateExist($advisor_id,$roof);
+        $count = (is_null($checkRate)) ? 0 : $checkRate->count();
         if ($count==0) {
             // can't have same rate for an advisor
             $rate = Rate::create([

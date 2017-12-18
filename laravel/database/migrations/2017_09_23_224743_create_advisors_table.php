@@ -30,7 +30,7 @@ class CreateAdvisorsTable extends Migration
             $table->string('finraBrokercheck')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('twitter')->nullable();
-            $table->string('discretionaryAUM')->nullable();
+            $table->integer('discretionaryAUM')->unsigned()->default(0);
             $table->integer('minimum_amt')->unsigned()->default(0);
             $table->integer('maximum_amt')->unsigned()->default(10000000);
             $table->integer('minimum_fee')->unsigned()->default(0);
