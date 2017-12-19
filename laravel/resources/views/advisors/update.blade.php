@@ -258,7 +258,7 @@
                         <div class="form-group">
                             <label for="discretionaryAUM" class="col-md-8 control-label">Discretionary AUM</label>
                             <div class="col-md-8 {{ $errors->has('discretionaryAUM') ? ' has-error' : '' }}">
-                                <input id="discretionaryAUM" type="text" class="form-control" name="discretionaryAUM" value="{{ old('discretionaryAUM', $advisor->discretionaryAUM) }}" />
+                                <input id="discretionaryAUM" type="text" class="form-control" name="discretionaryAUM" value="{{ old('discretionaryAUM', number_format($advisor->discretionaryAUM),0) }}" />
                                 @if ($errors->has('discretionaryAUM'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('discretionaryAUM') }}</strong>

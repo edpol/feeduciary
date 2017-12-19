@@ -50,6 +50,7 @@ class LoginController extends Controller
         // use user->id to get record from ADVISOR table
         // if there is no advisor entry, go to advisor entry page
         $advisor = Advisor::where("user_id",$user->id)->first();
+        // if i time out it errors here
         $count = (is_null($advisor)) ? 0 : $advisor->count();
         if ($count==0) {
             $state = $this->optionState();
@@ -62,7 +63,7 @@ class LoginController extends Controller
         if ($rates->count()==0) {
             return view('rates.edit', compact('advisor', 'msg', 'rates'));
         }
-
+ 
         // advisor.edit is in LoginController and AdvisorController
         return view('advisors.edit', compact('advisor', 'rates'));
 

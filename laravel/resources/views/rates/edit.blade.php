@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <h2>Edit Rates for {{ $advisor->name }}</h2>
-                <form class="form-horimaximum_amtontal " method="GET" action="/newRate/{{ $advisor->id }}">
+                <form class="form-horimaximum_amtontal" method="GET" action="/newRate/{{ $advisor->id }}">
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('roof') ? ' has-error' : '' }}">
