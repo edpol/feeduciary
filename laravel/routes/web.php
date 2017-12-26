@@ -8,6 +8,11 @@ Route::get('/blog',                 'CasualController@blog');
 
 Route::get('/contact',              'CasualController@contact');
 
+Route::post('/send',                'EmailController@send');
+//Route::post('/send/{advisor}',      'AdvisorsController@send');
+
+Route::post('/contact/{advisor}',   'AdvisorsController@contact');
+
 Route::get('/advisors',             'AdvisorsController@index');
 
 Route::get('/advisors/{advisor}',   'AdvisorsController@show'); 
@@ -22,14 +27,12 @@ Route::post('/update/{advisor}',    'AdvisorsController@update');
 
 Route::get('/calculateFee',         'AdvisorsController@calculateFee');
 
-Route::post('/storeRates',          'RatesController@store'); 
-
 // validator fail is a GET, but we used POST because we are POSTing
-Route::get('/newRate/{advisor}',   'RatesController@newRate'); 
+Route::post('/storeRate/{advisor}', 'RatesController@store'); 
 
-Route::get('/rates/{advisor}',     'RatesController@edit'); 
+Route::get('/rates/{advisor}',      'RatesController@edit'); 
 
-Route::match(['get', 'post'], '/done/{advisor}',      'RatesController@done'); 
+Route::post('/done/{advisor}',      'RatesController@done'); 
 
 Route::get('/finishedRates',        'RatesController@show'); 
 
@@ -49,9 +52,7 @@ Auth::routes();
 Route::get('/update',     'Auth\LoginController@update');
 
 /* Register */
-Route::get('/register',   'RegistrationController@index');
-
-Route::post('/register', [ 'as' => 'register', 'uses' => 'RegistrationController@store']);
+Route::post('/register',  'Auth\RegisterController@store');
 
 Route::get('/logout',     'SessionsController@destroy');
 

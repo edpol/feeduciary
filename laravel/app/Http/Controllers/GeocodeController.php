@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace feeduciary\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Advisor;
+use feeduciary\Advisor;
 
 class GeocodeController extends Controller
 {

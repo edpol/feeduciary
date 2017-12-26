@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace feeduciary\Http\Controllers;
 
 //use Illuminate\Http\Request;
-use App\Rate;
-use App\User;
-use App\Advisor;
+use Mail;
+use feeduciary\Rate;
+use feeduciary\User;
+use feeduciary\Advisor;
 
 class AdvisorsController extends Controller
 {
@@ -25,6 +26,7 @@ class AdvisorsController extends Controller
     //
     public function show(Advisor $advisor)
     {
+        $advisor = self::checkURLs($advisor);
         return view('advisors.show', compact('advisor'));
     }
 
@@ -151,14 +153,13 @@ class AdvisorsController extends Controller
 
     public function store() {
         $validation = $this->validating();
-        $msg = "";
         $data = $this->buildArray();
 
         $advisor = Advisor::create($data);
         $rates = $advisor->rate;
 
         // After creating your ADVISOR information, we need your RATES information
-        return view('rates.edit', compact('advisor','msg','rates'));
+        return view('rates.edit', compact('advisor','rates'));
     }
 
     // this goes to the form to get new advisor information
@@ -169,7 +170,6 @@ class AdvisorsController extends Controller
 
     public function update(Advisor $advisor) {
         $validation = $this->validating();
-        $msg = "";
         //advisor has the old data, request has the new
         $data = $this->buildArray();
         $advisor->update($data);
@@ -177,13 +177,19 @@ class AdvisorsController extends Controller
         $rates = Rate::where("advisor_id",$advisor->id)->get();
         if ($rates->count()==0) {
             $rates = $advisor->rate;
-            return view('rates.edit', compact('advisor','msg','rates'));
+            return view('rates.edit', compact('advisor','rates'));
         }
 
         // advisor.edit is in LoginController and AdvisorController
+        $advisor = self::checkURLs($advisor);
         return view('advisors.edit', compact('advisor', 'rates'));
 
     }
+
+    public function contact (Advisor $advisor) {
+        return view ('advisors.contact', compact('advisor'));
+    }
+
 }
 
 /*  index, store, show, update, edit,

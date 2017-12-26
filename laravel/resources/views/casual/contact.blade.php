@@ -65,7 +65,7 @@ ll latitude and longitude of map center
             <div class="mb-4">123.456.7890</div>
             <h5 class="mb-0">Email:</h5>
             <div class="mb-4">
-                <a href="mailto:name@example.com">name@example.com</a>
+                <a href="mailto:message@feeduciary.com">message@feeduciary.com</a>
             </div>
             <h5 class="mb-0">Address:</h5>
             <div class="mb-4">

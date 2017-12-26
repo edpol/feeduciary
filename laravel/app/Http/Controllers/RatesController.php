@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace feeduciary\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Rate;
-use App\Advisor;
+use feeduciary\Rate;
+use feeduciary\Advisor;
 
 class RatesController extends Controller
 {
@@ -15,51 +15,6 @@ class RatesController extends Controller
 
     public function index() {
     	return view('advisors.info');
-    }
-
-    public function store () {
-        // Validate the form.  email checks email format
-
-        $this->validate(request(), [
-            'roof'       => 'required',
-            'rate'       => 'required',
-            'advisor_id' => 'required'
-        ]);
-
-        $roof = $this->cleanMoney(request('roof'));
-        $rate = $this->cleanPercent(request('rate'));
-        $advisor_id = request('advisor_id');
-        $msg = "";
-
-        $checkRate = Rate::where("advisor_id",$advisor_id)->where("roof",$roof)->orderBy('roof', 'DESC')->get();
-//        $checkRate = $rate->doesRateExist($advisor_id,$roof);
-        $count = (is_null($checkRate)) ? 0 : $checkRate->count();
-        if ($count==0) {
-            // can't have same rate for an advisor
-     		$rate = Rate::create([
-                'roof'       => $roof,
-                'rate'       => $rate,
-                'advisor_id' => $advisor_id
-    		]);
-        } else {
-            $msg = "Already have an entry for " . number_format($roof);
-        }
-
-		// when we come from /login $advisor is an object
-		// when we come from rates.blade.php it's a JSON string
-		// so change it to array 
- 		$advisor = request('advisor');
- 		if (gettype($advisor)!='object') {
-	 		$array = json_decode(request('advisor'),true);	// change JSON string to array
-			$advisor = new advisor();						// new advisor object, then populate
-			foreach ($array as $key => $value) {
-				$advisor->{$key} = $value;
-			}
-		}
-        $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
-$rates = $advisor->rate;
-        // After creating your ADVISOR information, we need your RATES information
-        return view('rates.edit', compact('advisor','msg','rates'));
     }
 
     public function show() {
@@ -75,13 +30,13 @@ $rates = $advisor->rate;
 
     public function edit(Advisor $advisor){
         // they just pushed the edit rates button
-//        $rates->where("advisor_id",$advisor->id)->orderBy('roof', 'DESC');
-        $msg = "";
+        $msg = array();
+//      $rates->where("advisor_id",$advisor->id)->orderBy('roof', 'DESC');
         $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
-        return view('rates.edit', compact('advisor','msg','rates'));
+        return view('rates.edit', compact('advisor','rates'))->withErrors($msg);
     }
 
-    public function newRate(Advisor $advisor){
+    public function store(Advisor $advisor){
         // Validate the form.  email checks email format
         $validator = $this->validate(request(), [
             'roof'       => 'required|string',
@@ -92,37 +47,48 @@ $rates = $advisor->rate;
         $roof = $this->cleanMoney(request('roof'));
         $rate = $this->cleanPercent(request('rate'));
         $advisor_id = request('advisor_id');
-        $msg = "";
-//      $checkRate = Rate::where("advisor_id",$advisor_id)->where("roof",$roof)->orderBy('roof', 'DESC')->get();
-        $checkRate = Rate::doesRateExist($advisor_id,$roof);
-        $count = (is_null($checkRate)) ? 0 : $checkRate->count();
-        if ($count==0) {
-            // can't have same rate for an advisor
-            $rate = Rate::create([
-                'roof'       => $roof,
-                'rate'       => $rate,
-                'advisor_id' => $advisor_id
-            ]);
+        $msg = array();
+
+        if($roof>0 && $rate>0) {
+                $checkRate = Rate::doesRateExist($advisor_id,$roof);
+                $count = (is_null($checkRate)) ? 0 : $checkRate->count();
+                if ($count==0) {
+                    // can't have same rate for an advisor
+                    $rate = Rate::create([
+                        'roof'       => $roof,
+                        'rate'       => $rate,
+                        'advisor_id' => $advisor_id
+                    ]);
+                } else {
+                    $msg["duplicate"] = "Already have an entry for " . number_format($roof);
+                }
         } else {
-            $msg = "Already have an entry for " . number_format($roof);
+            if($roof<=0) $msg["roof"] = "Roof must be grater than 0";
+            if($rate<=0) $msg["rate"] = "Rate must be grater than 0";
         }
 
         $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
 //      $advisor = $rates->advisor;
-        return view('rates.edit', compact('advisor','msg','rates'));
+        return view('rates.edit', compact('advisor','rates'))->withErrors($msg);
     }
 
     public function destroy(Advisor $advisor){
-        $msg = "";
+        $msg = array();
         $target = request("delete");
-        echo "Deleting " . $target . "<br />\n";
-        $rate = Rate::find($target)->delete(); 
+        // if you reload page it repeats last command. If last command was delete you will get a null
+        $rate = Rate::find($target);
+        if(!is_null($rate)) {
+            $rate = Rate::find($target)->delete(); 
+        } else {
+            $msg["notFound"] = "That rate is aready deleted";
+        }
         $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
-        return view('rates.edit', compact('advisor','msg','rates'));
+        return view('rates.edit', compact('advisor','rates'))->withErrors($msg);
     }
 
     public function done(Advisor $advisor){
-        $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
+        $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof','DESC')->get();
+        $advisor = self::checkURLs($advisor);
         return view('advisors.edit', compact('advisor', 'rates'));
     }
 }

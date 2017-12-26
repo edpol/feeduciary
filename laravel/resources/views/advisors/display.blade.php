@@ -2,7 +2,9 @@
                     <div style="float:left; padding-right:6px;">
                         name*: <br />
                         phone: <br />
+<?php if(isset($hideEmail) && $hideEmail==false) { ?>
                         email*: <br />
+<?php } ?>
                         company: <br />
                         address: <br />
                         @if(isset($advisor->address2) && !empty($advisor->address2))
@@ -23,12 +25,27 @@
                     </div>
 
                     <div style="float:left;">
-                        {{ $advisor->name  }} <br />
-                        {{ $advisor->phone }} <br />
+                        <div style="float:left;">
+                            {{ $advisor->name  }} <br />
+                            {{ $advisor->phone }} <br />
+                        </div>
+
+<?php if(isset($hideEmail) && $hideEmail==true) { ?>
+                        <div style="float:right;">
+                            <form action="/contact/{{ $advisor->id }}" method="post">
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-primary">email</button>
+                            </form>
+                        </div>
+<?php } ?>
+                        <br clear="all" /> 
+
+<?php if(isset($hideEmail) && $hideEmail==false) { ?>
                         {{ $advisor->email }} <br />
+<?php } ?>
 
                         @if(isset($advisor->url) && !empty($advisor->url))
-                            <a href="{{ App\Http\Controllers\controller::addScheme($advisor->url) }}" target="_blank">
+                            <a href="{{ $advisor->url }}" target="_blank">
                         @endif
                         {{ $advisor->company }} 
                         @if(isset($advisor->url) && !empty($advisor->url))
@@ -70,28 +87,28 @@
                         <br />
 
                         @if(isset($advisor->facebook) && !empty($advisor->facebook))
-                            <a href="{{ App\Http\Controllers\controller::addScheme($advisor->facebook) }}" target="_blank">
+                            <a href="{{ $advisor->facebook }}" target="_blank">
                                 {{ $advisor->facebook }} 
                             </a> 
                         @endif
                         <br />
 
                         @if(isset($advisor->finraBrokercheck) && !empty($advisor->finraBrokercheck))
-                            <a href="{{ App\Http\Controllers\controller::addScheme($advisor->finraBrokercheck) }}" target="_blank">
+                            <a href="{{ $advisor->finraBrokercheck }}" target="_blank">
                                 {{ $advisor->finraBrokercheck }} 
                             </a> 
                         @endif
                         <br />
 
                         @if(isset($advisor->linkedin) && !empty($advisor->linkedin))
-                            <a href="{{ App\Http\Controllers\controller::addScheme($advisor->linkedin) }}" target="_blank">
+                            <a href="{{ $advisor->linkedin }}" target="_blank">
                                 {{ $advisor->linkedin }} 
                             </a> 
                         @endif
                         <br />
 
                         @if(isset($advisor->twitter) && !empty($advisor->twitter))
-                            <a href="{{ App\Http\Controllers\controller::addScheme($advisor->twitter) }}" target="_blank">
+                            <a href="{{ $advisor->twitter }}" target="_blank">
                                 {{ $advisor->twitter }} 
                             </a> 
                         @endif
@@ -104,11 +121,13 @@
 
                         {{ $advisor->lat }}   {{ $advisor->lng }} <br />
                         @if(isset($advisor->brochure) && !empty($advisor->brochure))
-                            <a href="{{ App\Http\Controllers\controller::addScheme($advisor->brochure) }}" target="_blank">
+                            <a href="{{ $advisor->brochure }}" target="_blank">
                                 Part 2 Brochure 
                             </a> 
                         @endif
                     </div>
+
+
                     <br clear="all" />
                     <hr />
                     <div class="row">

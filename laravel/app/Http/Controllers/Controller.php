@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace feeduciary\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -43,7 +43,21 @@ class Controller extends BaseController
      *  we can also add whatever is supplied in the scheme parameter
      */
     public static function addScheme($url, $scheme = 'http://') {
-        return is_null(parse_url($url, PHP_URL_SCHEME)) ? "http://" . $url : $url;
+        if (empty($url)) {
+            $result = "";
+        } else {
+            $result = is_null(parse_url($url, PHP_URL_SCHEME)) ? "http://" . $url : $url;
+        }
+        return $result;
+    }
+
+    // these are all the columns that are set as url's
+    public static function checkURLs($advisor) {
+        $urlList = array("url", "facebook", "finraBrokercheck", "linkedin", "twitter", "brochure");
+        foreach($urlList as $target) {
+            $advisor->$target = self::addScheme($advisor->$target);
+        }
+        return $advisor;
     }
 
     public function optionState ($state="") {

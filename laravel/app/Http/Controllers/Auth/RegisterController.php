@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace feeduciary\Http\Controllers\Auth;
 
-use App\User;
-use App\Http\Controllers\Controller;
+use Hash;
+use feeduciary\User;
+use feeduciary\Rate;
+use feeduciary\Advisor;
+use feeduciary\Mail\Welcome;
+use feeduciary\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -48,21 +52,31 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(Request $request)
     {
-        return Validator::make($data, [
-            'name'                  => 'required|string|max:255',
-            'email'                 => 'required|string|email|max:255|unique:users',
-            'password'              => 'required|string|min:6|confirmed',
-            'password_confirmation' => 'required|string|min:6'
+        return Validator::make($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required|string|min:3'
         ]);
+    }
+
+    protected function experiment()
+    {
+        if ($validator->fails()) {
+            return redirect('post/create')
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+        return $validator;
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \feeduciary\User
      */
     protected function create(array $data)
     {
@@ -74,8 +88,38 @@ class RegisterController extends Controller
     }
 
     // I'm guessing here
-    pubilic function store() {
-        $data = $this->validator(request());
+    public function store() {
+
+        // Validate the form.  email checks email format
+        $data = $this->validate(request(), [
+            'name'                  => 'required|string|min:2',
+            'email'                 => 'required|string|email|unique:users',
+            'password'              => 'required|string|min:3|confirmed',
+            'password_confirmation' => 'required|string|min:3'
+        ]);
+
+        // Create and save the user
         $user = $this->create($data);
+
+        // Sign them in
+        auth()->login($user);
+
+//        \Mail::to($user)->send(new Welcome($user));
+
+        // After creating your USER information, we need your ADVISOR information
+
+        // use user->id to get record from ADVISOR table
+        // if there is no advisor entry, go to advisor entry page
+        $advisor = Advisor::where("user_id",$user->id)->first();
+        // if i time out it errors here
+        $count = (is_null($advisor)) ? 0 : $advisor->count();
+        if ($count==0) {
+            $state = $this->optionState();
+            return view('advisors.entry', compact('user','state'));
+        } else {
+            $rates = $advisor->rate;
+            $advisor = self::checkURLs($advisor);
+            return view('advisors.edit', compact('advisor','rates'));
+        }
     }
 }

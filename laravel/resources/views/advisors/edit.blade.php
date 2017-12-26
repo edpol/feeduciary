@@ -12,6 +12,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <h3>Advisor Information</h3>
+<?php           $hideEmail = false;   ?>
                 @include('advisors.display')
                 <form class="form-horimaximum_amtontal " method="GET" action="/edit/{{ $advisor->id }}">
                     {{ csrf_field() }}

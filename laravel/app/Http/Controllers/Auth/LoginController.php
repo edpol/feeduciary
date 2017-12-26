@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace feeduciary\Http\Controllers\Auth;
 
 use Auth;
-use App\Rate;
-use App\Advisor;
-use App\Http\Controllers\Controller;
+use feeduciary\Rate;
+use feeduciary\Advisor;
+use feeduciary\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -43,7 +43,6 @@ class LoginController extends Controller
     /* index, store, show, create, edit, update, destroy */
 
     public function update() {
-        $msg = "";
         // grab record from USER Table
         $user = Auth::user();
 
@@ -61,10 +60,11 @@ class LoginController extends Controller
         // if there is no rates entry, go to rates entry
         $rates = $advisor->rate;
         if ($rates->count()==0) {
-            return view('rates.edit', compact('advisor', 'msg', 'rates'));
+            return view('rates.edit', compact('advisor', 'rates'));
         }
  
         // advisor.edit is in LoginController and AdvisorController
+        $advisor = self::checkURLs($advisor);
         return view('advisors.edit', compact('advisor', 'rates'));
 
     }

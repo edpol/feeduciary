@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace feeduciary\Http\Controllers;
 
 use Illuminate\Http\Request;
 
@@ -20,7 +20,7 @@ class CasualController extends Controller
     }
 
     public function contact () {
-    	return view ('casual.contact');
+        return view ('casual.contact');
     }
 
 }

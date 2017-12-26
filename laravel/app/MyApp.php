@@ -1,5 +1,5 @@
 <?php 
-namespace App;
+namespace feeduciary;
 
 use Illuminate\Foundation\Application;
 
