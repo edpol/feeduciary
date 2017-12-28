@@ -1,9 +1,7 @@
 @component('mail::message')
 # Introduction
 
-Thank you for registering with us!
-
-
+Contact from a visiting guest.
 
 @component('mail::button', ['url' => 'http://feeduciary.com'])
 Feeduciary.com
@@ -18,7 +16,7 @@ Advisor: {{ $data['advisorName'] }}<br />
 From:    {{ $data['fromEmail']   }}<br />
 Phone:   {{ $data['phone']       }}<br />
 Subject: {{ $data['subject']     }} <br />
-Content: {{ $data['content']     }}<br />
+Message: {{ $data['content']     }}<br />
 @endcomponent
 
 Thanks,<br>

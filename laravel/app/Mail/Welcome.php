@@ -12,17 +12,18 @@ class Welcome extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    public $data;
+    public $subject;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct($data)
     {
-        //
-        $this->user = $user;
+        $this->data = $data;
+        $this->subject=$data["subject"];
     }
 
     /**
@@ -32,6 +33,6 @@ class Welcome extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.welcome');
+        return $this->subject($this->subject)->markdown('emails.welcome')->with("data",$this->data);
     }
 }
