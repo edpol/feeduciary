@@ -46,6 +46,10 @@ class LoginController extends Controller
         // grab record from USER Table
         $user = Auth::user();
 
+        if (auth()->user()->isAdmin()) {
+            return redirect('/admin/advisors');
+        }
+
         // use user->id to get record from ADVISOR table
         // if there is no advisor entry, go to advisor entry page
         $advisor = Advisor::where("user_id",$user->id)->first();

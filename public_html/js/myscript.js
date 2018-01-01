@@ -10,22 +10,6 @@ function greyout() {
     }
 }
 
-function popup(){
-    console.log("infoPopup");
-    window.open("/ratesInfo", "_blank", "toolbar=no,scrollbars=no,resizable=yes,top=500,left=500,width=400,height=400"); 
-    return false;
-}
-
-function prepareInfoHandler() {
-    infoPopup = document.getElementById("popup");
-    if (infoPopup!==null) {
-        infoPopup.setAttribute('onclick', "return false;");
-        infoPopup.addEventListener("click",popup);
-    } else {
-        console.log("did not find id popup");
-    }
-}
-
 /*
  *    setup listeners on class blue, pink and admin
  */
@@ -57,6 +41,5 @@ function buttonSetup (button) {
 
 window.onload = function () {
     greyout();
-    prepareInfoHandler();
     buttonSetup("del");
 };

@@ -38,7 +38,8 @@ class EmailController extends Controller
         });
 */
 		$advisor = Advisor::where("id",$id)->first();
-        return view('advisors.show', compact('advisor'));
+//        return view('advisors.show', compact('advisor'));
 //        return response()->json(['message' => 'Request completed']);
+		return redirect("/advisors/{$advisor->id}");
     }
 }

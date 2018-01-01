@@ -9,7 +9,6 @@ Route::get('/blog',                 'CasualController@blog');
 Route::get('/contact',              'CasualController@contact');
 
 Route::post('/send',                'EmailController@send');
-//Route::post('/send/{advisor}',      'AdvisorsController@send');
 
 Route::post('/contact/{advisor}',   'AdvisorsController@contact');
 
@@ -56,3 +55,24 @@ Route::post('/register',  'Auth\RegisterController@store');
 
 Route::get('/logout',     'SessionsController@destroy');
 
+Route::get('/home',       'HomeController@index');  
+
+// this page requires that you be logged in AND be an Admin
+Route::get('/admin/advisors', ['middleware' => ['auth', 'admin'], function() {
+    $advisors = feeduciary\Advisor::all();
+	return view('advisors.index', compact('advisors'));
+}]);
+Route::get('/admin/advisors/{id}','AdminController@show');
+
+Route::post('/admin/inactive/{id}','AdminController@inactive');
+
+/*
+// here we don't need a controller checking if we are logged in and admin, we just go to the view
+Route::get('/admin/advisors/{id}', ['middleware' => ['auth', 'admin'], function($id) {
+    $advisor = feeduciary\Advisor::find($id);
+	$rates = $advisor->rates;
+	return view('advisors.edit', compact('advisor','rates'));
+}]);
+
+Route::get('/admin/advisors', 'AdminController@index')->middleware('auth', 'admin');
+*/

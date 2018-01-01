@@ -1,3 +1,4 @@
+<?php $tab="Display Advisor"; ?>
 @extends('layouts.master')
 
 @section('box1')
@@ -18,11 +19,17 @@
 				<p class="lead">
 					<ul>
 				    	@foreach( $advisors as $advisor )
+@if($advisor->is_active)
 				        	<li>
-				            	<a href="/advisors/{{ $advisor->id }}"> 
-				                	{{ $advisor->name }}, {{ $advisor->st }} <br />
-				                </a>
+				        		@if (Auth::user()->isAdmin())
+				            		<a href="/admin/advisors/{{ $advisor->id }}"> 
+				            	@else
+				            		<a href="/advisors/{{ $advisor->id }}"> 
+				            	@endif
+				                {{ $advisor->name }}, {{ $advisor->st }} <br />
+			                	</a>
 				            </li>
+@endif
 						@endforeach
 				    </ul>
 				</p>

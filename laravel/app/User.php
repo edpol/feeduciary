@@ -35,4 +35,7 @@ class User extends Authenticatable
         return $this->belongsTo(Advisor::class);
     }
 
+    public function isAdmin() {
+        return $this->admin; // this looks for an admin column in your users table
+    }
 }

@@ -1,5 +1,5 @@
 @component('mail::message')
-# Introduction
+# Message
 
 Contact from a visiting guest.
 
@@ -8,17 +8,14 @@ Feeduciary.com
 @endcomponent
 <br />
 
-@component('mail::panel', ['url' => ''])
-Panel Text <br />
-Name:    {{ $data['name']        }}<br />
-Title:   {{ $data['title']       }}<br />
-Advisor: {{ $data['advisorName'] }}<br />
-From:    {{ $data['fromEmail']   }}<br />
+@component('mail::panel', ['url' => 'http://feeduciary.com'])
+{{ $data['content']     }}<br />
+<br />
+{{ $data['name']   }}<br />
 Phone:   {{ $data['phone']       }}<br />
-Subject: {{ $data['subject']     }} <br />
-Message: {{ $data['content']     }}<br />
+Email:    {{ $data['fromEmail']   }}<br />
 @endcomponent
 
-Thanks,<br>
+<br>
 {{ config('app.name') }}
 @endcomponent

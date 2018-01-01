@@ -18,21 +18,27 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" id="rss"  href="/rss">RSS</a>
+                        <a class="nav-link" id="rss"  href="/rss">RSS</span></a>
                     </li>
+<!--
+                     if   (Auth::check())
+-->                 @if (auth()->check())
 
-                    @if (Auth::check())
+                        @if (auth()->user()->isAdmin())
+                            <li class="nav-item">
+                                <a class="nav-link" id="updateAdvisors" href="/admin/advisors">Update Advisors</a>
+                            </li>
+                        @endif
+
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle"  href="#" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-
                             <ul class="dropdown-menu" role="menu">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        Logout
+                                    <a  class="nav-link" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Logout 
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="GET" style="display: none;">
@@ -40,7 +46,13 @@
                                     </form>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/update">Update</a>
+<!--
+                                     if   (Auth::user()->isAdmin()) this works too
+-->                                 @if (auth()->user()->isAdmin())
+                                        <a class="nav-link" href="/admin/advisors">Update Advisors</a>
+                                    @else
+                                        <a class="nav-link" href="/update">Update</a>
+                                    @endif
                                 </li>
                             </ul>
                         </li>

@@ -1,5 +1,5 @@
 <?php
-use App\Pages;
+use feeduciary\Pages;
 
 	$per_page = 10;
 
@@ -30,6 +30,9 @@ use App\Pages;
 		</div>
 	</section>
 	@foreach ( $output as $advisor ) 
+
+	@if($advisor->is_active)
+
 		<?php
 		if (!isset($class) || $class=="content-section-b" ) {
 			$class = "content-section-a";
@@ -70,6 +73,7 @@ use App\Pages;
 				</div>
 			</div>
 		</section>
+	@endif
 	@endforeach
 
 	<section class="<?= $class; ?>">

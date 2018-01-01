@@ -59,7 +59,11 @@
                             <button type="submit" class="btn btn-primary">
                                 Add Rate ({{ $advisor->name }})
                             </button>
-                            <button style="float:right;" type="submit" class="btn btn-primary" formaction="/done/{{ $advisor->id }}">
+                            @if (auth()->user()->isAdmin())
+                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="/admin/advisors/{{ $advisor->id }}" formmethod="get">
+                            @else
+                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="/done/{{ $advisor->id }}">
+                            @endif
                                 Done
                             </button>
                         </div>

@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('ilE2012!'),
             'created_at' => now(),
             'updated_at' => now(),
-            'is_admin' => true
+            'admin' => true
         ]);
     }
 }
