@@ -10,6 +10,9 @@ use feeduciary\Advisor;
 
 class AdvisorsController extends Controller
 {
+    public $distance = array();
+    public $zip;
+
     public function __construct()
     {
 //      $this->middleware('auth')->except(['index', 'show', 'advisorFee', 'calculateFee', 'page']);
@@ -72,22 +75,32 @@ class AdvisorsController extends Controller
     }
 
     public function calculateFee() {
+
         $this->validate(request(), ['amount'=>'required']);
         $tmp = implode('',request(['amount'])); // array to string
         $amount = $this->cleanMoney($tmp);
         $zipcode = implode('',request(['zipcode']));
+        $this->zip = $zipcode;
         $advisors = Advisor::where("minimum_amt", "<", $amount)->get();
+        $distance = array();
 
         $list = array();
         foreach ($advisors as $advisor) {
 
+            if (!empty($this->zip)) {
+                $data = GeocodeController::getDistance($advisor,$zipcode);
+                if ($data!==false) {
+                    $distance[$advisor->id] = $data["distance"];
+                    $duration[$advisor->id] = $data["duration"];
+                }
+            }
             $advisor->totalFee=$this->advisorFee($advisor,$amount);
 
             $list[] = [ "id"=>$advisor->id, "totalFee"=>$this->advisorFee($advisor,$amount), "advisor"=>$advisor];
         }
         $advisors = $advisors->sortBy('totalFee');
 
-        session(compact('amount', 'zipcode', 'advisors'));
+        session(compact('amount', 'zipcode', 'advisors', 'distance'));
         return view('advisors.calculateFee');
 //      return view('advisors.calculateFee', compact('amount', 'zipcode', 'advisors'));
     }

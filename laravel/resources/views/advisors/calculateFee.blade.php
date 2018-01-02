@@ -3,9 +3,10 @@ use feeduciary\Pages;
 
 	$per_page = 10;
 
-	$amount = session('amount');
-	$zipcode = session('zipcode');
+	$amount   = session('amount');
+	$zipcode  = session('zipcode');
 	$advisors = session('advisors');
+	$distance = session('distance');
 
 	$page = (!isset($page)) ? 1 : (int)$page;
 
@@ -46,7 +47,7 @@ use feeduciary\Pages;
 		<section class="<?= $class; ?>">
 		    <div class="container">
 		        <div class="row">
-					<div style="width:400px; height:220px; padding:20px 8px; <?= $align; ?>  box-shadow: 10px 10px 5px #888888;  background: url({{ asset('images/paper.gif') }});">
+					<div style="width:400px; height:240px; padding:20px 8px; <?= $align; ?>  box-shadow: 10px 10px 5px #888888;  background: url({{ asset('images/paper.gif') }});">
 
 						<p style="margin:0 auto; text-align:center; border-top:solid black 1px; border-bottom:solid black 1px; width:80%; ">
 							<a href="/advisors/{{ $advisor->id }}">{{ $advisor->name }}</a> ({{ $advisor->id }})<br />
@@ -66,8 +67,11 @@ use feeduciary\Pages;
 							@endif
 						</div>
 						<br clear="all" />
-						Approx Fee: <?= "$".number_format($advisor->totalFee,0); ?>
-
+						Approx Fee: <?= "$".number_format($advisor->totalFee,0); ?><br />
+						Approx Distance: <?php 	if (array_key_exists($advisor->id, $distance) !== false) {
+													echo $distance[$advisor->id]; 
+												}
+										?>
 					</div>
 					<br />
 				</div>

@@ -8,6 +8,14 @@ use feeduciary\Advisor;
 
 class GeocodeController extends Controller
 {
+    public $key;
+    public $url;
+
+    public function __constructor() {
+        $this->key  = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE";
+        $this->url  = "https://maps.google.com/maps/api/geocode/json?sensor=false&key={$this->key}";
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,17 +39,37 @@ class GeocodeController extends Controller
     {
         //
     }
- 
+
+    public static function getDistance(Advisor $advisor,$zipcode)
+    {
+        $address  = $advisor->address1 . ",";
+        if (!empty($advisor->address2)) $address .= $advisor->address2 . ",";
+        $address .= $advisor->city . "," . $advisor->st . " " . $advisor->zip;
+        $address = urlencode($address);
+
+        $key2  = "AIzaSyCdltmUqKisvFuUxvU-Ljf7CmTAjV0GZqw";
+        $url2  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&key={$key2}";
+        $url2 .= "&origins={$zipcode}"; 
+        $url2 .= "&destinations={$address}";
+        $result = file_get_contents($url2);
+        $response = json_decode($result);
+
+        if ($response->status=="OK") {
+            $data["distance"] = $response->rows[0]->elements[0]->distance->text;
+            $data["duration"] = $response->rows[0]->elements[0]->duration->text;
+        } else {
+            $data = false;
+        }
+        return $data;
+    }
 
     public static function geocode ($advisor) {
         $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
         $clean_address =  urlencode($address);
 
-        $key  = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE";
-        $url  = "https://maps.google.com/maps/api/geocode/json?address={$clean_address}&sensor=false";
-        $url .= "&key={$key}";
+        $this->url .= "&address={$clean_address}";
 
-        $result = file_get_contents($url);
+        $result = file_get_contents($this->url);
         $response = json_decode($result);
         if ($response->status=="OK") {
             $location['lat'] = $response->results[0]->geometry->location->lat;
@@ -56,11 +84,9 @@ class GeocodeController extends Controller
         $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
         $clean_address =  urlencode($address);
  
-        $key  = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE";
-        $url  = "https://maps.google.com/maps/api/geocode/json?address={$clean_address}&sensor=false";
-        $url .= "&key={$key}";
+        $this->url .= "&address={$clean_address}";
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_URL, $this->url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
