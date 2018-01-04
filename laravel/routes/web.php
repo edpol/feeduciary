@@ -18,6 +18,8 @@ Route::get('/advisors/{advisor}',   'AdvisorsController@show');
 
 Route::get('/advisors/page/{page}', 'AdvisorsController@page'); 
 
+Route::get('/advisors/resort/{order}',        'AdvisorsController@resort'); 
+
 Route::post('/store',               'AdvisorsController@store'); 
 
 Route::get('/edit/{advisor}',       'AdvisorsController@edit'); 

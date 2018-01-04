@@ -85,28 +85,54 @@ class AdvisorsController extends Controller
         $distance = array();
 
         $list = array();
+        $guest = GeocodeController::getLatLng($zipcode);
+        $lat1 = $guest["lat"];
+        $lng1 = $guest["lng"];
         foreach ($advisors as $advisor) {
 
             if (!empty($this->zip)) {
-                $data = GeocodeController::getDistance($advisor,$zipcode);
+                $data = GeocodeController::distance($lat1, $lng1, $advisor->lat, $advisor->lng);
                 if ($data!==false) {
-                    $distance[$advisor->id] = $data["distance"];
-                    $duration[$advisor->id] = $data["duration"];
+                    $distance[$advisor->id] = $data;
+                    $advisor->distance = $data;
                 }
             }
             $advisor->totalFee=$this->advisorFee($advisor,$amount);
+            $totalFee[$advisor->id] = $advisor->totalFee;
 
             $list[] = [ "id"=>$advisor->id, "totalFee"=>$this->advisorFee($advisor,$amount), "advisor"=>$advisor];
         }
         $advisors = $advisors->sortBy('totalFee');
-
-        session(compact('amount', 'zipcode', 'advisors', 'distance'));
-        return view('advisors.calculateFee');
-//      return view('advisors.calculateFee', compact('amount', 'zipcode', 'advisors'));
+        $newOrder = ["val" => "sortByDistance", "text" => "Sort by Distance"];
+        asort($distance);
+        asort($totalFee);
+        $sortOrder = "sortByTotalFee";
+        session(compact('amount', 'zipcode', 'advisors', 'distance', 'totalFee', 'newOrder'));
+        $page = 1;
+        return view('advisors.calculateFee', compact('page'));
     }
 
     public function page($page)
     {
+        return view('advisors.calculateFee', compact('page'));
+    }
+
+    public function resort($order)
+    {
+        $sort = $order; //$request->sortOrder;
+        $advisors  = session('advisors');
+
+        if ($sort=="sortByDistance") {
+            $advisors  = $advisors->sortBy('distance');
+            $newOrder = ["val" => "sortByTotalFee", "text" => "Sort by Fee"];
+        } else {
+            $advisors  = $advisors->sortBy('totalFee');
+            $newOrder = ["val" => "sortByDistance", "text" => "Sort by Distance"];
+        }
+
+        session(compact('advisors', 'newOrder'));
+
+        $page = 1;
         return view('advisors.calculateFee', compact('page'));
     }
 

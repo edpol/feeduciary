@@ -8,14 +8,14 @@ use feeduciary\Advisor;
 
 class GeocodeController extends Controller
 {
-    public $key;
-    public $url;
-
+    public static $key = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE";
+    public static $url = "https://maps.google.com/maps/api/geocode/json?sensor=false&key=&key=";
+/*
     public function __constructor() {
         $this->key  = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE";
-        $this->url  = "https://maps.google.com/maps/api/geocode/json?sensor=false&key={$this->key}";
+        $this->url  = "https://maps.google.com/maps/api/geocode/json?sensor=false&key={self::$key}";
     }
-
+*/
     /**
      * Display a listing of the resource.
      *
@@ -30,17 +30,8 @@ class GeocodeController extends Controller
         return view('geocode.index', compact('advisors'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    public static function getDistance(Advisor $advisor,$zipcode)
+    public static function getDistance(Advisor $advisor, $zipcode)
     {
         $address  = $advisor->address1 . ",";
         if (!empty($advisor->address2)) $address .= $advisor->address2 . ",";
@@ -48,7 +39,7 @@ class GeocodeController extends Controller
         $address = urlencode($address);
 
         $key2  = "AIzaSyCdltmUqKisvFuUxvU-Ljf7CmTAjV0GZqw";
-        $url2  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&key={$key2}";
+        $url2  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&key=" . $key2;
         $url2 .= "&origins={$zipcode}"; 
         $url2 .= "&destinations={$address}";
         $result = file_get_contents($url2);
@@ -63,13 +54,40 @@ class GeocodeController extends Controller
         return $data;
     }
 
-    public static function geocode ($advisor) {
+    public static function getLatLng($address) {
+        $result = file_get_contents(self::$url . self::$key . "&address={$address}");
+        $response = json_decode($result);
+        if ($response->status=="OK") {
+            $location["lat"] = $response->results[0]->geometry->location->lat;
+            $location["lng"] = $response->results[0]->geometry->location->lng;
+        } else {
+            $location = false;
+        }
+        return $location;
+    }
+
+    public static function distance($lat1, $lng1, $lat2, $lng2, $unit="M") {
+        $theta = $lng1 - $lng2;
+        $dist  = (sin(deg2rad($lat1)) * sin(deg2rad($lat2))) + (cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta)));
+        $dist  = acos($dist);
+        $dist  = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $unit  = strtoupper($unit);
+
+        if ($unit == "K") {
+            return ($miles * 1.609344);
+        } else if ($unit == "N") {
+            return ($miles * 0.8684);
+        } else {
+            return $miles;
+        }
+    }
+
+    public static function geocode($advisor) {
         $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
         $clean_address =  urlencode($address);
-
-        $this->url .= "&address={$clean_address}";
-
-        $result = file_get_contents($this->url);
+//return self::getLatLng($clean_address);
+        $result = file_get_contents(self::$url . self::$key . "&address={$clean_address}");
         $response = json_decode($result);
         if ($response->status=="OK") {
             $location['lat'] = $response->results[0]->geometry->location->lat;
@@ -80,13 +98,11 @@ class GeocodeController extends Controller
         return $location;
     }
 
-    public static function geocode2 ($advisor) {
+    public static function geocode2($advisor) {
         $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
         $clean_address =  urlencode($address);
- 
-        $this->url .= "&address={$clean_address}";
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->url);
+        curl_setopt($ch, CURLOPT_URL, self::$url  . self::$key . "&address={$clean_address}" );
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -127,48 +143,4 @@ class GeocodeController extends Controller
         return view('geocode.store', compact('advisor', 'msg'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
