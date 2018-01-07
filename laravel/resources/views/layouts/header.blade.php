@@ -2,10 +2,28 @@
     <!-- Header -->
     <header class="intro-header">
         <div class="container">
-            <div class="intro-message">
-                <h1>Feeduciary.com</h1>
-                <h3>Clarity is Power</h3>
-                <hr class="intro-divider">
+            <div class="intro-message" style="background-color:red:">
+                <h1>Feeduciary</h1>
+                <h4>Let the Fee set you Free!</h4>
+                <hr class="intro-divider" />
+                    <div class="bluebox" style="margin:0 auto; text-align:left; width:40%; min-width:100px;">
+                        <form method="GET" action="/calculateFee">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <label for="amount">Please enter investment amount:</label>
+                                <input type="text" class="form-control" id="amount" name="amount" />
+                            </div>
+                            <div class="form-group">
+                                <label for="zipcode">Zipcode:</label>
+                                <input type="text" class="form-control" id="zipcode" name="zipcode" />
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                            @include ('layouts.errors') 
+                        </form>
+                    </div>
+
 <!--
                 <ul class="list-inline intro-social-buttons">
                     <li class="list-inline-item">

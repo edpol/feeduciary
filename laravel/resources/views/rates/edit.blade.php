@@ -28,7 +28,7 @@
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('roof') ? ' has-error' : '' }}">
-                        <label for="roof" class="col-md-8 control-label">Roof</label>
+                        <label for="roof" class="col-md-8 control-label">Tiers</label>
                         <div class="col-md-8">
                             <input id="roof" type="text" class="form-control" name="roof" value="{{ old('roof') }}" autofocus />
                             @if ($errors->has('roof'))
@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('rate') ? ' has-error' : '' }}">
-                        <label for="rate" class="col-md-8 control-label">Rate</label>
+                        <label for="rate" class="col-md-8 control-label">Annual Rate</label>
                         <div class="col-md-8">
                             <input id="rate" type="rate" class="form-control" name="rate" value="{{ old('rate') }}" />
                             @if ($errors->has('rate'))
@@ -80,7 +80,7 @@
                     <input id="advisor"    type="hidden" class="form-control" name="advisor"    value="{{ $advisor }}" />
 
                    <table border=0>
-                        <tr><th>&nbsp;</th><th>Roof&nbsp;</th><th>Rate</th></tr>
+                        <tr><th>&nbsp;</th><th>Tiers&nbsp;</th><th>Annual Rate</th></tr>
                         @foreach ($rates as $rate)
                         <tr>
 <?php                       $class = (!isset($class)||$class=="white") ? "grey" : "white"; ?>
@@ -89,7 +89,6 @@
                             </td>
                             <td class="<?= $class; ?>">${{ number_format($rate->roof, 0) }}</td>
                             <td class="<?= $class; ?>">{{ number_format($rate->rate*100, 3) }}%</td>
-                            <td class="<?= $class; ?>">{{ $rate->rate*100 }}</td>
                         </tr>
                         @endforeach
                     </table>

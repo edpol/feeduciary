@@ -55,13 +55,14 @@ class GeocodeController extends Controller
     }
 
     public static function getLatLng($address) {
-        $result = file_get_contents(self::$url . self::$key . "&address={$address}");
-        $response = json_decode($result);
-        if ($response->status=="OK") {
-            $location["lat"] = $response->results[0]->geometry->location->lat;
-            $location["lng"] = $response->results[0]->geometry->location->lng;
-        } else {
-            $location = false;
+        $location = false;
+        if(!empty($address) && (strlen(trim($address))>4)) {
+            $result = file_get_contents(self::$url . self::$key . "&address={$address}");
+            $response = json_decode($result);
+            if ($response->status=="OK") {
+                $location["lat"] = $response->results[0]->geometry->location->lat;
+                $location["lng"] = $response->results[0]->geometry->location->lng;
+            }
         }
         return $location;
     }

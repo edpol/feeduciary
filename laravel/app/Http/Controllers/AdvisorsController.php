@@ -79,35 +79,34 @@ class AdvisorsController extends Controller
         $this->validate(request(), ['amount'=>'required']);
         $tmp = implode('',request(['amount'])); // array to string
         $amount = $this->cleanMoney($tmp);
-        $zipcode = implode('',request(['zipcode']));
-        $this->zip = $zipcode;
+
+        $this->zip = implode('',request(['zipcode']));
         $advisors = Advisor::where("minimum_amt", "<", $amount)->get();
-        $distance = array();
 
-        $list = array();
-        $guest = GeocodeController::getLatLng($zipcode);
-        $lat1 = $guest["lat"];
-        $lng1 = $guest["lng"];
+        $guest = GeocodeController::getLatLng($this->zip);
+        if ($guest === false) {
+            $found_zipcode = false;
+            $this->zip = "";
+        } else {
+            $found_zipcode = true;
+            $lat1 = $guest["lat"];
+            $lng1 = $guest["lng"];
+        }
         foreach ($advisors as $advisor) {
-
-            if (!empty($this->zip)) {
+            if ($found_zipcode) {
                 $data = GeocodeController::distance($lat1, $lng1, $advisor->lat, $advisor->lng);
                 if ($data!==false) {
-                    $distance[$advisor->id] = $data;
                     $advisor->distance = $data;
                 }
             }
             $advisor->totalFee=$this->advisorFee($advisor,$amount);
-            $totalFee[$advisor->id] = $advisor->totalFee;
-
-            $list[] = [ "id"=>$advisor->id, "totalFee"=>$this->advisorFee($advisor,$amount), "advisor"=>$advisor];
         }
+
         $advisors = $advisors->sortBy('totalFee');
         $newOrder = ["val" => "sortByDistance", "text" => "Sort by Distance"];
-        asort($distance);
-        asort($totalFee);
         $sortOrder = "sortByTotalFee";
-        session(compact('amount', 'zipcode', 'advisors', 'distance', 'totalFee', 'newOrder'));
+        $zipcode= $this->zip;
+        session(compact('amount', 'zipcode', 'advisors', 'newOrder'));
         $page = 1;
         return view('advisors.calculateFee', compact('page'));
     }
@@ -185,6 +184,7 @@ class AdvisorsController extends Controller
         $validation = $this->validate(request(), [
             'name'        => 'required|string|min:2',
             'email'       => 'required|email:unique:advisors',
+            'zip'         => 'required|string|min:5',
             'feeCalculation' => 'required'
         ]);
         return $validation;

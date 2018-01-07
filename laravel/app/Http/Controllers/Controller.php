@@ -12,6 +12,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     // remove everything except numbers and first period
+    // or should we just remove dollar signs, commas and periods (except first) and let it error otherwise
     public function cleanMoney ($price_string) {
         $price = preg_replace('/[^0-9.]+/', '', $price_string);
         if (($pos = strpos($price, '.')) !== false) {
@@ -30,7 +31,9 @@ class Controller extends BaseController
         // if a % found, sub-string position 0 to percent sign then divide by 100
         if (($pos = strpos($percent, '%')) !== false) {
             $percent = substr($percent, 0, $pos)*.01;
- 		}
+ 		} else {
+            $percent = $percent * .01;
+        }
         return floatval($percent);
     }
 

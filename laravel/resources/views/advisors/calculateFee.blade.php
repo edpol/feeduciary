@@ -6,8 +6,6 @@ use feeduciary\Pages;
 	$amount    = session('amount');
 	$zipcode   = session('zipcode');
 	$advisors  = session('advisors');
-	$distance  = session('distance');
-	$totalFee  = session('totalFee');
 	$newOrder  = session('newOrder');
 
 	$page = (!isset($page)) ? 1 : (int)$page;
@@ -30,11 +28,13 @@ use feeduciary\Pages;
 	    	<div class="row">
 		        <div class="col-md-4">
 					<p><span style="font-weight:bold;">Investment Amount:</span> ${{ number_format($amount,0) }}</p>
+<?php if(isset($zipcode) && !empty($zipcode)) { ?>
 					<p><span style="font-weight:bold;">zipcode:</span> {{ $zipcode }}</p>
 				</div>
 
 		        <div class="col-md-4">
 					<a class="btn btn-primary" href="/advisors/resort/<?= $newOrder['val'];?>"><?= $newOrder['text']; ?></a>
+<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -78,10 +78,7 @@ use feeduciary\Pages;
 							</div>
 							<br clear="all" />
 							Approx Fee: <?= "$".number_format($advisor->totalFee,0); ?><br />
-							Approx Distance: <?php 	if (array_key_exists($advisor->id, $distance) !== false) {
-														echo number_format($advisor->distance,0) . " miles"; 
-													}
-											?>
+<?php						if ($advisor->distance>0) {echo "Approx Distance: " . number_format($advisor->distance,0) . " miles"; } ?>
 						</div>
 						<br />
 					</div>

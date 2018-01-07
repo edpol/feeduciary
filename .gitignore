@@ -37,3 +37,4 @@ access-logs
 /tmp
 www
 feeduciary_project.*
+.gitconfig
