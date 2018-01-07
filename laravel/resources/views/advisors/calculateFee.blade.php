@@ -1,5 +1,6 @@
 <?php
-use feeduciary\Pages;
+	$tab = "Fees";
+	use feeduciary\Pages;
 
 	$per_page = 10;
 
@@ -13,7 +14,6 @@ use feeduciary\Pages;
 	$start_slice = ($page-1) * $per_page + 1;
 	$output = $advisors->slice($start_slice, $per_page);
 
-	$tab = "Fees";
 ?>
 @extends('layouts.master')
 
@@ -27,14 +27,17 @@ use feeduciary\Pages;
 	    <div class="container">
 	    	<div class="row">
 		        <div class="col-md-4">
-					<p><span style="font-weight:bold;">Investment Amount:</span> ${{ number_format($amount,0) }}</p>
+					<p>
+						<span style="font-weight:bold;">Investment Amount:</span> ${{ number_format($amount,0) }}<br />
 <?php if(isset($zipcode) && !empty($zipcode)) { ?>
-					<p><span style="font-weight:bold;">zipcode:</span> {{ $zipcode }}</p>
+						<span style="font-weight:bold;">zipcode:</span> {{ $zipcode }}<br />
+					</p>
 				</div>
 
-		        <div class="col-md-4">
-					<a class="btn btn-primary" href="/advisors/resort/<?= $newOrder['val'];?>"><?= $newOrder['text']; ?></a>
-<?php } ?>
+		        <div class="col-md-4" style="margin-top:8px;">
+		        	<p>
+						<a class="btn btn-primary" href="/advisors/resort/<?= $newOrder['val'];?>"><?= $newOrder['text']; ?></a>
+<?php } ?>			</p>
 				</div>
 			</div>
 		</div>

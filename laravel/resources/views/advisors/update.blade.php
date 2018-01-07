@@ -1,4 +1,4 @@
-<?php $tab="Update"; ?>
+<?php $tab="Update Advisor"; ?>
 @extends('layouts.master')
 
 @section('box1')
@@ -267,18 +267,18 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('feeCalculation') ? ' has-error' : '' }}">
-                            <label class="col-md-8 control-label">Fee Calculation Formula
-								<a id="popup" target="_blank" href="/ratesInfo"><img src="{{ asset('images/information.gif') }}" alt="Rate Plans" title"information"/></a>
-							</label>
-                            <div class="col-md-8" {{ $errors->has('feeCalculation') ? ' has-error' : '' }}>
+                        <div class="form-group">
+                            @include('rates.info')
+                            <div class="col-md-8 {{ $errors->has('feeCalculation') ? ' has-error' : '' }}">
                                 @if ($advisor->feeCalculation == 0) 
-                                    <input id="feeCalculation" type="radio" name="feeCalculation" value="0" checked /> Cumulative rates per tier<br />
-                                    <input id="feeCalculation" type="radio" name="feeCalculation" value="1"         /> Rate changes with investment amount<br />
+                                    @php ($checked[0] = "checked") 
+                                    @php ($checked[1] = "") 
                                 @else
-                                    <input id="feeCalculation" type="radio" name="feeCalculation" value="0"         /> Cumulative rates per tier<br />
-                                    <input id="feeCalculation" type="radio" name="feeCalculation" value="1" checked /> Rate changes with investment amount<br />
+                                    @php ($checked[0] = "") 
+                                    @php ($checked[1] = "checked") 
                                 @endif
+                                <input id="feeCalculation" type="radio" name="feeCalculation" value="0" <?= $checked[0] ?> /> Cumulative rates per tier<br />
+                                <input id="feeCalculation" type="radio" name="feeCalculation" value="1" <?= $checked[1] ?> /> Total Portfolio, Single Rate<br />
                                 @if ($errors->has('feeCalculation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('feeCalculation') }}</strong>

@@ -18,7 +18,7 @@ Route::get('/advisors/{advisor}',   'AdvisorsController@show');
 
 Route::get('/advisors/page/{page}', 'AdvisorsController@page'); 
 
-Route::get('/advisors/resort/{order}',        'AdvisorsController@resort'); 
+Route::get('/advisors/resort/{order}', 'AdvisorsController@resort'); 
 
 Route::post('/store',               'AdvisorsController@store'); 
 
@@ -36,8 +36,6 @@ Route::get('/rates/{advisor}',      'RatesController@edit');
 Route::post('/done/{advisor}',      'RatesController@done'); 
 
 Route::get('/finishedRates',        'RatesController@show'); 
-
-Route::get('/ratesInfo',            'RatesController@index');
 
 Route::post('/destroy/{advisor}',   'RatesController@destroy');
 
