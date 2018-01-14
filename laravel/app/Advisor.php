@@ -16,7 +16,7 @@ class Advisor extends Model
     ];
 
     // we call this with feeduciary\Task::incomplete1();
-    public static function allAdvisors() {
+    public static function activeAdvisors() {
         return static::where('is_active', 1)->get();
     }
 
@@ -28,5 +28,4 @@ class Advisor extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
-
 }

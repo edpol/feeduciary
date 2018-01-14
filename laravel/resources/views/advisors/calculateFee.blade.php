@@ -2,17 +2,24 @@
 	$tab = "Fees";
 	use feeduciary\Pages;
 
-	$per_page = 10;
+	$amount   = session('amount');
+	$zipcode  = session('zipcode');
+	$advisors = session('advisors');
+	$displayCount = session('displayCount',count($advisors));
+	$newOrder = session('newOrder');
+	$output   = session('output');
+	$range    = session('range');
 
-	$amount    = session('amount');
-	$zipcode   = session('zipcode');
-	$advisors  = session('advisors');
-	$newOrder  = session('newOrder');
+	// SOMETIMES, on page refresh, I seem to lose the contents of the array
+	if (isset($range) && !empty($range)) {
+		$step = $range["step"];
+		$min  = $range["min"];
+		$max  = $range["max"];
+	} else {
+		$zipcode = "";
+	}
+	$miles    = session('miles',$max);  // default is max
 
-	$page = (!isset($page)) ? 1 : (int)$page;
-
-	$start_slice = ($page-1) * $per_page + 1;
-	$output = $advisors->slice($start_slice, $per_page);
 
 ?>
 @extends('layouts.master')
@@ -27,27 +34,29 @@
 	    <div class="container">
 	    	<div class="row">
 		        <div class="col-md-4">
-					<p>
-						<span style="font-weight:bold;">Investment Amount:</span> ${{ number_format($amount,0) }}<br />
+					<span style="font-weight:bold;">Investment Amount:</span> ${{ number_format($amount,0) }}<br />
 <?php if(isset($zipcode) && !empty($zipcode)) { ?>
-						<span style="font-weight:bold;">zipcode:</span> {{ $zipcode }}<br />
-					</p>
+					<span style="font-weight:bold;">Zip-code:</span> {{ $zipcode }}<br />
 				</div>
 
 		        <div class="col-md-4" style="margin-top:8px;">
-		        	<p>
-						<a class="btn btn-primary" href="/advisors/resort/<?= $newOrder['val'];?>"><?= $newOrder['text']; ?></a>
-<?php } ?>			</p>
+					<a class="btn btn-primary" href="/advisors/resort/<?= $newOrder['val'];?>"><?= $newOrder['text']; ?></a>
 				</div>
+
+		        <div class="col-md-4" style="margin-top:8px;">
+		        	<input id="myRange" name="slider" class="slider" type="range" step="<?= $step; ?>" min="<?= $min; ?>" max="<?= $max; ?>" value="<?= $miles; ?>" /><br />
+					Distance: <span id="displayDistance"></span>
+<?php } ?>		</div>
 			</div>
 		</div>
 	</section>
 
+	@foreach($output as $advisor) 
 
-	@foreach ( $output as $advisor ) 
-		@if($advisor->is_active)
+		@if($advisor->distance<= $miles && $advisor->is_active) 
 
 			<?php
+// and check distance
 			if (!isset($class) || $class=="content-section-b" ) {
 				$class = "content-section-a";
 				$align = "margin-left:0; margin-right:auto;";
@@ -80,7 +89,7 @@
 								@endif
 							</div>
 							<br clear="all" />
-							Approx Fee: <?= "$".number_format($advisor->totalFee,0); ?><br />
+							Approx Fee: <?= "$".number_format($advisor->totalFee,0); ?> <br />
 <?php						if ($advisor->distance>0) {echo "Approx Distance: " . number_format($advisor->distance,0) . " miles"; } ?>
 						</div>
 						<br />
@@ -94,28 +103,8 @@
 	    <div class="container">
 	        <div class="row">
 				<div style="margin-left:auto; margin-right:auto;">
-<?php
-					$pages = new Pages($page, $per_page, count($advisors));
-
-					if($pages->total_pages() > 1) {
-
-						if($pages->has_previous_page()) { 
-							echo '<a href="/advisors/page/' . $pages->previous_page() . '">&laquo; Previous</a> '; 
-						}
-
-						for($i=1; $i <= $pages->total_pages(); $i++) {
-							if($i == $page) {
-								echo " <span class=\"selected\">{$i}</span> ";
-							} else {
-								echo " <a href=\"/advisors/page/{$i}\">{$i}</a> "; 
-							}
-						}
-
-						if($pages->has_next_page()) { 
-							echo ' <a href="/advisors/page/' . $pages->next_page() . '">Next &raquo;</a> '; 
-						}
-
-					}
+<?php				$pages = new Pages($displayCount, $page);
+					echo $pages->pageLinks();
 ?>		    	</div>
 			</div>
     	</div>

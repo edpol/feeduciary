@@ -6,12 +6,16 @@ namespace feeduciary\Http\Controllers;
 use Mail;
 use feeduciary\Rate;
 use feeduciary\User;
+use feeduciary\Pages;
 use feeduciary\Advisor;
 
 class AdvisorsController extends Controller
 {
+    public $lat;
+    public $lng;
+    public $found_zipcode;
+    public $perPage = 10;
     public $distance = array();
-    public $zip;
 
     public function __construct()
     {
@@ -71,7 +75,34 @@ class AdvisorsController extends Controller
                 $base = $investment;
             }
         }
-        return $totalFee;
+        return round($totalFee,0);
+    }
+
+    public function calculateDistanceAndFee() {
+        $min = 1000000;
+        $max = -1;
+        $amount   = session('amount');
+        $advisors = session('advisors');
+        foreach ($advisors as $advisor) {
+            if ($this->found_zipcode) {
+                $data = GeocodeController::distance($this->lat, $this->lng, $advisor->lat, $advisor->lng);
+                $data = round($data,0);
+                if ($data!==false) {
+                    $advisor->distance = $data;
+                    if ($data > $max) {$max = $data;}
+                    if ($data < $min) {$min = $data;}
+                }
+            }
+            $advisor->totalFee=$this->advisorFee($advisor,$amount);
+        }
+        if ($max >= $min) {
+            if ($min>10) $min = (floor($min/10)) * 10;
+            if ($max>10) $max = (ceil ($max/10)) * 10;
+            $step = 1; //if > 20 ceil( ($max-$min) / 20 );
+            $range = array("min"=>$min, "max"=>$max, "step"=>$step);
+        }
+        session(compact('advisors', 'range'));
+        return;
     }
 
     public function calculateFee() {
@@ -79,40 +110,95 @@ class AdvisorsController extends Controller
         $this->validate(request(), ['amount'=>'required']);
         $tmp = implode('',request(['amount'])); // array to string
         $amount = $this->cleanMoney($tmp);
+        session(compact('amount'));
 
-        $this->zip = implode('',request(['zipcode']));
+        $zipcode = implode('',request(['zipcode']));
         $advisors = Advisor::where("minimum_amt", "<", $amount)->get();
+        session(compact('advisors'));
 
-        $guest = GeocodeController::getLatLng($this->zip);
+        $guest = GeocodeController::getLatLng($zipcode);
         if ($guest === false) {
-            $found_zipcode = false;
-            $this->zip = "";
+            $this->found_zipcode = false;
         } else {
-            $found_zipcode = true;
-            $lat1 = $guest["lat"];
-            $lng1 = $guest["lng"];
+            $this->found_zipcode = true;
+            $this->lat = $guest["lat"];
+            $this->lng = $guest["lng"];
         }
-        foreach ($advisors as $advisor) {
-            if ($found_zipcode) {
-                $data = GeocodeController::distance($lat1, $lng1, $advisor->lat, $advisor->lng);
-                if ($data!==false) {
-                    $advisor->distance = $data;
-                }
-            }
-            $advisor->totalFee=$this->advisorFee($advisor,$amount);
-        }
+        $this->calculateDistanceAndFee();
 
         $advisors = $advisors->sortBy('totalFee');
         $newOrder = ["val" => "sortByDistance", "text" => "Sort by Distance"];
-        $sortOrder = "sortByTotalFee";
-        $zipcode= $this->zip;
-        session(compact('amount', 'zipcode', 'advisors', 'newOrder'));
         $page = 1;
+        $range = session('range');
+        $miles = $range['max'];
+
+        session(compact('advisors'));
+        $output = $this->slicer($page,$miles);
+
+        session(compact('zipcode', 'range', 'newOrder', 'miles'));
         return view('advisors.calculateFee', compact('page'));
     }
 
     public function page($page)
+    {   /* I think this would work with public variables */
+        $miles = session('miles');
+        $output = $this->slicer($page,$miles);  // needs advisors in session
+        return view('advisors.calculateFee', compact('page'));
+    }
+
+
+    /*
+     *  the target key is always one less than the id, in this example
+     *  forget($advisor->id -1) should work, but just to be sure
+     */
+    public function forgetById($collection,$id){
+        foreach($collection as $key => $item){
+            if($item->id == $id){
+                $collection->forget($key);
+                break;
+            }
+        }
+        return $collection;
+    }
+
+// now the slicer just got complicated
+    public function slicer($page,int $miles)
     {
+        // count good advisors
+        $advisors = session('advisors');
+        $clone = clone $advisors;
+
+        foreach($clone as &$advisor) {
+            if ($advisor->distance > $miles || !$advisor->is_active) {
+                $clone = $this->forgetById($clone,$advisor->id);
+            }
+        }
+/*
+        $events = $events->filter(function($event) use ($scheduling) {
+            return $event->scheduling == $scheduling;
+        });
+
+        $filtered = $advisors->filter(function ($is_active, $key) {
+            return $is_active == 1;
+        });
+        $filtered->all();
+        // [3, 4]
+*/
+        $page = (!isset($page)) ? 1 : (int)$page;
+        $start_slice = ($page-1) * Pages::$per_page;
+
+        //good starting point, now 
+        $output = $clone->slice($start_slice, Pages::$per_page);
+        $displayCount = count($clone);
+        session(compact('output', 'advisors', 'displayCount', 'validAdvisorCount')); // I could send count($clone) instead would save ram.
+        return $output;
+    }
+
+    public function range($miles)
+    {
+        session(compact('miles'));
+        $page = 1;
+        $output = $this->slicer($page,$miles);
         return view('advisors.calculateFee', compact('page'));
     }
 
@@ -129,12 +215,20 @@ class AdvisorsController extends Controller
             $newOrder = ["val" => "sortByDistance", "text" => "Sort by Distance"];
         }
 
-        session(compact('advisors', 'newOrder'));
-
         $page = 1;
+        $miles = session('miles');
+        $range = session('range');
+        $max = $range["max"];
+        session(compact('advisors'));
+        $output = $this->slicer($page,$miles);  // needs $advisors in session
+        session(compact('newOrder'));
         return view('advisors.calculateFee', compact('page'));
     }
+/*
 
+so i send it 
+
+*/
     public function buildArray() {
         $minimum_amt      = $this->cleanMoney(request('minimum_amt'));
         $maximum_amt      = $this->cleanMoney(request('maximum_amt'));

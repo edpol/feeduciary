@@ -37,9 +37,33 @@ function buttonSetup (button) {
     }
 }
 
+/*
+ *      Display number for slider
+ *
+ *      so this:
+ *          object.oninput = handler;   
+ *      is the same as this:
+ *          object.addEventListener ("input", handler, useCapture)
+ *
+ */
+function slider(){
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("displayDistance");
 
+    if (output !== null && output !== undefined) {
+        output.innerHTML = slider.value;
+
+        slider.oninput = function() { 
+            output.innerHTML = this.value;
+        }
+        slider.onchange = function() {
+            window.location.href = "/advisors/range/" + this.value;
+        }
+    }
+}
 
 window.onload = function () {
     greyout();
     buttonSetup("del");
+    slider();
 };

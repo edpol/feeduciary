@@ -19,6 +19,7 @@ Route::get('/advisors/{advisor}',   'AdvisorsController@show');
 Route::get('/advisors/page/{page}', 'AdvisorsController@page'); 
 
 Route::get('/advisors/resort/{order}', 'AdvisorsController@resort'); 
+Route::get('/advisors/range/{miles}',  'AdvisorsController@range'); 
 
 Route::post('/store',               'AdvisorsController@store'); 
 
