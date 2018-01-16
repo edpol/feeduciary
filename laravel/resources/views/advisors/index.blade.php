@@ -18,14 +18,21 @@
 				<h2 class="section-heading">Advisors Listing</h2>
 				<p class="lead">
 					<ul>
+			
+					@if(auth()->check() && auth()->user()->isAdmin()) 
+							@php ($link="/admin/advisors")
+						@else
+							@php ($link="/advisors")
+						@endif
 				    	@foreach( $advisors as $advisor )
-					       	@if ($advisor->is_active)
-								<li>                     <a href=      "/advisors/{{ $advisor->id }}">{{ $advisor->name }}, {{ $advisor->st }}</a></li>
-					        @else
-					            @if(auth()->check() && auth()->user()->isAdmin()) 
-								<li class="alert-danger"><a href="/admin/advisors/{{ $advisor->id }}">{{ $advisor->name }}, {{ $advisor->st }}</a></li>
-					            @endif
-				            @endif
+
+							@if (!$advisor->is_active)
+								@php ($class="class='alert-danger'")
+							@else
+								@php ($class="")
+							@endif
+							
+							<li <?= $class; ?>><a href="<?= $link; ?>/{{ $advisor->id }}">{{ $advisor->name }}, {{ $advisor->st }}</a></li>
 						@endforeach
 				    </ul>
 				</p>
