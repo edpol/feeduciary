@@ -14,6 +14,9 @@
 	<!-- Custom styles for this template -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/landing-page.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/feeduciary.css') }}" />
+
+	<script type="text/javascript" src="{{ asset('js/analytics.js') }}"></script>
+
 </head>
 <body>
 
