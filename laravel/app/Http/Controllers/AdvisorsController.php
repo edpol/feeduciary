@@ -81,6 +81,8 @@ class AdvisorsController extends Controller
     public function calculateDistanceAndFee() {
         $min = 1000000;
         $max = -1;
+        $step = 1;
+        $range = array("min"=>0, "max"=>0, "step"=>1);
         $amount   = session('amount');
         $advisors = session('advisors');
         foreach ($advisors as $advisor) {
@@ -130,7 +132,7 @@ class AdvisorsController extends Controller
         $newOrder = ["val" => "sortByDistance", "text" => "Sort by Distance"];
         $page = 1;
         $range = session('range');
-        $miles = $range['max'];
+        $miles = (int) $range['max'];
 
         session(compact('advisors'));
         $output = $this->slicer($page,$miles);
