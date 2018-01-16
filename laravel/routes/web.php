@@ -1,58 +1,43 @@
 <?php
+Route::get('/',                        'CasualController@index');
+Route::get('/about',                   'CasualController@about');
+Route::get('/blog',                    'CasualController@blog');
+Route::get('/contact',                 'CasualController@contact');
 
-Route::get('/',                     'CasualController@index');
+Route::post('/send',                   'EmailController@send');
 
-Route::get('/about',                'CasualController@about');
-
-Route::get('/blog',                 'CasualController@blog');
-
-Route::get('/contact',              'CasualController@contact');
-
-Route::post('/send',                'EmailController@send');
-
-Route::post('/contact/{advisor}',   'AdvisorsController@contact');
-
-Route::get('/advisors',             'AdvisorsController@index');
-
-Route::get('/advisors/{advisor}',   'AdvisorsController@show'); 
-
-Route::get('/advisors/page/{page}', 'AdvisorsController@page'); 
-
+Route::post('/contact/{advisor}',      'AdvisorsController@contact');
+Route::get('/advisors',                'AdvisorsController@index');
+Route::get('/advisors/{advisor}',      'AdvisorsController@show'); 
+Route::get('/advisors/page/{page}',    'AdvisorsController@page'); 
 Route::get('/advisors/resort/{order}', 'AdvisorsController@resort'); 
 Route::get('/advisors/range/{miles}',  'AdvisorsController@range'); 
-
-Route::post('/store',               'AdvisorsController@store'); 
-
-Route::get('/edit/{advisor}',       'AdvisorsController@edit'); 
-
-Route::post('/update/{advisor}',    'AdvisorsController@update'); 
-
-Route::get('/calculateFee',         'AdvisorsController@calculateFee');
+Route::post('/store',                  'AdvisorsController@store'); 
+Route::get('/edit/{advisor}',          'AdvisorsController@edit'); 
+Route::post('/update/{advisor}',       'AdvisorsController@update'); 
+Route::get('/calculateFee',            'AdvisorsController@calculateFee');
 
 // validator fail is a GET, but we used POST because we are POSTing
-Route::post('/storeRate/{advisor}', 'RatesController@store'); 
+Route::post('/storeRate/{advisor}',    'RatesController@store'); 
+Route::get('/rates/{advisor}',         'RatesController@edit'); 
+Route::post('/done/{advisor}',         'RatesController@done'); 
+Route::get('/finishedRates',           'RatesController@show'); 
+Route::post('/destroy/{advisor}',      'RatesController@destroy');
 
-Route::get('/rates/{advisor}',      'RatesController@edit'); 
+Route::get('/geocode',                 'GeocodeController@index');
+Route::get('/geocode/{advisor}',       'GeocodeController@store');
 
-Route::post('/done/{advisor}',      'RatesController@done'); 
-
-Route::get('/finishedRates',        'RatesController@show'); 
-
-Route::post('/destroy/{advisor}',   'RatesController@destroy');
-
-Route::get('/geocode',              'GeocodeController@index');
-
-Route::get('/geocode/{advisor}',    'GeocodeController@store');
-
-Route::get('/rss',                  'Controller@rss');
+Route::get('/rss',                     'Controller@rss');
 
 /* Login */
 Auth::routes();
 
-Route::get('/update',     'Auth\LoginController@update');
+Route::get('/update',                  'Auth\LoginController@update');
 
 /* Register */
-Route::post('/register',  'Auth\RegisterController@store');
+Route::post('/register',               'Auth\RegisterController@store');
+Route::get('/claim/{advisor}',         'Auth\RegisterController@claim');
+Route::post('/connect/{advisor}',      'Auth\RegisterController@connect');
 
 Route::get('/logout',     'SessionsController@destroy');
 

@@ -84,19 +84,25 @@ class RegisterController extends Controller
             'name'     => $data['name'],
             'email'    => $data['email'],
             'password' => bcrypt($data['password']),
+            'user_id'  => $data['advisor_id'],
         ]);
     }
 
-    // I'm guessing here
-    public function store() {
-
+    public function validating() {
         // Validate the form.  email checks email format
-        $data = $this->validate(request(), [
+        $validation = $this->validate(request(), [
             'name'                  => 'required|string|min:2',
             'email'                 => 'required|string|email|unique:users',
             'password'              => 'required|string|min:3|confirmed',
             'password_confirmation' => 'required|string|min:3'
         ]);
+        return $validation;
+    }
+
+    // I'm guessing here
+    public function store() {
+        $data = $this->validating();
+        $data["advisor_id"] = (isset($advisor->id) && !empty($advisor->id)) ? $advisor->id : 0;
 
         // Create and save the user
         $user = $this->create($data);
@@ -121,5 +127,25 @@ class RegisterController extends Controller
             $advisor = self::checkURLs($advisor);
             return view('advisors.edit', compact('advisor','rates'));
         }
+    }
+
+    /*  create user and point to advisor
+     *  update advisor to point to user
+     *  then go to login  
+     */
+    public function claim(Advisor $advisor) {
+        return view('auth.register', compact('advisor'));
+    }
+
+    public function connect(Advisor $advisor) {
+        $data = $this->validating();
+        $data["advisor_id"] = (isset($advisor->id) && !empty($advisor->id)) ? $advisor->id : 0;
+        $user = $this->create($data);
+// $advisor->find($advisor->id)->update(['user_id' => $user->id]);  ??
+        Advisor::where('id', '=', $advisor->id)->update(['user_id' => $user->id]);
+        auth()->login($user);
+        $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
+        return view('advisors.edit', compact('advisor', 'rates'));
+// maybe go to return redirect('/update'); instead?
     }
 }

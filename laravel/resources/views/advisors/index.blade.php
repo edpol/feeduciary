@@ -19,21 +19,12 @@
 				<p class="lead">
 					<ul>
 				    	@foreach( $advisors as $advisor )
-							@if($advisor->is_active || Auth::user()->isAdmin())
-
-				        	<li @if (Auth::user()->isAdmin() && !$advisor->is_active) class="alert-danger" @endif>
-				        		@if (Auth::user()->isAdmin())
-				            		<a href="/admin/advisors/{{ $advisor->id }}"> 
-				            	@else
-				            		<a href="/advisors/{{ $advisor->id }}"> 
-				            	@endif
-				                {{ $advisor->name }}, {{ $advisor->st }} 				        			
-				                <br />
-			                	</a>
-				            </li>
-				        	@if (Auth::user()->isAdmin() && !$advisor->is_active) 
-				        		</span>
-				        	@endif
+					       	@if ($advisor->is_active)
+								<li>                     <a href=      "/advisors/{{ $advisor->id }}">{{ $advisor->name }}, {{ $advisor->st }}</a></li>
+					        @else
+					            @if(auth()->check() && auth()->user()->isAdmin()) 
+								<li class="alert-danger"><a href="/admin/advisors/{{ $advisor->id }}">{{ $advisor->name }}, {{ $advisor->st }}</a></li>
+					            @endif
 				            @endif
 						@endforeach
 				    </ul>

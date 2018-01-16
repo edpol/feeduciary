@@ -21,7 +21,7 @@
                         <a class="nav-link" id="rss"  href="/rss">RSS</span></a>
                     </li>
 <!--
-                     if   (Auth::check())
+                    if   (Auth::check())
 -->                 @if (auth()->check())
 
                         @if (auth()->user()->isAdmin())

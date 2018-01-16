@@ -1,4 +1,6 @@
-<?php $tab = "Register"; ?>
+<?php $tab = "Register"; 
+    use feeduciary\Advisor;
+?>
 @extends('layouts.master')
 
 @section('box1')
@@ -7,6 +9,11 @@
 @endsection
 
 @section('box2')
+<?php
+if (!isset($advisor)) {
+    $advisor = new Advisor;
+}
+?>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -14,13 +21,18 @@
                 <h1>Register</h1>
                 <br />
                 <div class="panel-body">
-                    <form class="form-horizontal " method="POST" action="{{ route('register') }}">
+
+@if (isset($advisor->id) && !empty($advisor->id))
+                    <form class="form-horizontal " method="POST" action="/connect/<?= $advisor->id; ?>" }}"> 
+@else
+                    <form class="form-horizontal " method="POST" action="{{ route('register') }}"> 
+@endif
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Name</label>
                             <div class="col-md-8">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name', $advisor->name) }}" required autofocus>
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -32,7 +44,7 @@
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-mail Address</label>
                             <div class="col-md-8">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $advisor->email) }}" required>
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>

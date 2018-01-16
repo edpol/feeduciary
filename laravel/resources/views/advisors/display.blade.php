@@ -25,12 +25,12 @@
                     </div>
 
                     <div style="float:left;">
-                        <div style="float:left;">
+                        <div style="float:left;padding-right:20px;">
                             {{ $advisor->name  }} <br />
                             {{ $advisor->phone }} <br />
                         </div>
 
-<?php if(isset($hideEmail) && $hideEmail==true) { ?>
+<?php if(isset($hideEmail) && $hideEmail==true && !empty($advisor->email)) { ?>
                         <div style="float:right;">
                             <form action="/contact/{{ $advisor->id }}" method="post">
                                 {{ csrf_field() }}
@@ -138,4 +138,12 @@
                             {{ $advisor->bio }}
                         </div>
                     </div>
+
+                     @if (!auth()->check())
+                    <div class="row">
+                        <div class="col-lg-12 alert alert-info">
+                            <a href="/claim/{{ $advisor->id }}">Claim this account</a>
+                        </div>
+                    </div>
                     <br />
+                    @endif

@@ -21,7 +21,7 @@
                         <div class="form-group">
                             <label for="name" class="col-md-8 control-label">Name*</label>
                             <div class="col-md-8 {{ $errors->has('name') ? ' has-error' : '' }}">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name',$user->name ) }}" autofocus />
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name',$user->name ) }}" />
                                 @if ($errors->has('name')) 
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -115,7 +115,7 @@
                                 @endif
                             </div>
                             <div style="float:left;" class="col-md-4 {{ $errors->has('zip') ? ' has-error' : '' }}">
-                                <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip') }}" />
+                                <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip') }}" autofocus/>
                                 @if ($errors->has('zip'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('zip') }}</strong>
