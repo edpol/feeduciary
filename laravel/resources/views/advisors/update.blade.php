@@ -19,9 +19,9 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-8 control-label">Name</label>
+                            <label for="name" class="col-md-8 control-label">Name*</label>
                             <div class="col-md-8 {{ $errors->has('name') ? ' has-error' : '' }}">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name',$advisor->name ) }}" required autofocus />
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name',$advisor->name ) }}" required />
                                 @if ($errors->has('name')) 
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -128,9 +128,9 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('zip') ? ' has-error' : '' }}">
-                            <label for="zip" class="col-md-8 control-label">Zip</label>
+                            <label for="zip" class="col-md-8 control-label">Zip*</label>
                             <div class="col-md-8 {{ $errors->has('zip') ? ' has-error' : '' }}">
-                                <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip',$advisor->zip) }}" />
+                                <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip',$advisor->zip) }}" required autofocus />
                                 @if ($errors->has('zip'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('zip') }}</strong>
