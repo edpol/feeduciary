@@ -8,6 +8,7 @@ use feeduciary\Rate;
 use feeduciary\User;
 use feeduciary\Pages;
 use feeduciary\Advisor;
+use feeduciary\Zipcode;
 
 class AdvisorsController extends Controller
 {
@@ -114,12 +115,30 @@ class AdvisorsController extends Controller
         $amount = $this->cleanMoney($tmp);
         session(compact('amount'));
 
-        $zipcode = implode('',request(['zipcode']));
+        $zip = implode('',request(['zipcode']));
         $advisors = Advisor::where("minimum_amt", "<", $amount)->get();
         session(compact('advisors'));
 
-        $guest = GeocodeController::getLatLng($zipcode);
-        if ($guest === false) {
+        /*
+         *  Guest supplies zipcode
+         *  lookup in zipcodes table
+         *  if fails ask Google and save results in zipcodes table
+         */
+        $zipcode = new Zipcode();
+        $guest = $zipcode->show($zip);
+
+        if ($guest === NULL || $guest === false) {
+            $guest = GeocodeController::getLatLng($zip); 
+            if ($guest !== NULL && $guest !== false) {
+                $zipcode->zip = $zip;
+                $zipcode->lat = $guest["lat"];
+                $zipcode->lng = $guest["lng"];
+                $zipcode->save();
+//              $zipcode->store(($guest));
+           }
+        }
+
+        if ($guest === NULL || $guest === false) {
             $this->found_zipcode = false;
         } else {
             $this->found_zipcode = true;
@@ -137,7 +156,7 @@ class AdvisorsController extends Controller
         session(compact('advisors'));
         $output = $this->slicer($page,$miles);
 
-        session(compact('zipcode', 'range', 'newOrder', 'miles'));
+        session(compact('zip', 'range', 'newOrder', 'miles'));
         return view('advisors.calculateFee', compact('page'));
     }
 
@@ -147,7 +166,6 @@ class AdvisorsController extends Controller
         $output = $this->slicer($page,$miles);  // needs advisors in session
         return view('advisors.calculateFee', compact('page'));
     }
-
 
     /*
      *  the target key is always one less than the id, in this example
@@ -164,28 +182,28 @@ class AdvisorsController extends Controller
     }
 
 // now the slicer just got complicated
-    public function slicer($page,int $miles)
+    public function slicer($page, $miles)
     {
-        // count good advisors
         $advisors = session('advisors');
         $clone = clone $advisors;
 
-        foreach($clone as &$advisor) {
-            if ($advisor->distance > $miles || !$advisor->is_active) {
-                $clone = $this->forgetById($clone,$advisor->id);
+        if ($this->found_zipcode) {
+            foreach($clone as &$advisor) {
+                if ($advisor->distance > $miles || !$advisor->is_active) {
+                    $clone = $this->forgetById($clone,$advisor->id);
+                }
             }
-        }
-/*
-        $events = $events->filter(function($event) use ($scheduling) {
-            return $event->scheduling == $scheduling;
-        });
+/*          $events = $events->filter(function($event) use ($scheduling) {
+                return $event->scheduling == $scheduling;
+            });
 
-        $filtered = $advisors->filter(function ($is_active, $key) {
-            return $is_active == 1;
-        });
-        $filtered->all();
-        // [3, 4]
+            $filtered = $advisors->filter(function ($is_active, $key) {
+                return $is_active == 1;
+            });
+            $filtered->all();
+            // [3, 4]
 */
+        }
         $page = (!isset($page)) ? 1 : (int)$page;
         $start_slice = ($page-1) * Pages::$per_page;
 
@@ -266,7 +284,7 @@ so i send it
 
         // if not pull address out of function and build it outside
         $object = json_decode(json_encode($data), FALSE); // array -> JSON -> object
-        $location = GeocodeController::geocode($object);
+        $location = GeocodeController::show($object);
         if ($location!==false) {
             $data['lat'] = $location['lat'];
             $data['lng'] = $location['lng'];

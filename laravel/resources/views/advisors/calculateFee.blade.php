@@ -3,7 +3,7 @@
 	use feeduciary\Pages;
 
 	$amount   = session('amount');
-	$zipcode  = session('zipcode');
+	$zip  = session('zip');
 	$advisors = session('advisors');
 	$displayCount = session('displayCount',count($advisors));
 	$newOrder = session('newOrder');
@@ -16,7 +16,7 @@
 		$min  = $range["min"];
 		$max  = $range["max"];
 	} else {
-		$zipcode = "";
+		$zip = "";
 	}
 	$miles    = session('miles',$max);  // default is max
 
@@ -35,8 +35,8 @@
 	    	<div class="row">
 		        <div class="col-md-4">
 					<span style="font-weight:bold;">Investment Amount:</span> ${{ number_format($amount,0) }}<br />
-<?php if(isset($zipcode) && !empty($zipcode)) { ?>
-					<span style="font-weight:bold;">Zip-code:</span> {{ $zipcode }}<br />
+<?php if(isset($zip) && !empty($zip)) { ?>
+					<span style="font-weight:bold;">Zip-code:</span> {{ $zip }}<br />
 				</div>
 
 		        <div class="col-md-4" style="margin-top:8px;">

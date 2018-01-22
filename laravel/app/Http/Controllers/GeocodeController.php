@@ -30,36 +30,31 @@ class GeocodeController extends Controller
         return view('geocode.index', compact('advisors'));
     }
 
-
-    public static function getDistance(Advisor $advisor, $zipcode)
-    {
-        $address  = $advisor->address1 . ",";
-        if (!empty($advisor->address2)) $address .= $advisor->address2 . ",";
-        $address .= $advisor->city . "," . $advisor->st . " " . $advisor->zip;
-        $address = urlencode($address);
-
-        $key2  = "AIzaSyCdltmUqKisvFuUxvU-Ljf7CmTAjV0GZqw";
-        $url2  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&key=" . $key2;
-        $url2 .= "&origins={$zipcode}"; 
-        $url2 .= "&destinations={$address}";
-        $result = file_get_contents($url2);
+    /*
+     *  Takes Advisor Address and gets lat & lng
+     *  used with new Advisor and when an Advisor is updated
+     */
+    public static function show($advisor) {
+        $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
+        $clean_address =  urlencode($address);
+        $result = file_get_contents(self::$url . self::$key . "&address={$clean_address}");
         $response = json_decode($result);
-
         if ($response->status=="OK") {
-            $data["distance"] = $response->rows[0]->elements[0]->distance->text;
-            $data["duration"] = $response->rows[0]->elements[0]->duration->text;
+            $location['lat'] = $response->results[0]->geometry->location->lat;
+            $location['lng'] = $response->results[0]->geometry->location->lng;
         } else {
-            $data = false;
+            $location = false;
         }
-        return $data;
+        return $location;
     }
 
-    public static function getLatLng($address) {
+    public static function getLatLng($zip) {
         $location = false;
-        if(!empty($address) && (strlen(trim($address))>4)) {
-            $result = file_get_contents(self::$url . self::$key . "&address={$address}");
+        if(!empty($zip) && (strlen(trim($zip))>4)) {
+            $result = file_get_contents(self::$url . self::$key . "&address={$zip}");
             $response = json_decode($result);
             if ($response->status=="OK") {
+                $location["zip"] = $zip;
                 $location["lat"] = $response->results[0]->geometry->location->lat;
                 $location["lng"] = $response->results[0]->geometry->location->lng;
             }
@@ -84,19 +79,27 @@ class GeocodeController extends Controller
         }
     }
 
-    public static function geocode($advisor) {
-        $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
-        $clean_address =  urlencode($address);
-//return self::getLatLng($clean_address);
-        $result = file_get_contents(self::$url . self::$key . "&address={$clean_address}");
+    public static function getDistance(Advisor $advisor, $zipcode)
+    {
+        $address  = $advisor->address1 . ",";
+        if (!empty($advisor->address2)) $address .= $advisor->address2 . ",";
+        $address .= $advisor->city . "," . $advisor->st . " " . $advisor->zip;
+        $address = urlencode($address);
+
+        $key2  = "AIzaSyCdltmUqKisvFuUxvU-Ljf7CmTAjV0GZqw";
+        $url2  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&key=" . $key2;
+        $url2 .= "&origins={$zipcode}"; 
+        $url2 .= "&destinations={$address}";
+        $result = file_get_contents($url2);
         $response = json_decode($result);
+
         if ($response->status=="OK") {
-            $location['lat'] = $response->results[0]->geometry->location->lat;
-            $location['lng'] = $response->results[0]->geometry->location->lng;
+            $data["distance"] = $response->rows[0]->elements[0]->distance->text;
+            $data["duration"] = $response->rows[0]->elements[0]->duration->text;
         } else {
-            $location = false;
+            $data = false;
         }
-        return $location;
+        return $data;
     }
 
     public static function geocode2($advisor) {
