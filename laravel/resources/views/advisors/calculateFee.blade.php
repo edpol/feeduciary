@@ -20,7 +20,6 @@
 	}
 	$miles    = session('miles',$max);  // default is max
 
-
 ?>
 @extends('layouts.master')
 
@@ -90,7 +89,9 @@
 							</div>
 							<br clear="all" />
 							Approx Fee: <?= "$".number_format($advisor->totalFee,0); ?> <br />
-<?php						if ($advisor->distance>0) {echo "Approx Distance: " . number_format($advisor->distance,0) . " miles"; } ?>
+<?php						if ($advisor->distance>0) {
+								echo "Approx Distance: " . number_format($advisor->distance,0) . " miles"; 
+							} ?>
 						</div>
 						<br />
 					</div>

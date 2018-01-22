@@ -6,7 +6,7 @@
                 <h1>Feeduciary</h1>
                 <h4>Let the Fee set you Free!</h4>
                 <hr class="intro-divider" />
-                    <div class="bluebox" style="margin:0 auto; text-align:left; width:40%; min-width:100px;">
+                    <div class="bluebox" style="margin:0 auto; text-align:left; width:40%; min-width:280px;">
                         <form method="GET" action="/calculateFee">
                             {{ csrf_field() }}
                             <div class="form-group">

@@ -1,5 +1,6 @@
 
-                    <div style="float:left; padding-right:6px;">
+                <div class="row">
+                    <div class="col-lg-4">
                         name*: <br />
                         phone: <br />
 <?php if(isset($hideEmail) && $hideEmail==false) { ?>
@@ -20,11 +21,13 @@
                         Linkedin: <br />
                         Twitter: <br />
                         Discretionary AUM: <br />
-                        lat/lng: <br />
+                        @if (auth()->check() && auth()->user()->isAdmin())
+                            lat/lng: <br />
+                        @endif
                         <br />
                     </div>
 
-                    <div style="float:left;">
+                    <div class="col-lg-8">
                         <div style="float:left;padding-right:20px;">
                             {{ $advisor->name  }} <br />
                             {{ $advisor->phone }} <br />
@@ -119,31 +122,35 @@
                         @endif
                         <br />
 
-                        {{ $advisor->lat }}   {{ $advisor->lng }} <br />
+                        @if (auth()->check() && auth()->user()->isAdmin())
+                            {{ $advisor->lat }}   {{ $advisor->lng }} <br />
+                        @endif
+
                         @if(isset($advisor->brochure) && !empty($advisor->brochure))
                             <a href="{{ $advisor->brochure }}" target="_blank">
                                 Part 2 Brochure 
                             </a> 
                         @endif
                     </div>
+                </div>
 
-
-                    <br clear="all" />
-                    <hr />
-                    <div class="row">
-                        <div class="col-lg-1">
-                            Bio:
-                        </div>
-                        <div class="col-lg-11">
-                            {{ $advisor->bio }}
-                        </div>
+                <br clear="all" />
+                <div class="row">
+                    <div class="col-lg-1">
+                        Bio:
                     </div>
-
-                     @if (!auth()->check())
-                    <div class="row">
-                        <div class="col-lg-12 alert alert-info">
-                            <a href="/claim/{{ $advisor->id }}">Claim this account</a>
-                        </div>
+                    <div class="col-lg-11">
+                        {{ $advisor->bio }}
                     </div>
                     <br />
-                    @endif
+                </div>
+                <hr clear="all" />
+
+                @if (!auth()->check())
+                <div class="row">
+                    <div class="col-lg-12 alert alert-info">
+                        <a href="/claim/{{ $advisor->id }}">Claim this account</a>
+                    </div>
+                </div>
+                <br />
+                @endif
