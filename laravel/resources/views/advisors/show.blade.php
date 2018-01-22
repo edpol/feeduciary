@@ -10,7 +10,7 @@
 <section class="content-section-b">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6" style="float:left;">
+            <div class="col-lg-6">
 <?php           $hideEmail = true;   ?>
                 @include('advisors.display')
             </div>

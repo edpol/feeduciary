@@ -1,6 +1,6 @@
 
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-sm-4">
                         name*: <br />
                         phone: <br />
 <?php if(isset($hideEmail) && $hideEmail==false) { ?>
@@ -27,7 +27,7 @@
                         <br />
                     </div>
 
-                    <div class="col-lg-8">
+                    <div class="col-sm-8">
                         <div style="float:left;padding-right:20px;">
                             {{ $advisor->name  }} <br />
                             {{ $advisor->phone }} <br />
