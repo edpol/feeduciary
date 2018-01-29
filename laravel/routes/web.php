@@ -17,6 +17,13 @@ Route::get('/edit/{advisor}',          'AdvisorsController@edit');
 Route::post('/update/{advisor}',       'AdvisorsController@update'); 
 Route::get('/calculateFee',            'AdvisorsController@calculateFee');
 
+// not using, but good example
+Route::get('/list/{page}', function($page) {
+	return view('advisors.calculateFee', compact('page'));
+});
+
+
+
 // validator fail is a GET, but we used POST because we are POSTing
 Route::post('/storeRate/{advisor}',    'RatesController@store'); 
 Route::get('/rates/{advisor}',         'RatesController@edit'); 

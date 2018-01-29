@@ -88,7 +88,7 @@ class AdvisorsController extends Controller
         $advisors = session('advisors');
         foreach ($advisors as $advisor) {
             if ($this->found_zipcode) {
-                $data = GeocodeController::distance($this->lat, $this->lng, $advisor->lat, $advisor->lng);
+                $data = GeocodeController::distance($this->lat, $this->lng, $advisor->lat, $advisor->lng,"M",$advisor->id, $advisor->zip);
                 $data = round($data,0);
                 if ($data!==false) {
                     $advisor->distance = $data;
@@ -156,8 +156,10 @@ class AdvisorsController extends Controller
         session(compact('advisors'));
         $output = $this->slicer($page,$miles);
 
-        session(compact('zip', 'range', 'newOrder', 'miles'));
-        return view('advisors.calculateFee', compact('page'));
+        $found_zipcode = $this->found_zipcode;
+        session(compact('zip', 'found_zipcode', 'range', 'newOrder', 'miles'));
+        return view('casual.wait',compact('page'));
+//      return view('advisors.calculateFee', compact('page'));
     }
 
     public function page($page)
@@ -181,13 +183,13 @@ class AdvisorsController extends Controller
         return $collection;
     }
 
-// now the slicer just got complicated
+    // now the slicer just got complicated
     public function slicer($page, $miles)
     {
         $advisors = session('advisors');
         $clone = clone $advisors;
-
-        if ($this->found_zipcode) {
+        $found_zipcode = session('found_zipcode');
+        if ($found_zipcode) {
             foreach($clone as &$advisor) {
                 if ($advisor->distance > $miles || !$advisor->is_active) {
                     $clone = $this->forgetById($clone,$advisor->id);
@@ -202,15 +204,15 @@ class AdvisorsController extends Controller
             });
             $filtered->all();
             // [3, 4]
-*/
-        }
+*/      }
         $page = (!isset($page)) ? 1 : (int)$page;
         $start_slice = ($page-1) * Pages::$per_page;
 
         //good starting point, now 
         $output = $clone->slice($start_slice, Pages::$per_page);
         $displayCount = count($clone);
-        session(compact('output', 'advisors', 'displayCount', 'validAdvisorCount')); // I could send count($clone) instead would save ram.
+        session(compact('output', 'advisors', 'displayCount', 'validAdvisorCount')); 
+        // I could send count($clone) instead would save ram.
         return $output;
     }
 
@@ -244,11 +246,10 @@ class AdvisorsController extends Controller
         session(compact('newOrder'));
         return view('advisors.calculateFee', compact('page'));
     }
-/*
 
-so i send it 
-
-*/
+    /*
+     *  so i send it 
+     */
     public function buildArray() {
         $minimum_amt      = $this->cleanMoney(request('minimum_amt'));
         $maximum_amt      = $this->cleanMoney(request('maximum_amt'));
@@ -344,6 +345,3 @@ so i send it
     }
 
 }
-
-/*  index, store, show, update, edit,
-    create, destroy */

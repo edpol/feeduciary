@@ -37,6 +37,46 @@ function buttonSetup (button) {
     }
 }
 
+    function numbersonly(e) {
+        var unicode=e.charCode? e.charCode : e.keyCode;
+        if  (unicode!=8 && unicode!=9) { //if the key isn't the backspace key or TAB (which we should allow)
+            if (unicode<48||unicode>57) return false;//if not a number return false //disable key press
+        }
+    } 
+
+function comma(){
+    var investment = document.getElementById("investment");
+    if (investment !== null && investment !== undefined) {
+        investment.addEventListener("keyup", function(event) {
+            if (event.key>="0" && event.key<="9") {
+            } else {
+                investment.value = investment.value.slice(0, -1); 
+            }
+
+            noCommas = investment.value.replace(/,/g, '');
+            console.log("no Commas: " + noCommas); 
+            if (noCommas.length > 3) { 
+                newValue = "";
+                while (noCommas.length>3) {
+                    // 1,234,567,890
+                    last3 = noCommas.slice(-3,noCommas.length); 
+                    noCommas = noCommas.slice(0,-3);
+                    newValue = "," + last3 + newValue;
+                console.log("noCommas: " + noCommas + " - last3: " + last3 );
+                }
+                newValue = noCommas + newValue;
+                console.log("newValue: " + newValue);
+                investment.value = newValue;
+            }
+
+            if (event.key === "Enter") {
+                // Do work
+              document.forms[0].submit();
+            }
+        });
+    }
+}
+
 /*
  *      Display number for slider
  *
@@ -66,4 +106,5 @@ window.onload = function () {
     greyout();
     buttonSetup("del");
     slider();
+    comma();
 };

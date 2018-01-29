@@ -11,7 +11,7 @@
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="amount">Please enter investment amount:</label>
-                                <input type="text" class="form-control" id="amount" name="amount" autofocus/>
+                                <input type="text" class="form-control" id="investment" name="amount" autofocus/>
                             </div>
                             <div class="form-group">
                                 <label for="zipcode">Zipcode:</label>

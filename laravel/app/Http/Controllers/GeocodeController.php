@@ -8,7 +8,8 @@ use feeduciary\Advisor;
 
 class GeocodeController extends Controller
 {
-    public static $key = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE";
+//  public static $key = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE";
+    public static $key = "AIzaSyCdltmUqKisvFuUxvU-Ljf7CmTAjV0GZqw";
     public static $url = "https://maps.google.com/maps/api/geocode/json?sensor=false&key=&key=";
 /*
     public function __constructor() {
@@ -37,7 +38,8 @@ class GeocodeController extends Controller
     public static function show($advisor) {
         $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
         $clean_address =  urlencode($address);
-        $result = file_get_contents(self::$url . self::$key . "&address={$clean_address}");
+        $send = self::$url . self::$key . "&address={$clean_address}";
+        $result = file_get_contents($send);
         $response = json_decode($result);
         if ($response->status=="OK") {
             $location['lat'] = $response->results[0]->geometry->location->lat;
@@ -62,14 +64,25 @@ class GeocodeController extends Controller
         return $location;
     }
 
-    public static function distance($lat1, $lng1, $lat2, $lng2, $unit="M") {
+    public static function distance($lat1, $lng1, $lat2, $lng2, $unit="M", $id=0, $zip="") {
         $theta = $lng1 - $lng2;
         $dist  = (sin(deg2rad($lat1)) * sin(deg2rad($lat2))) + (cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta)));
         $dist  = acos($dist);
         $dist  = rad2deg($dist);
         $miles = $dist * 60 * 1.1515;
         $unit  = strtoupper($unit);
-
+/*
+if($id==76) {
+	echo "ID:   " . $id   . "<br />";
+	echo "zip:  " . $zip  . "<br />";
+	echo "Lat1: " . $lat1 . "<br />";
+	echo "Lng1: " . $lng1 . "<br />";
+	echo "Lat2: " . $lat2 . "<br />";
+	echo "Lng2: " . $lng2 . "<br />";
+	echo "Miles: " . $miles . "<br />";
+	die();
+}
+*/
         if ($unit == "K") {
             return ($miles * 1.609344);
         } else if ($unit == "N") {
