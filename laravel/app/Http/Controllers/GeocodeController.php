@@ -8,9 +8,9 @@ use feeduciary\Advisor;
 
 class GeocodeController extends Controller
 {
-//  public static $key = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE";
-    public static $key = "AIzaSyCdltmUqKisvFuUxvU-Ljf7CmTAjV0GZqw";
-    public static $url = "https://maps.google.com/maps/api/geocode/json?sensor=false&key=&key=";
+    // this resides in feeduciary@gmail.com
+    public static $key = "AIzaSyAWOL3Onr0xG3zs0U_vNDk15XOm82qb5wE";
+    public static $url = "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&key=&key=";
 /*
     public function __constructor() {
         $this->key  = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE";
@@ -36,9 +36,10 @@ class GeocodeController extends Controller
      *  used with new Advisor and when an Advisor is updated
      */
     public static function show($advisor) {
-        $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
+        $address =  $advisor->address1 . " " . $advisor->address2 . " " . 
+        $advisor->city . " " . $advisor->st . " " . $advisor->zip;
         $clean_address =  urlencode($address);
-        $send = self::$url . self::$key . "&address={$clean_address}";
+        $send = self::$url . self::$key . "&address={$clean_address}&components=country:US";
         $result = file_get_contents($send);
         $response = json_decode($result);
         if ($response->status=="OK") {
