@@ -3,7 +3,7 @@
 class GeocodeController //extends Controller
 {
     public static $key = "AIzaSyAWOL3Onr0xG3zs0U_vNDk15XOm82qb5wE";
-    public static $url = "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&key=&key=";
+    public static $url = "http://maps.googleapis.com/maps/api/geocode/json?sensor=false&key=";
 
     public static function show($advisor) {
         $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
