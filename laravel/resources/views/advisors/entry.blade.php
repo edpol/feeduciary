@@ -136,7 +136,7 @@
                                 @endif
                             </div>
                         </div>
-
+<!--
                         <div class="form-group">
                             <label for="maximum_amt" class="col-md-8 control-label">Maximum Amount of Investment</label>
                             <div class="col-md-8 {{ $errors->has('maximum_amt') ? ' has-error' : '' }}">
@@ -148,7 +148,7 @@
                                 @endif
                             </div>
                         </div>
-
+-->
                         <div class="form-group">
                             <label for="minimum_fee" class="col-md-8 control-label">Minimum Fee</label>
                             <div class="col-md-8 {{ $errors->has('minimum_fee') ? ' has-error' : '' }}">

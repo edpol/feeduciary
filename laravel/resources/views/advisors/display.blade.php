@@ -13,8 +13,8 @@
                         @endif
                         <br />
                         minimum amount: <br />
-                        maximum amount: <br />
-                        minimum fee: <br />
+<!--                    maximum amount: <br />
+-->                     minimum fee: <br />
                         fee calculation*: <br />
                         Facebook: <br />
                         Finra Brokercheck: <br />
@@ -61,9 +61,9 @@
                             {{ $advisor->address2 }}<br />
                         @endif
 
-                        {{ $advisor->city }}
+                        {{ $advisor->city }},
                         @if(isset($advisor->st) && !empty($advisor->st))
-                            ,{{ $advisor->st }}
+                            {{ $advisor->st }}
                         @endif
                         {{ $advisor->zip }} <br />
 
@@ -71,12 +71,12 @@
                             ${{ number_format($advisor->minimum_amt, 0) }} 
                         @endif
                         <br />
-
+<!--
                         @if(isset($advisor->maximum_amt) && !empty($advisor->maximum_amt))
                             ${{ number_format($advisor->maximum_amt, 0) }} 
                         @endif
                         <br />
-
+-->
                         @if(isset($advisor->minimum_fee) && !empty($advisor->minimum_fee))
                             ${{ number_format($advisor->minimum_fee, 0) }} 
                         @endif

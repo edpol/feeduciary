@@ -1,5 +1,4 @@
-<?php
-	$tab = "Fees";
+<?php $tab = "Fees";
 	use feeduciary\Pages;
 
 	$amount   = session('amount');
@@ -47,6 +46,7 @@
 					Distance: <span id="displayDistance"></span>
 <?php } ?>		</div>
 			</div>
+			<i>Fees listed are subject to change.  Please contact the advisor directly to verify fees.</i>
 		</div>
 	</section>
 
