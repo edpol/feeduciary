@@ -16,22 +16,32 @@
             </div>
 <?php
             $key = "AIzaSyAWOL3Onr0xG3zs0U_vNDk15XOm82qb5wE";
-            $q = $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip . " Unites States";
-            $q = preg_replace('/\s+/', ' ',$q);
-            $q = str_replace(" ","+",$q);
+            $q = $advisor->address1 . " " . $advisor->address2 . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
+            $q = htmlentities($q);
 ?>
-            <div class="col-lg-4">
-                <div id="mymap-display" style="height:100%;width:100%;max-width:100%;">
-                    <iframe style="height:100%;width:100%;border:0;" frameborder="0" 
-                        src="https://www.google.com/maps/embed/v1/place?q=<?= $q ?>&key=<?=$key;?>">
-                    </iframe>
-                </div>
-                <style>#mymap-display .text-marker{}.map-generator{max-width: 100%; max-height: 100%; background: none;</style>
-            </div>
-
-            <div class="clearfix"></div>
+            <div id="map" class="col-lg-4">
 
         </div>
     </div>
 </section>
+
+
+<script>
+    function initMap() {
+        var myLatLng = {lat: <?=$advisor->lat; ?>, lng: <?=$advisor->lng; ?>};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 16,
+            center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: '<?= $q; ?>'
+        });
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<?=$key;?>&callback=initMap">
+</script>
 @endsection
