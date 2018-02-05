@@ -52,11 +52,12 @@ Route::get('/home',       'HomeController@index');
 
 // this page requires that you be logged in AND be an Admin
 Route::get('/admin/advisors', ['middleware' => ['auth', 'admin'], function() {
-    $advisors = feeduciary\Advisor::all();
+    $advisors = feeduciary\Advisor::paginate(10); //all();
 	return view('advisors.index', compact('advisors'));
 }]);
-Route::get('/admin/advisors/{id}','AdminController@show');
+Route::post('/admin/advisor/{id}', 'AdvisorsController@delete');
 
+Route::get('/admin/advisors/{id}', 'AdminController@show');
 Route::post('/admin/inactive/{id}','AdminController@inactive');
 
 /*

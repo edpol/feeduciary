@@ -45,3 +45,17 @@ a.disabled {
     float: none;
     margin: 0 auto;
 }
+
+th { text-align:center; }
+.table-hover tbody tr:hover td {
+  background-color: #eaf2f8;
+}
+
+.pagination ul {
+    border-left: 1px solid #ccc;
+}.pagination li {
+	min-width:20px;
+	padding:2px 6px;
+    list-style-position:inside;
+    border-right: 1px solid #ccc;
+}

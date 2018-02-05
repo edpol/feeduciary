@@ -13,12 +13,14 @@ class CreateRatesTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('rates', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('roof')->unsigned();
             $table->decimal('rate',10,6)->nullable(false);
             $table->integer('advisor_id')->nullable(false)->unsigned();
-            $table->foreign('advisor_id')->references('id')->on('advisors');
+            $table->foreign('advisor_id')->references('id')->on('advisors')->onDelete('cascade');
             $table->unique(['advisor_id','roof']);
             $table->timestamps();
         });

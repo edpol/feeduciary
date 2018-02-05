@@ -21,7 +21,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $advisors = Advisor::all();
+        $advisors = Advisor::paginate(10); //all();
         return view('advisors.index', compact('advisors'));
     }
 

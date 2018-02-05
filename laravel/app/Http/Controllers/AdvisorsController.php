@@ -21,13 +21,13 @@ class AdvisorsController extends Controller
     public function __construct()
     {
 //      $this->middleware('auth')->except(['index', 'show', 'advisorFee', 'calculateFee', 'page']);
-        $this->middleware('auth')->only(['create']);
+        $this->middleware('auth')->only(['create','delete']); // is this just logged in?
     }
 
     //
     public function index()
     {
-        $advisors = Advisor::all();
+        $advisors = Advisor::paginate(10); //all();
         return view('advisors.index', compact('advisors'));
     }
 
@@ -344,4 +344,10 @@ class AdvisorsController extends Controller
         return view('advisors.contact', compact('advisor'));
     }
 
+    public function delete($id){
+//      Advisor::destroy($id);
+        $results = Advisor::where('id', $id)->delete();
+        $results = Rate::where("advisor_id",$id)->delete();
+        return redirect('/admin/advisors')->with('status', "Advisor {$id} deleted!");
+    }
 }

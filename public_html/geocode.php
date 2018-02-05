@@ -3,36 +3,61 @@
 class GeocodeController //extends Controller
 {
     public static $key = "AIzaSyAWOL3Onr0xG3zs0U_vNDk15XOm82qb5wE";
-    public static $url = "http://maps.googleapis.com/maps/api/geocode/json?sensor=false&key=";
+    public static $url = "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&key=";
 
     public static function show($advisor) {
         $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
-        $clean_address =  urlencode($address);
+        $clean_address = urlencode($address);
+        $clean_address = str_replace("++","+",$clean_address);
         $send = self::$url . self::$key . "&address={$clean_address}&components=country:US";
-echo "Send: " . $send . "<br />";
+echo $send . "<br />";
         $result = file_get_contents($send);
+echo "\nresult: ";
+print_r($result);
         $response = json_decode($result);
-echo "<hr />";
+echo "<hr />\nresponse: ";
 var_dump($response);
-echo "<hr />";
-        if ($response->status=="OK") {
+echo "<hr />\n";
+echo "lat " . $response->results[0]->geometry->location->lat . "<br />";
+echo "lng " . $response->results[0]->geometry->location->lng . "<br />";
+        if (isset($response->status) && $response->status=="OK") {
             $location['lat'] = $response->results[0]->geometry->location->lat;
             $location['lng'] = $response->results[0]->geometry->location->lng;
         } else {
             $location = false;
         }
+var_dump($location);
         return $location;
     }
+
+
+    public static function http_post ($url, $data)
+    {
+        $data_url = http_build_query ($data);
+        $data_len = strlen ($data_url);
+
+        $http = array ( 'method'=>'POST',
+                        'header'=>"Connection: close\r\nContent-Length: $data_len\r\n",
+                        'content'=>$data_url
+                    );
+        $opts = array ('http'=>$http);
+        $context = stream_context_create($opts);
+        $contents = file_get_contents ($url, false, $context);
+        $stream = array ('content'=>$content,
+                         'headers'=>$http_response_header);
+        return $stream;
+    }
+
 }
 
-    if (isset($_GET["address"])) {
-    	$address = $_GET["address"];
-    	print_r($address);
-    	//i need to make you into an objeft
-		$a = json_encode($address);
-		$b = json_decode($a,false);
-		$location = GeocodeController::show($b);
-    }
+$location = array("lat"=>"", "lng"=>"");
+if (isset($_POST["address"])) {
+	$address = $_POST["address"];
+	//i need to make you into an objeft
+	$a = json_encode($address);
+	$b = json_decode($a,false);
+	$location = GeocodeController::show($b);
+}
 
 ?>
 
@@ -50,7 +75,7 @@ echo "<hr />";
   </head>
   <body>
   	<br />
-    <form action="" method="get">
+    <form action="" method="POST">
     	<div style="display:inline-block; width:80px;"> address1:</div> <input type="text" name = "address[address1]"><br />
     	<div style="display:inline-block; width:80px;"> address2:</div> <input type="text" name = "address[address2]"><br />
     	<div style="display:inline-block; width:80px;"> city:    </div> <input type="text" name = "address[city]"><br />
@@ -58,6 +83,10 @@ echo "<hr />";
     	<div style="display:inline-block; width:80px;"> zip:     </div> <input type="text" name = "address[zip]"><br />
     	<input type="submit" value="submit">
     </form>
-<?= "Latitude: " . $location["lat"] ."<br />Longitude: " . $location["lng"]; ?>
+<?php
+    if (gettype($location)=="array") {
+        echo "Latitude: " . $location["lat"] ."<br />Longitude: " . $location["lng"]; 
+    }
+?>
 </body>
 </html>

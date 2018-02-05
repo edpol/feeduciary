@@ -45,8 +45,6 @@
                     </div>
                 </form>
                 @if (auth()->user()->isAdmin())
-                <form id="form1" class="form-horimaximum_amtontal " method="POST" action="/admin/inactive/{{ $advisor->id }}">
-                    {{ csrf_field() }}
 <!--
 <h2>Button Colors</h2>
 <p>
@@ -62,13 +60,23 @@
 <hr>
 -->
                     <div style="position: absolute; bottom: 0; padding-bottom:16px;">
-                        <button type="submit" class="btn @if($advisor->is_active) btn-danger @else btn-success @endif" id="inactive" name="inactive">
+                    <form id="form1" class="form-horimaximum_amtontal " method="POST" action="/admin/advisor/{{ $advisor->id }}">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-danger" id="inactive" name="inactive">
+                            Delete Advisor
+                        </button>
+                    </form>
+                    &nbsp;<br />
+                    <form id="form1" class="form-horimaximum_amtontal " method="POST" action="/admin/inactive/{{ $advisor->id }}">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-primary" id="inactive" name="inactive">
                         @if ($advisor->is_active)
                             Deactivate Advisor
                         @else
                             Activate Advisor
                         @endif
                         </button>
+                    </form>
                     </div>
                 </form>
                 @endif

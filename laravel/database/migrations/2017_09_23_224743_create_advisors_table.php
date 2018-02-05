@@ -13,6 +13,8 @@ class CreateAdvisorsTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('advisors', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('is_active')->default(true);

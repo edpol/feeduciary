@@ -12,37 +12,45 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-5 ml-auto">
-				<hr class="section-heading-spacer">
+			<div class="col-lg-8 ml-auto">
 				<div class="clearfix"></div>
 				<h2 class="section-heading">Advisors Listing</h2>
-				<p class="lead">
-					<ul>
-			
+
+                <table class='table table-striped table-hover pagination'>
+				
 					@if(auth()->check() && auth()->user()->isAdmin()) 
-							@php ($link="/admin/advisors")
+						@php ($link="/admin/advisors")
+					@else
+						@php ($link="/advisors")
+					@endif
+			    	@foreach( $advisors as $advisor )
+
+						@if (!$advisor->is_active)
+							@php ($class="class='alert-danger'")
 						@else
-							@php ($link="/advisors")
+							@php ($class="")
 						@endif
-				    	@foreach( $advisors as $advisor )
 
-							@if (!$advisor->is_active)
-								@php ($class="class='alert-danger'")
-							@else
-								@php ($class="")
-							@endif
-							
-							<li <?= $class; ?>><a href="<?= $link; ?>/{{ $advisor->id }}">{{ $advisor->name }}, {{ $advisor->st }}</a></li>
-						@endforeach
-				    </ul>
-				</p>
-			</div>
-			<div class="col-lg-5 mr-auto">
-				<img class="img-fluid" src="{{ asset('img/ipad.png') }}" alt="">
-			</div>
+						<tr <?= $class; ?>>
+							<td style="text-align:left;">
+								<a href="<?= $link; ?>/{{ $advisor->id }}">{{ $advisor->name }}, {{ $advisor->st }}</a>
+							</td>
+						</tr>
+					@endforeach
+				</table>
+
+		        <div class="row pagination pagination-lg">
+        			<?= $advisors->render(); ?>
+				</div>
+				@if (session('status'))
+				    <div class="row alert alert-success">
+				        {{ session('status') }}
+				    </div>
+				@endif
+    		</div>
 		</div>
-
 	</div>
 <!-- /.container -->
 </section>
+
 @endsection
