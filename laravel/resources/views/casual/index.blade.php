@@ -15,10 +15,10 @@
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
                 <h2 class="section-heading">
-                    A website <b>worth visitng</b>
+                    OUR MISSION
                 </h2>
                 <p class="lead">
-                    Here at feeduciary.com we know advisors fee's can be confusing, our goal is to help you compare  apples to apples, oranges to oranges.  
+                    Feeduciary is an independent and privately held company with a singular focus on connecting fee conscious investors seeking investment advice with fee-based financial advisors seeking new clients. 
                     <br /><br />
                     Please enter the approximate amount you wish to invest and we can supply you with a list of advisors and their fees.
                 </p>

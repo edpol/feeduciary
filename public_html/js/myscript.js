@@ -46,14 +46,12 @@ function buttonSetup (button) {
 
 function comma(){
     var investment = document.getElementById("investment");
+
     if (investment !== null && investment !== undefined) {
         investment.addEventListener("keyup", function(event) {
-            if (event.key>="0" && event.key<="9") {
-            } else {
-                investment.value = investment.value.slice(0, -1); 
-            }
-
-            noCommas = investment.value.replace(/,/g, '');
+            noCommas = investment.value.replace(/\D/g, '');
+            newValue = noCommas;
+            if (noCommas.length>0) newValue = "$ " + noCommas;
             console.log("no Commas: " + noCommas); 
             if (noCommas.length > 3) { 
                 newValue = "";
@@ -66,8 +64,9 @@ function comma(){
                 }
                 newValue = noCommas + newValue;
                 console.log("newValue: " + newValue);
-                investment.value = newValue;
+                newValue = "$ " + newValue;
             }
+                investment.value = newValue;
 
             if (event.key === "Enter") {
                 // Do work

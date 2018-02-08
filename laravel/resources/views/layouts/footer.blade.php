@@ -26,7 +26,7 @@
                 <li class="list-inline-item"><a href="{{ route('register') }}">Register</a></li>
             @endif
         </ul>
-        <p class="copyright text-muted small">Copyright &copy; Feeduciary.com 2017.&nbsp; All Rights Reserved</p>
+        <p class="copyright text-muted small">Copyright &copy; Feeduciary.com <?= date("Y"); ?>.&nbsp; All Rights Reserved</p>
     </div>
 </footer>
 
