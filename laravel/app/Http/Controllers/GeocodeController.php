@@ -9,8 +9,7 @@ use feeduciary\Advisor;
 class GeocodeController extends Controller
 {
     // this resides in feeduciary@gmail.com
-//    public static $key = "AIzaSyAWOL3Onr0xG3zs0U_vNDk15XOm82qb5wE";
-    public static $key = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE";
+    public static $key = "AIzaSyAWOL3Onr0xG3zs0U_vNDk15XOm82qb5wE";
     public static $url = "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&key=";
 /*
     public function __constructor() {
