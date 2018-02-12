@@ -1,8 +1,3 @@
-
-<style>
-    body, .navbar, .modal-open { padding-right: 0 !important; overflow: auto !important; }  
-</style>
-                           
 <!-- popup -->
 <div class="bs-example">
     <!-- Button HTML (to Trigger Modal) -->

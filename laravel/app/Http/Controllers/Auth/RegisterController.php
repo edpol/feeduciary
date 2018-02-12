@@ -120,7 +120,7 @@ class RegisterController extends Controller
         // if i time out it errors here
         $count = (is_null($advisor)) ? 0 : $advisor->count();
         if ($count==0) {
-            $state = $this->optionState();
+            $state = optionState();
             return view('advisors.entry', compact('user','state'));
         } else {
             $rates = $advisor->rate;

@@ -36,11 +36,55 @@ class GeocodeController extends Controller
      *  Takes Advisor Address and gets lat & lng
      *  used with new Advisor and when an Advisor is updated
      */
+    public static function nossl_file_get_contents($send) {
+
+        $stream_opts = [
+            "ssl" => [
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
+            ]
+        ];  
+     
+        $response = file_get_contents($send, false, stream_context_create($stream_opts));
+        return $response;
+    }
+
+
+    public static function ssl_file_get_contents($send) {
+        $cafile = __DIR__ . DIRECTORY_SEPARATOR . "cacert.pem";
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "cafile" => $cafile,
+                "verify_peer"=> true,
+                "verify_peer_name"=> true,
+            ),
+        );
+
+        $response = file_get_contents($send, false, stream_context_create($arrContextOptions));
+        return $response;
+    }
+
     public static function show($advisor) {
         $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
         $clean_address =  urlencode($address);
         $send = self::$url . self::$key . "&address={$clean_address}&components=country:US";
-        $result = file_get_contents($send);
+
+        try {
+//            $result = file_get_contents($send);
+// this should fail in server
+            $result = self::ssl_file_get_contents($send);
+            if ($result === false) {
+                var_dump($result);
+                die();
+            }
+        } catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+            die();
+        }
+
+
+
+
         $response = json_decode($result);
         if ($response->status=="OK") {
             $location['lat'] = $response->results[0]->geometry->location->lat;

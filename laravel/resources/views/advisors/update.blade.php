@@ -1,4 +1,4 @@
-<?php $tab="Update Advisor"; ?>
+<?php $tab = "Update Advisor"; ?>
 @extends('layouts.master')
 
 @section('box1')
@@ -7,15 +7,14 @@
 @endsection
 
 @section('box2')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <h1>Update Advisor Information</h1>
-                <br />
-                <div class="panel-body">
-
-                    <form class="form-horimaximum_amtontal " method="POST" action="/update/{{ $advisor->id }}">
+<!-- Page Content -->
+<section class="content-section-a">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 ml-auto">
+                <div class="clearfix"></div>
+                <h3 class="section-heading">Update Advisor Information</h3>
+                    <form class="form-horimaximum_amtontal " method="GET" action="{{ url('/update') }}/{{ $advisor->id }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -43,7 +42,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-8 control-label">E-mail Address</label>
+                            <label for="email" class="col-md-8 control-label">E-mail Address*</label>
                             <div class="col-md-8 {{ $errors->has('email') ? ' has-error' : '' }}">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $advisor->email) }}" />
                                 @if ($errors->has('email'))
@@ -270,15 +269,8 @@
                         <div class="form-group">
                             @include('rates.info')
                             <div class="col-md-8 {{ $errors->has('feeCalculation') ? ' has-error' : '' }}">
-                                @if ($advisor->feeCalculation == 0) 
-                                    @php ($checked[0] = "checked") 
-                                    @php ($checked[1] = "") 
-                                @else
-                                    @php ($checked[0] = "") 
-                                    @php ($checked[1] = "checked") 
-                                @endif
-                                <input id="feeCalculation" type="radio" name="feeCalculation" value="0" <?= $checked[0] ?> /> Cumulative rates per tier<br />
-                                <input id="feeCalculation" type="radio" name="feeCalculation" value="1" <?= $checked[1] ?> /> Total Portfolio, Single Rate<br />
+                                <input id="feeCalculation" type="radio" name="feeCalculation" value="0" @if ($advisor->feeCalculation == 0) checked @endif /> Cumulative rates per tier<br />
+                                <input id="feeCalculation" type="radio" name="feeCalculation" value="1" @if ($advisor->feeCalculation != 0) checked @endif /> Total Portfolio, Single Rate<br />
                                 @if ($errors->has('feeCalculation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('feeCalculation') }}</strong>
@@ -288,9 +280,9 @@
                         </div>
 
                         <input id="user_id"    type="hidden" class="form-control" name="user_id"    value="{{ $advisor->user_id }}" />
-                        <input id="advisor_id" type="hidden" class="form-control" name="advisor_id" value="{{ $advisor->id }}" />
+<!--                        <input id="advisor_id" type="hidden" class="form-control" name="advisor_id" value="{{ $advisor->id }}" />
                         <input id="advisor"    type="hidden" class="form-control" name="advisor"    value="{{ $advisor }}" />
-
+-->
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
@@ -301,9 +293,11 @@
 
                         @include('layouts.errors')
                     </form>
-                </div>
+
             </div>
         </div>
     </div>
-</div>
+<!-- /.container -->
+</section>
+
 @endsection

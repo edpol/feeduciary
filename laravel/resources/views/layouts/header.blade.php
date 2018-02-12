@@ -7,7 +7,7 @@
                 <h4>Let the Fee set you Free!</h4>
                 <hr class="intro-divider" />
                     <div class="bluebox" style="margin:0 auto; text-align:left; width:40%; min-width:280px;">
-                        <form method="GET" action="/calculateFee">
+                        <form method="GET" action="{{url('/calculateFee')}}">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="amount">Please enter investment amount:</label>

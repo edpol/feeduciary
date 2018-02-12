@@ -1,4 +1,4 @@
-<?php $tab="Edit"; ?>
+<?php $tab = "Edit Info"; ?>
 @extends('layouts.master')
 
 @section('box1')
@@ -14,10 +14,8 @@
                 <h3>Advisor Information</h3>
 <?php           $hideEmail = false;   ?>
                 @include('advisors.display')
-                <form class="form-horimaximum_amtontal " method="GET" action="/edit/{{ $advisor->id }}">
+                <form class="form-horimaximum_amtontal " method="GET" action="{{ url('/edit') }}/{{ $advisor->id }}">
                     {{ csrf_field() }}
-                    <input id="advisor_id" type="hidden" class="form-control" name="advisor_id" value="{{ $advisor->id }}" />
-                    <input id="advisor"    type="hidden" class="form-control" name="advisor"    value="{{ $advisor }}" />
 
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
@@ -34,7 +32,7 @@
             <div class="col-lg-3">
                 <h3>Rates Information</h3>
                 @include('rates.display')
-                <form class="form-horimaximum_amtontal " method="GET" action="/rates/{{ $advisor->id }}">
+                <form class="form-horimaximum_amtontal " method="GET" action="{{ url('/rates') }}/{{ $advisor->id }}">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
@@ -60,14 +58,14 @@
 <hr>
 -->
                     <div style="position: absolute; bottom: 0; padding-bottom:16px;">
-                    <form id="form1" class="form-horimaximum_amtontal " method="POST" action="/admin/advisor/{{ $advisor->id }}">
+                    <form id="form1" class="form-horimaximum_amtontal " method="POST" action="{{ url('/admin/advisor') }}/{{ $advisor->id }}">
                         {{ csrf_field() }}
                         <button type="submit" class="btn btn-danger" id="inactive" name="inactive">
                             Delete Advisor
                         </button>
                     </form>
                     &nbsp;<br />
-                    <form id="form1" class="form-horimaximum_amtontal " method="POST" action="/admin/inactive/{{ $advisor->id }}">
+                    <form id="form1" class="form-horimaximum_amtontal " method="POST" action="{{ url('/admin/inactive') }}/{{ $advisor->id }}">
                         {{ csrf_field() }}
                         <button type="submit" class="btn btn-primary" id="inactive" name="inactive">
                         @if ($advisor->is_active)

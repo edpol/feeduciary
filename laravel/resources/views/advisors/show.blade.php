@@ -1,4 +1,4 @@
-<?php $tab="Show Advisor"; ?>
+<?php $tab = "Show Advisor"; ?>
 @extends('layouts.master')
 
 @section('box1')

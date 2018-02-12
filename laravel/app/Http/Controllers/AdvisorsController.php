@@ -116,6 +116,7 @@ class AdvisorsController extends Controller
         session(compact('amount'));
 
         $zip = implode('',request(['zipcode']));
+        $zip = cleanZipcode($zip);
         $advisors = Advisor::where("minimum_amt", "<", $amount)->get();
         session(compact('advisors'));
 
@@ -318,7 +319,7 @@ class AdvisorsController extends Controller
 
     // this goes to the form to get new advisor information
     public function edit(Advisor $advisor) {
-        $state = $this->optionState($advisor->st);
+        $state = optionState($advisor->st);
         return view('advisors.update', compact('advisor','state'));
     }
 

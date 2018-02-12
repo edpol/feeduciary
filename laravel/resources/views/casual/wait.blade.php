@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div align="center" style="margin:100px auto; display:block;">
-		<img src="images/wait.gif" alt="Working..."/><br />
+		<img src="{{ asset('images/wait.gif') }}" alt="Working..."/><br />
 		<div style="text-align: left; width:80px;" id="calculating">Calculating</div>
 	</div>
 <script>
@@ -26,7 +26,7 @@ function myTimer() {
 
 function clearTimer() {
 	clearInterval(myVar);
-	window.location.href = "/advisors/page/{{$page}}";
+	window.location.href = "{{ url('/advisors/page') }}/{{$page}}";
 }
 </script>
 

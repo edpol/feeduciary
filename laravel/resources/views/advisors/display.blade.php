@@ -149,7 +149,7 @@
                 @if (!auth()->check())
                 <div class="row">
                     <div class="col-lg-12 alert alert-info">
-                        <a href="/claim/{{ $advisor->id }}">Claim this account</a>
+                        <a href="{{ url('/claim') }}/{{ $advisor->id }}">Claim this account</a>
                     </div>
                 </div>
                 <br />

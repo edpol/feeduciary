@@ -1,4 +1,4 @@
-<?php $tab="Add Advisor"; ?>
+<?php $tab = "Add Advisor"; ?>
 @extends('layouts.master')
 
 @section('box1')
@@ -7,6 +7,14 @@
 @endsection
 
 @section('box2')
+<?php
+if (!isset($user)) {
+    $user = new \stdClass();
+    $user->name = "";
+    $user->email = "";
+    $user->id = NULL;
+}
+?>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -15,7 +23,7 @@
                 <br />
                 <div class="panel-body">
 
-                    <form class="form-horimaximum_amtontal" method="POST" action="/store">
+                    <form class="form-horimaximum_amtontal" method="POST" action="{{ url('/store') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group">
@@ -271,9 +279,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Add Advisor
-                                </button>
+                                <button type="submit" class="btn btn-primary">Add Advisor</button>
                             </div>
                         </div>
 

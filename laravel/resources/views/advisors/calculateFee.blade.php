@@ -71,7 +71,7 @@
 						<div style="width:400px; height:240px; padding:20px 8px; <?= $align; ?>  box-shadow: 10px 10px 5px #888888;  background: url({{ asset('images/paper.gif') }});">
 
 							<p style="margin:0 auto; text-align:center; border-top:solid black 1px; border-bottom:solid black 1px; width:80%; ">
-								<a href="/advisors/{{ $advisor->id }}">{{ $advisor->name }}</a> ({{ $advisor->id }})<br />
+								<a href="{{ url('/advisors') }}/{{ $advisor->id }}">{{ $advisor->name }}</a> ({{ $advisor->id }})<br />
 							</p>
 							<p style="margin:0 auto; text-align:center;">
 									{{ $advisor->company }}<br /><br />
@@ -103,7 +103,8 @@
 	<section class="<?= $class; ?>">
 	    <div class="container">
 	        <div class="row">
-				<div style="margin-left:auto; margin-right:auto;">
+	        	<div class="col-md-2"></div>
+				<div class="col-md-6 pagination pagination-lg">
 <?php				$pages = new Pages($displayCount, $page);
 					echo $pages->pageLinks();
 ?>		    	</div>

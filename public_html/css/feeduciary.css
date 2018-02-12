@@ -52,10 +52,14 @@ th { text-align:center; }
 }
 
 .pagination ul {
+	padding:0;
+	margin:0 10px;
     border-left: 1px solid #ccc;
+	list-style-type: none;
 }.pagination li {
 	min-width:20px;
 	padding:2px 6px;
     list-style-position:inside;
     border-right: 1px solid #ccc;
+	float:left;
 }

@@ -14,14 +14,13 @@ Route::get('/advisors/resort/{order}', 'AdvisorsController@resort');
 Route::get('/advisors/range/{miles}',  'AdvisorsController@range'); 
 Route::post('/store',                  'AdvisorsController@store'); 
 Route::get('/edit/{advisor}',          'AdvisorsController@edit'); 
-Route::post('/update/{advisor}',       'AdvisorsController@update'); 
+Route::get('/update/{advisor}',        'AdvisorsController@update'); 
 Route::get('/calculateFee',            'AdvisorsController@calculateFee');
 
 // not using, but good example
 Route::get('/list/{page}', function($page) {
 	return view('advisors.calculateFee', compact('page'));
 });
-
 
 
 // validator fail is a GET, but we used POST because we are POSTing
@@ -54,6 +53,10 @@ Route::get('/home',       'HomeController@index');
 Route::get('/admin/advisors', ['middleware' => ['auth', 'admin'], function() {
     $advisors = feeduciary\Advisor::paginate(10); //all();
 	return view('advisors.index', compact('advisors'));
+}]);
+Route::post('/admin/create', ['middleware' => ['auth', 'admin'], function() {
+    $state = optionState();
+	return view('advisors.entry', compact('state'));
 }]);
 Route::post('/admin/advisor/{id}', 'AdvisorsController@delete');
 

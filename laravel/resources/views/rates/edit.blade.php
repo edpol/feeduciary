@@ -1,4 +1,4 @@
-<?php $tab="Edit Rates"; ?>
+<?php $tab = "Edit Rates"; ?>
 @extends('layouts.master')
 
 @section('box1')
@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <h2>Edit Rates for {{ $advisor->name }}</h2>
-                <form class="form-horimaximum_amtontal" method="POST" action="/storeRate/{{ $advisor->id }}">
+                <form class="form-horimaximum_amtontal" method="POST" action="{{ url('/storeRate/'.$advisor->id) }}">
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('roof') ? ' has-error' : '' }}">
@@ -60,9 +60,9 @@
                                 Add Rate ({{ $advisor->name }})
                             </button>
                             @if (auth()->user()->isAdmin())
-                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="/admin/advisors/{{ $advisor->id }}" formmethod="get">
+                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="{{ url('/admin/advisors/'.$advisor->id) }}" formmethod="get">
                             @else
-                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="/done/{{ $advisor->id }}">
+                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="{{ url('/done/'.$advisor->id) }}">
                             @endif
                                 Done
                             </button>
@@ -74,7 +74,7 @@
 
             <!-- 2nd Column -->
             <div class="col-lg-6 bluebox">
-                <form id="form1" action="/destroy/{{ $advisor->id }}" autocomplete="off" method="post"> <!-- onKeyDown="pressed(event)"> -->
+                <form id="form1" action="{{ url('/destroy/'.$advisor->id) }}" autocomplete="off" method="post"> <!-- onKeyDown="pressed(event)"> -->
                     {{ csrf_field() }}
                     <input id="advisor_id" type="hidden" class="form-control" name="advisor_id" value="{{ $advisor->id }}" />
                     <input id="advisor"    type="hidden" class="form-control" name="advisor"    value="{{ $advisor }}" />

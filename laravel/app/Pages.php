@@ -47,21 +47,23 @@ class Pages extends Model
 	public function pageLinks() {
 		$answer = "";
 		if($this->total_pages() > 1) {
+			$previous = '&laquo; Previous'; 
 			if($this->has_previous_page()) { 
-				$answer .= '<a href="/advisors/page/' . $this->previous_page() . '">&laquo; Previous</a> '; 
+				$previous = "<a href='" . url('/advisors/page/') . $this->previous_page() . "'>{$previous}</a>";
 			}
 			for($i=1; $i <= $this->total_pages(); $i++) {
 				if($i == $this->current_page) {
-					$answer .= " <span class=\"selected\">{$i}</span> ";
+					$answer .= "<li><span class=\"selected\">{$i}</span></li> ";
 				} else {
-					$answer .= " <a href=\"/advisors/page/{$i}\">{$i}</a> "; 
+					$answer .= "<li><a href=\"/advisors/page/{$i}\">{$i}</a></li> "; 
 				}
 			}
+			$next = "Next &raquo;";
 			if($this->has_next_page()) { 
-				$answer .= ' <a href="/advisors/page/' . $this->next_page() . '">Next &raquo;</a> '; 
+				$next = "<a href='" . url('/advisors/page/') . $this->next_page() . "'>{$next}</a>";
 			}
 		}
-		return $answer;
+		return $previous . "<ul>" . $answer . "</ul>" . $next;
 	}
 
 

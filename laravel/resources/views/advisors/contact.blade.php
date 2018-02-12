@@ -15,7 +15,7 @@
         </h2>
         <hr class="divider" />
         <div class="row">
-            <form action="/send" method="post">
+            <form action="/{{ url('send') }}" method="post">
                 {{ csrf_field() }}
                 <input type="hidden" name="title"       value="User Message" />
                 <input type="hidden" name="id"          value="{{ $advisor->id }}" />
