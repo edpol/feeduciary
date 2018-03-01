@@ -48,7 +48,6 @@ class GeocodeController extends Controller
         return $response;
     }
 
-
     public static function ssl_file_get_contents($send) {
         $cafile = __DIR__ . DIRECTORY_SEPARATOR . "cacert.pem";
         $arrContextOptions=array(
@@ -69,20 +68,16 @@ class GeocodeController extends Controller
         $send = self::$url . self::$key . "&address={$clean_address}&components=country:US";
 
         try {
-//            $result = file_get_contents($send);
+            $result = file_get_contents($send);
 // this should fail in server
-            $result = self::ssl_file_get_contents($send);
+//            $result = self::ssl_file_get_contents($send);
             if ($result === false) {
-                var_dump($result);
-                die();
+                throw new Exception('file_get_contents returned a false');
             }
         } catch (Exception $e) {
             echo 'Caught exception: ',  $e->getMessage(), "\n";
             die();
         }
-
-
-
 
         $response = json_decode($result);
         if ($response->status=="OK") {
