@@ -19,7 +19,6 @@
 	<div id="calculating" style="background-image:url('images/wait.gif')">
 		Calculating
 	</div>	
-	<p id="demo"></p>
 <script>
 var calc = document.getElementById("calculating");
 var myVar = setInterval(myTimer, 1000);
@@ -34,12 +33,6 @@ function clearTimer() {
 	window.location.href = "{{ url('/advisors/page') }}/{{$page}}";
 }
 
-function myFunction() {
-    var w = window.innerWidth;
-    var h = window.innerHeight;
-    document.getElementById("demo").innerHTML = "Width: " + w + "<br>Height: " + h;
-}
-myFunction();
 </script>
 
 </body>

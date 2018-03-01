@@ -46,6 +46,8 @@ class Pages extends Model
 
 	public function pageLinks() {
 		$answer = "";
+		$previous = "";
+		$next = "";
 		if($this->total_pages() > 1) {
 			$previous = '&laquo; Previous'; 
 			if($this->has_previous_page()) { 
