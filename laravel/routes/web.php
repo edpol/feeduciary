@@ -33,7 +33,7 @@ Route::post('/destroy/{advisor}',      'RatesController@destroy');
 Route::get('/geocode',                 'GeocodeController@index');
 Route::get('/geocode/{advisor}',       'GeocodeController@store');
 
-Route::get('/rss',                     'RssController@index');
+Route::get('/rss',                     'Controller@rss');
 
 /* Login */
 Auth::routes();
