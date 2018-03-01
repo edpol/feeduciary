@@ -2,7 +2,7 @@
     <!-- Header -->
     <header class="intro-header">
         <div class="container">
-            <div class="intro-message" style="background-color:red:">
+            <div class="intro-message">
                 <h1>Feeduciary</h1>
                 <h4>Let the Fee set you Free!</h4>
                 <hr class="intro-divider" />

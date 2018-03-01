@@ -112,7 +112,7 @@ class AdvisorsController extends Controller
 
         $this->validate(request(), ['amount'=>'required']);
         $tmp = implode('',request(['amount'])); // array to string
-        $amount = $this->cleanMoney($tmp);
+        $amount = cleanMoney($tmp);
         session(compact('amount'));
 
         $zip = implode('',request(['zipcode']));
@@ -252,10 +252,10 @@ class AdvisorsController extends Controller
      *  so i send it 
      */
     public function buildArray() {
-        $minimum_amt      = $this->cleanMoney(request('minimum_amt'));
-        $maximum_amt      = $this->cleanMoney(request('maximum_amt'));
-        $minimum_fee      = $this->cleanMoney(request('minimum_fee'));
-        $discretionaryAUM = $this->cleanMoney(request('discretionaryAUM'));
+        $minimum_amt      = cleanMoney(request('minimum_amt'));
+        $maximum_amt      = cleanMoney(request('maximum_amt'));
+        $minimum_fee      = cleanMoney(request('minimum_fee'));
+        $discretionaryAUM = cleanMoney(request('discretionaryAUM'));
 
         $user_id = (request('user_id') === null) ? 0 : request('user_id');
 

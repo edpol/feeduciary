@@ -1,8 +1,10 @@
 <?php $tab = "Fees";
+
 	use feeduciary\Pages;
 
+	$class    = "content-section-b";
 	$amount   = session('amount');
-	$zip  = session('zip');
+	$zip      = session('zip');
 	$advisors = session('advisors');
 	$displayCount = session('displayCount',count($advisors));
 	$newOrder = session('newOrder');

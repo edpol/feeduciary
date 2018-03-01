@@ -63,3 +63,6 @@ th { text-align:center; }
     border-right: 1px solid #ccc;
 	float:left;
 }
+.intro-message {
+	padding-top: 5%;
+}

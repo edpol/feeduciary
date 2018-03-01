@@ -1,4 +1,31 @@
 <?php
+
+    // remove everything except numbers and first period
+    // or should we just remove dollar signs, commas and periods (except first) and let it error otherwise
+    function cleanMoney ($price_string) {
+        $price = preg_replace('/[^0-9.]+/', '', $price_string);
+        if (($pos = strpos($price, '.')) !== false) {
+            $price = substr($price, 0, $pos+1).str_replace('.', '', substr($price, $pos+1));
+        }
+        return floatval($price);
+    }
+
+    // remove everything except numbers and first period
+    function cleanPercent ($percent_string) {
+        $percent = preg_replace('/[^0-9.%]+/', '', $percent_string);
+        // remove extra periods
+        if (($pos = strpos($percent, '.')) !== false) {
+            $percent = substr($percent, 0, $pos+1).str_replace('.', '', substr($percent, $pos+1));
+        }
+        // if a % found, sub-string position 0 to percent sign then divide by 100
+        if (($pos = strpos($percent, '%')) !== false) {
+            $percent = substr($percent, 0, $pos)*.01;
+        } else {
+            $percent = $percent * .01;
+        }
+        return floatval($percent);
+    }
+
     function cleanZipcode($zip) {
         return preg_replace("/[^a-z0-9.]+/i", "", $zip);
     }

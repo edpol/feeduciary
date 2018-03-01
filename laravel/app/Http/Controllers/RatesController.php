@@ -44,8 +44,8 @@ class RatesController extends Controller
             'advisor_id' => 'required|numeric'
         ]);
 
-        $roof = $this->cleanMoney(request('roof'));
-        $rate = $this->cleanPercent(request('rate'));
+        $roof = cleanMoney(request('roof'));
+        $rate = cleanPercent(request('rate'));
         $advisor_id = request('advisor_id');
         $msg = array();
 
