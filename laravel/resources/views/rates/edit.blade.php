@@ -28,9 +28,9 @@
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('roof') ? ' has-error' : '' }}">
-                        <label for="roof" class="col-md-8 control-label">Tiers</label>
+                        <label for="roof" class="col-md-8 control-label">What is the maximum dollar amount on this tier of your fee schedule?</label>
                         <div class="col-md-8">
-                            <input id="roof" type="text" class="form-control" name="roof" value="{{ old('roof') }}" autofocus />
+                            <input id="investment" type="text" class="form-control" name="roof" value="{{ old('roof') }}" autofocus />
                             @if ($errors->has('roof'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('roof') }}</strong>
@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('rate') ? ' has-error' : '' }}">
-                        <label for="rate" class="col-md-8 control-label">Annual Rate</label>
+                        <label for="rate" class="col-md-8 control-label">What is the annual rate for this tier?</label>
                         <div class="col-md-8">
                             <input id="rate" type="rate" class="form-control" name="rate" value="{{ old('rate') }}" />
                             @if ($errors->has('rate'))

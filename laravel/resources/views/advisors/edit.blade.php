@@ -14,15 +14,15 @@
                 <h3>Advisor Information</h3>
 <?php           $hideEmail = false;   ?>
                 @include('advisors.display')
-                <form class="form-horimaximum_amtontal " method="GET" action="{{ url('/edit') }}/{{ $advisor->id }}">
+                <form class="form-group" method="GET" action="{{ url('/edit') }}/{{ $advisor->id }}">
                     {{ csrf_field() }}
 
-                    <div class="form-group">
-                        <div class="col-md-6 col-md-offset-4">
+                    <div class="form-group col-md-6">
                             <button type="submit" class="btn btn-primary">
                                 Edit Advisor
                             </button>
-                        </div>
+                            &nbsp;
+                            <a href="/" class="btn btn-primary">Finished</a>
                     </div>
 <!-- this is just a display page, why are we including errors? -->
                     @include('layouts.errors')

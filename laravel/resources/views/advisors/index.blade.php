@@ -24,15 +24,8 @@
 <?php						$link=url('/advisors'); ?>
 					@endif
 					@foreach( $advisors as $advisor )
-
-						@if (!$advisor->is_active)
-							@php ($class="class='alert alert-danger'")
-						@else
-							@php ($class="")
-						@endif
-
-						<tr <?= $class; ?>>
-							<td style="text-align:left;" @if (!$advisor->is_active) class='alert alert-danger' @endif >
+						<tr>
+					 		<td style="text-align:left;" @if (!$advisor->is_active) class='alert alert-danger' @endif >
 								<a href="<?= $link; ?>/{{ $advisor->id }}">{{ $advisor->name }}, {{ $advisor->st }}</a>
 							</td>
 						</tr>

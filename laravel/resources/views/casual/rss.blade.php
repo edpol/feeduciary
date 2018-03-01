@@ -1,4 +1,4 @@
-<?php $tab="RSS"; ?>
+<?php $tab = "RSS"; ?>
 @extends('layouts.master')
 
 @section('box1')

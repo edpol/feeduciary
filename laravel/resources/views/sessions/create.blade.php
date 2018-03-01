@@ -1,4 +1,4 @@
-<?php $tab="Register"; ?>
+<?php $tab = "Register"; ?>
 @section('box1')
     @include('layouts.header')
 @endsection

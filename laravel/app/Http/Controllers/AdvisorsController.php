@@ -87,7 +87,7 @@ class AdvisorsController extends Controller
         $amount   = session('amount');
         $advisors = session('advisors');
         foreach ($advisors as $advisor) {
-            if ($this->found_zipcode) {
+            if ($advisor->is_active && $this->found_zipcode) {
                 $data = GeocodeController::distance($this->lat, $this->lng, $advisor->lat, $advisor->lng,"M",$advisor->id, $advisor->zip);
                 $data = round($data,0);
                 if ($data!==false) {

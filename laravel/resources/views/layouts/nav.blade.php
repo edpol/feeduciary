@@ -14,11 +14,11 @@
                 <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                     <li class="nav-item">
-                        <a class="nav-link" id="home"  href="/">Home</a>
+                        <a class="nav-link" id="home"  href="{{ url('/') }}">Home</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" id="rss"  href="/rss">RSS</span></a>
+                        <a class="nav-link" id="rss"  href="{{ url('/rss') }}">RSS</span></a>
                     </li>
 <!--
                     if   (Auth::check())
@@ -26,7 +26,7 @@
 
                         @if (auth()->user()->isAdmin())
                             <li class="nav-item">
-                                <a class="nav-link" id="updateAdvisors" href="/admin/advisors">Update Advisors</a>
+                                <a class="nav-link" id="updateAdvisors" href="{{ url('/admin/advisors') }}">Update Advisors</a>
                             </li>
                         @endif
 
@@ -49,19 +49,19 @@
 <!--
                                      if   (Auth::user()->isAdmin()) this works too
 -->                                 @if (auth()->user()->isAdmin())
-                                        <a class="nav-link" href="/admin/advisors">Update Advisors</a>
+                                        <a class="nav-link" href="{{ url('/admin/advisors') }}">Update Advisors</a>
                                     @else
-                                        <a class="nav-link" href="/update">Update</a>
+                                        <a class="nav-link" href="{{ url('/update') }}">Update</a>
                                     @endif
                                 </li>
                             </ul>
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                            <a class="nav-link" href="{{ url('/login') }}">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
+                            <a class="nav-link" href="{{ url('/register') }}">Register</a>
                         </li>
                     @endif
                 </ul>
