@@ -34,7 +34,7 @@ class AdvisorsController extends Controller
     //
     public function show(Advisor $advisor)
     {
-        $advisor = self::checkURLs($advisor);
+        $advisor = checkURLs($advisor);
         return view('advisors.show', compact('advisor'));
     }
 
@@ -99,8 +99,8 @@ class AdvisorsController extends Controller
             $advisor->totalFee=$this->advisorFee($advisor,$amount);
         }
         if ($max >= $min) {
-            if ($min>10) $min = (floor($min/10)) * 10;
-            if ($max>10) $max = (ceil ($max/10)) * 10;
+            if ($min>10) $min = (ceil($min/10)) * 10;
+            if ($max>10) $max = (ceil($max/10)) * 10;
             $step = 1; //if > 20 ceil( ($max-$min) / 20 );
             $range = array("min"=>$min, "max"=>$max, "step"=>$step);
         }
@@ -336,7 +336,7 @@ class AdvisorsController extends Controller
         }
 
         // advisor.edit is in LoginController and AdvisorController
-        $advisor = self::checkURLs($advisor);
+        $advisor = checkURLs($advisor);
         return view('advisors.edit', compact('advisor', 'rates'));
 
     }

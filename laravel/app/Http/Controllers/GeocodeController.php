@@ -10,6 +10,7 @@ class GeocodeController extends Controller
 {
     // this resides in feeduciary@gmail.com
     public static $key = "AIzaSyAWOL3Onr0xG3zs0U_vNDk15XOm82qb5wE";
+    public static $coordinatesKey = "AIzaSyAdmDDq3txX-zNf4BNXh8e3baSfkgyl1HA";
     public static $url = "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&key=";
 /*
     public function __constructor() {
@@ -65,12 +66,14 @@ class GeocodeController extends Controller
     public static function show($advisor) {
         $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
         $clean_address =  urlencode($address);
-        $send = self::$url . self::$key . "&address={$clean_address}&components=country:US";
+        $send = self::$url . self::$coordinatesKey . "&address={$clean_address}&components=country:US";
 
         try {
-            $result = file_get_contents($send);
-// this should fail in server
-//            $result = self::ssl_file_get_contents($send);
+//            if (getenv('APP_ENV')=="local") {
+                $result = self::ssl_file_get_contents($send);
+//            } else {
+//                $result = file_get_contents($send);
+//            }
             if ($result === false) {
                 throw new Exception('file_get_contents returned a false');
             }

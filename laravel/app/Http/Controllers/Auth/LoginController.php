@@ -68,7 +68,7 @@ class LoginController extends Controller
         }
  
         // advisor.edit is in LoginController and AdvisorController
-        $advisor = self::checkURLs($advisor);
+        $advisor = checkURLs($advisor);
         return view('advisors.edit', compact('advisor', 'rates'));
 
     }

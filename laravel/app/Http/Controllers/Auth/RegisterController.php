@@ -124,7 +124,7 @@ class RegisterController extends Controller
             return view('advisors.entry', compact('user','state'));
         } else {
             $rates = $advisor->rate;
-            $advisor = self::checkURLs($advisor);
+            $advisor = checkURLs($advisor);
             return view('advisors.edit', compact('advisor','rates'));
         }
     }

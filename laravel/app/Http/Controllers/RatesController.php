@@ -88,7 +88,7 @@ class RatesController extends Controller
 
     public function done(Advisor $advisor){
         $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof','DESC')->get();
-        $advisor = self::checkURLs($advisor);
+        $advisor = checkURLs($advisor);
         return view('advisors.edit', compact('advisor', 'rates'));
     }
 }

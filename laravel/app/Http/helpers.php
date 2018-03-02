@@ -112,3 +112,26 @@
         $msg .= "\t\t\t\t\t\t\t\t</select>\n";
         return $msg;    
     }
+
+
+    /*
+     *  if the url is missing the http:// string, prepend it
+     *  we can also add whatever is supplied in the scheme parameter
+     */
+    function addScheme($url, $scheme = 'http://') {
+        if (empty($url)) {
+            $result = "";
+        } else {
+            $result = is_null(parse_url($url, PHP_URL_SCHEME)) ? "http://" . $url : $url;
+        }
+        return $result;
+    }
+
+    // these are all the columns that are set as url's
+    function checkURLs($advisor) {
+        $urlList = array("url", "facebook", "finraBrokercheck", "linkedin", "twitter", "brochure");
+        foreach($urlList as $target) {
+            $advisor->$target = addScheme($advisor->$target);
+        }
+        return $advisor;
+    }
