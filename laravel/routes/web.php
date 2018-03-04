@@ -12,6 +12,7 @@ Route::get('/advisors/{advisor}',      'AdvisorsController@show');
 Route::get('/advisors/page/{page}',    'AdvisorsController@page'); 
 Route::get('/advisors/resort/{order}', 'AdvisorsController@resort'); 
 Route::get('/advisors/range/{miles}',  'AdvisorsController@range'); 
+Route::get('/advisors/feeRange/{fee}', 'AdvisorsController@feeRange'); 
 Route::post('/store',                  'AdvisorsController@store'); 
 Route::get('/edit/{advisor}',          'AdvisorsController@edit'); 
 Route::get('/update/{advisor}',        'AdvisorsController@update'); 

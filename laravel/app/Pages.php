@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pages extends Model
 {
-	public static $per_page = 10;
+	public $per_page = 10;
   	public $current_page;
 	public $total_count;
 
@@ -21,39 +21,39 @@ class Pages extends Model
 		// page 1 has an offset of 0    (1-1) * 20
 		// page 2 has an offset of 20   (2-1) * 20
 		//   in other words, page 2 starts with item 21
-		return ($this->current_page - 1) * self::$per_page;
+		return ($this->current_page - 1) * $this->per_page;
 	}
 
-	public function total_pages() {
-		return ceil($this->total_count/self::$per_page);
+	public function totalPages() {
+		return ceil($this->total_count/$this->per_page);
 	}
 
-	public function previous_page() {
+	public function previousPage() {
 		return $this->current_page - 1;
 	}
 
-	public function next_page() {
+	public function nextPage() {
 		return $this->current_page + 1;
 	}
 
-	public function has_previous_page() {
-		return $this->previous_page() >= 1 ? true : false;
+	public function hasPreviousPage() {
+		return $this->previousPage() >= 1 ? true : false;
 	}
 
-	public function has_next_page() {
-		return $this->next_page() <= $this->total_pages() ? true : false;
+	public function hasNextPage() {
+		return $this->nextPage() <= $this->totalPages() ? true : false;
 	}
 
 	public function pageLinks() {
 		$answer = "";
 		$previous = "";
 		$next = "";
-		if($this->total_pages() > 1) {
+		if($this->totalPages() > 1) {
 			$previous = '&laquo; Previous'; 
-			if($this->has_previous_page()) { 
-				$previous = "<a href='" . url('/advisors/page/') . $this->previous_page() . "'>{$previous}</a>";
+			if($this->hasPreviousPage()) { 
+				$previous = "<a href='" . url('/advisors/page/') . $this->previousPage() . "'>{$previous}</a>";
 			}
-			for($i=1; $i <= $this->total_pages(); $i++) {
+			for($i=1; $i <= $this->totalPages(); $i++) {
 				if($i == $this->current_page) {
 					$answer .= "<li><span class=\"selected\">{$i}</span></li> ";
 				} else {
@@ -61,12 +61,11 @@ class Pages extends Model
 				}
 			}
 			$next = "Next &raquo;";
-			if($this->has_next_page()) { 
-				$next = "<a href='" . url('/advisors/page/') . $this->next_page() . "'>{$next}</a>";
+			if($this->hasNextPage()) { 
+				$next = "<a href='" . url('/advisors/page/') . $this->nextPage() . "'>{$next}</a>";
 			}
 		}
 		return $previous . "<ul>" . $answer . "</ul>" . $next;
 	}
-
 
 }

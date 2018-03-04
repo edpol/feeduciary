@@ -37,12 +37,12 @@ function buttonSetup (button) {
     }
 }
 
-    function numbersonly(e) {
-        var unicode=e.charCode? e.charCode : e.keyCode;
-        if  (unicode!=8 && unicode!=9) { //if the key isn't the backspace key or TAB (which we should allow)
-            if (unicode<48||unicode>57) return false;//if not a number return false //disable key press
-        }
-    } 
+function numbersonly(e) {
+    var unicode=e.charCode? e.charCode : e.keyCode;
+    if  (unicode!=8 && unicode!=9) { //if the key isn't the backspace key or TAB (which we should allow)
+        if (unicode<48||unicode>57) return false;//if not a number return false //disable key press
+    }
+} 
 
 function comma(){
     var investment = document.getElementById("investment");
@@ -85,11 +85,11 @@ function comma(){
  *          object.addEventListener ("input", handler, useCapture)
  *
  */
-function slider(){
+function slider() {
     var slider = document.getElementById("myRange");
     var output = document.getElementById("displayDistance");
-
     if (output !== null && output !== undefined) {
+console.log(slider.value);
         output.innerHTML = slider.value;
 
         slider.oninput = function() { 
@@ -101,9 +101,26 @@ function slider(){
     }
 }
 
+function feeSlider() {
+    var slider = document.getElementById("myFee");
+    var output = document.getElementById("displayFee");
+    if (output !== null && output !== undefined) {
+console.log(slider.value);
+        output.innerHTML = slider.value;
+
+        slider.oninput = function() { 
+            output.innerHTML = this.value;
+        }
+        slider.onchange = function() {
+            window.location.href = "/advisors/feeRange/" + this.value;
+        }
+    }
+}
+
 window.onload = function () {
     greyout();
     buttonSetup("del");
     slider();
+    feeSlider();
     comma();
 };

@@ -1,4 +1,4 @@
-<?php $tab = "Fees";
+<?php $tab = "Fee Calculation";
 
 	use feeduciary\Pages;
 
@@ -10,16 +10,21 @@
 	$newOrder = session('newOrder');
 	$output   = session('output');
 	$range    = session('range');
+	$page     = session('page',1);
 
 	// SOMETIMES, on page refresh, I seem to lose the contents of the array
 	if (isset($range) && !empty($range)) {
-		$step = $range["step"];
-		$min  = $range["min"];
-		$max  = $range["max"];
+		$step   = $range["step"];
+		$min    = $range["min"];
+		$max    = $range["max"];
+		$feeStep= $range["feeStep"];
+		$feeMin = $range["feeMin"];
+		$feeMax = $range["feeMax"];
 	} else {
 		$zip = "";
 	}
-	$miles    = session('miles',$max);  // default is max
+	$miles = session('miles',$max);  // default is max
+	$fee   = session('fee',$feeMax);
 
 ?>
 @extends('layouts.master')
@@ -33,20 +38,31 @@
 	<section class="content-section-b">
 	    <div class="container">
 	    	<div class="row">
+
 		        <div class="col-md-4">
 					<span style="font-weight:bold;">Investment Amount:</span> ${{ number_format($amount,0) }}<br />
-<?php if(isset($zip) && !empty($zip)) { ?>
-					<span style="font-weight:bold;">Zip-code:</span> {{ $zip }}<br />
+					@if(isset($zip) && $zip!="")
+						<span style="font-weight:bold;">Zip-code:</span> {{ $zip }}<br />
+					@endif	
 				</div>
 
-		        <div class="col-md-4" style="margin-top:8px;">
-					<a class="btn btn-primary" href="/advisors/resort/<?= $newOrder['val'];?>"><?= $newOrder['text']; ?></a>
+				<!-- Button to sort by Fee or distance. If no zipcode can only show/sort fee -->
+		        <div class="col-md-2" style="margin-top:8px;">
+					@if(isset($zip) && $zip!="")
+						<a class="btn btn-primary" href="/advisors/resort/<?= $newOrder['val'];?>"><?= $newOrder['text']; ?></a>
+					@endif
 				</div>
 
-		        <div class="col-md-4" style="margin-top:8px;">
-		        	<input id="myRange" name="slider" class="slider" type="range" step="<?= $step; ?>" min="<?= $min; ?>" max="<?= $max; ?>" value="<?= $miles; ?>" /><br />
-					Distance: <span id="displayDistance"></span>
-<?php } ?>		</div>
+				<div class="col-md-6" style="margin-top:8px;">
+				@if(isset($zip) && $zip!="")
+					<input id="myRange" name="slider"    class="slider" type="range" step="<?= $step; ?>"    min="<?= $min; ?>"    max="<?= $max; ?>"    value="<?= $miles; ?>" />
+					&nbsp; Distance: <span id="displayDistance"></span>
+					<br /><br /> 
+				@endif
+					<input id="myFee"   name="feeSlider" class="slider" type="range" step="<?= $feeStep; ?>" min="<?= $feeMin; ?>" max="<?= $feeMax; ?>" value="<?= $fee;   ?>" />
+					&nbsp; Fee: <span id="displayFee"></span>
+				</div>
+
 			</div>
 			<i>Fees listed are subject to change.  Please contact the advisor directly to verify fees.</i>
 		</div>
