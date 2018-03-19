@@ -6,16 +6,19 @@
             <li class="list-inline-item"><a href="/">Home</a></li>
             <li class="footer-menu-divider list-inline-item">&sdot;</li>
 <!--
-            <li class="list-inline-item"><a href="/about">About</a></li>
+            <li class="list-inline-item"><a href="{{ url('about') }}">About</a></li>
             <li class="footer-menu-divider list-inline-item">&sdot;</li>
 
             <li class="list-inline-item"><a href="#services">Services</a></li>
             <li class="footer-menu-divider list-inline-item">&sdot;</li>
 -->
-            <li class="list-inline-item"><a href="/rss">RSS</a></li>
+            <li class="list-inline-item"><a href="{{ url('rss') }}">RSS</a></li>
             <li class="footer-menu-divider list-inline-item">&sdot;</li>
 
-            <li class="list-inline-item"><a href="/contact">Contact</a></li>
+            <li class="list-inline-item"><a href="{{ url('contact') }}">Contact</a></li>
+            <li class="footer-menu-divider list-inline-item">&sdot;</li>
+
+            <li class="list-inline-item"><a href="{{ url('terms') }}">Terms of Use</a></li>
             <li class="footer-menu-divider list-inline-item">&sdot;</li>
 
             @if (Auth::check())
@@ -26,6 +29,7 @@
 
                 <li class="list-inline-item"><a href="{{ route('register') }}">Register</a></li>
             @endif
+
         </ul>
         <p class="copyright text-muted small">Copyright &copy; Feeduciary.com <?= date("Y"); ?>.&nbsp; All Rights Reserved</p>
     </div>

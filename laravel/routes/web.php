@@ -4,15 +4,21 @@ Route::get('/about',                   'CasualController@about');
 Route::get('/blog',                    'CasualController@blog');
 Route::get('/contact',                 'CasualController@contact');
 
+Route::view('/terms', 'casual.terms');
+
 Route::post('/send',                   'EmailController@send');
 
 Route::post('/contact/{advisor}',      'AdvisorsController@contact');
-Route::get('/advisors',                'AdvisorsController@index');
-Route::get('/advisors/{advisor}',      'AdvisorsController@show'); 
-Route::get('/advisors/page/{page}',    'AdvisorsController@page'); 
-Route::get('/advisors/resort/{order}', 'AdvisorsController@resort'); 
-Route::get('/advisors/range/{miles}',  'AdvisorsController@range'); 
-Route::get('/advisors/feeRange/{fee}', 'AdvisorsController@feeRange'); 
+
+Route::prefix('advisors')->group(function () {
+    Route::get('/',               'AdvisorsController@index');
+    Route::get('/{advisor}',      'AdvisorsController@show'); 
+    Route::get('/page/{page}',    'AdvisorsController@page'); 
+    Route::get('/resort/{order}', 'AdvisorsController@resort'); 
+    Route::get('/range/{miles}',  'AdvisorsController@range'); 
+    Route::get('/feeRange/{fee}', 'AdvisorsController@feeRange'); 
+});
+
 Route::post('/store',                  'AdvisorsController@store'); 
 Route::get('/edit/{advisor}',          'AdvisorsController@edit'); 
 Route::get('/update/{advisor}',        'AdvisorsController@update'); 
@@ -46,9 +52,9 @@ Route::post('/register',               'Auth\RegisterController@store');
 Route::get('/claim/{advisor}',         'Auth\RegisterController@claim');
 Route::post('/connect/{advisor}',      'Auth\RegisterController@connect');
 
-Route::get('/logout',     'SessionsController@destroy');
+Route::get('/logout',                  'SessionsController@destroy');
 
-Route::get('/home',       'HomeController@index');  
+Route::get('/home',                    'HomeController@index');  
 
 // this page requires that you be logged in AND be an Admin
 Route::get('/admin/advisors', ['middleware' => ['auth', 'admin'], function() {
