@@ -15,7 +15,8 @@ li, p {font-weight:normal;}
 <section>
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-12" style="font-family: Times New Roman, Times, serif;">
+			<div class="col-sm-1"> </div>
+			<div class="col-sm-10" style="font-family: Times New Roman, Times, serif;">
 
 <p class="center">Privacy Policy</p>
 

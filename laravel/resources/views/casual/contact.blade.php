@@ -62,15 +62,15 @@ ll latitude and longitude of map center
 
         <div class="col-lg-4">
             <h5 class="mb-0">Phone:</h5>
-            <div class="mb-4">123.456.7890</div>
+            <div class="mb-4">973-932-0683</div>
             <h5 class="mb-0">Email:</h5>
             <div class="mb-4">
-                <a href="mailto:message@feeduciary.com">message@feeduciary.com</a>
+                <a href="mailto:info@feeduciary.com">info@feeduciary.com</a>
             </div>
             <h5 class="mb-0">Address:</h5>
             <div class="mb-4">
-                3481 Melrose Place <br />
-                Beverly Hills, CA 90210
+                2719 Hollywood Blvd.<br />
+                Hollywood, FL 33020<br />
             </div>
         </div>
     </div>
