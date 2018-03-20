@@ -4,7 +4,8 @@ Route::get('/about',                   'CasualController@about');
 Route::get('/blog',                    'CasualController@blog');
 Route::get('/contact',                 'CasualController@contact');
 
-Route::view('/terms', 'casual.terms');
+Route::view('/terms',   'casual.terms');
+Route::view('/privacy', 'casual.privacy');
 
 Route::post('/send',                   'EmailController@send');
 

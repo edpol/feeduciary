@@ -21,6 +21,9 @@
             <li class="list-inline-item"><a href="{{ url('terms') }}">Terms of Use</a></li>
             <li class="footer-menu-divider list-inline-item">&sdot;</li>
 
+            <li class="list-inline-item"><a href="{{ url('privacy') }}">Privacy Policy</a></li>
+            <li class="footer-menu-divider list-inline-item">&sdot;</li>
+
             @if (Auth::check())
                 <li class="list-inline-item"><a href="{{ route('logout') }}">Logout</a></li>
             @else
