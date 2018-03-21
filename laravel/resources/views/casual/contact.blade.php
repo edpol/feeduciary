@@ -7,15 +7,21 @@
 @endsection
 
 @section('box2')
-<div class="bg-faded p-4 my-4">
-    <hr class="divider">
-    <h2 class="text-center text-lg text-uppercase my-0">
-        <strong>Feeduciary Contact Form</strong>
-    </h2>
-    <hr class="divider" />
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <hr class="divider">
+    		<h2 class="text-center text-lg text-uppercase my-0">
+    	    	<strong>Feeduciary Contact Form</strong>
+    		</h2>
+		    <hr class="divider" />
+		</div>
+	</div>
     <div class="row">
 
-<?php   $key = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE"; ?>
+<?php   $key = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE"; 
+        $q="2719+Hollywood+Blvd,+Hollywood,+FL+33020+United+States";
+?>
 
 <!--
 t=m type is map, hybrid, satellite
@@ -24,43 +30,16 @@ iwloc=A for the box that asks if you want directions
 sll Latitude and logitude of pin
 ll latitude and longitude of map center
 -->
-        <div class="col-lg-8">
+        <div class="col-sm-8">
             <div class="embed-responsive embed-responsive-16by9 map-container mb-4 mb-lg-0">
                 <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
                         src="http://maps.google.com/maps?center=-33.8569,151.2152&amp;zoom=10&amp;hl=en&amp;ie=UTF8
-                        &amp;ll=37.0625,-95.677068&amp;spn=56.506174,79.013672&amp;t=m&amp;z=6&amp;output=embed"></iframe>
+                        &amp;q=<?= $q; ?>&amp;ll=26.0107972,-80.1629978&amp;spn=56.506174,79.013672&amp;t=m&amp;z=14&amp;output=embed"></iframe>
             </div>
         </div>
 
-<!--
-        <div style="overflow:hidden;max-width:100%;width:500px;height:500px;">
-            <div id="mymap-display" style="height:100%; width:100%;max-width:100%;">
-                <iframe style="height:100%;width:100%;border:0;" frameborder="0" 
-                    src="https://www.google.com/maps/embed/v1/place?q=2451+Brickell+Ave,+12D+Miami,+FL+33129+United+States&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8">
-                </iframe>
-            </div>
-            <style>#mymap-display .text-marker{}.map-generator{max-width: 100%; max-height: 100%; background: none;</style>
-        </div>
 
-        <div style="overflow:hidden;max-width:100%;width:500px;height:500px;">
-            <div id="mymap-display" style="height:100%; width:100%;max-width:100%;">
-                <iframe style="height:100%;width:100%;border:0;" frameborder="0" 
-                src="https://www.google.com/maps/embed/v1/view?zoom=17&center=26.0054,-80.1356&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8">
-                </iframe>
-            </div>
-            <style>#mymap-display .text-marker{}.map-generator{max-width: 100%; max-height: 100%; background: none;</style>
-        </div>
-
-        <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE'></script>
-        <div style='overflow:hidden;height:400px;width:520px;'>
-            <div id='gmap_canvas' style='height:400px;width:520px;'></div>
-            <style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
-        </div> 
-        <script type='text/javascript' src='https://embedmaps.com/google-maps-authorization/script.js?id=0771ce9aced1b4dff2fdfd40fffc7b51d081e21f'></script><script type='text/javascript'>function init_map(){var myOptions = {zoom:14,center:new google.maps.LatLng(25.9866988,-80.12890500000003),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(25.9866988,-80.12890500000003)});infowindow = new google.maps.InfoWindow({content:'<strong></strong><br>1835 East Hallandale Bch Blvd, Suite 817<br>33009 Hallandale Beach<br>'});google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);</script>
--->
-
-
-        <div class="col-lg-4">
+        <div class="col-sm-4">
             <h5 class="mb-0">Phone:</h5>
             <div class="mb-4">973-932-0683</div>
             <h5 class="mb-0">Email:</h5>
@@ -78,7 +57,9 @@ ll latitude and longitude of map center
 @endsection
 
 @section('box3')
-<div class="bg-faded p-4 my-4">
+<div class="container">
+
+
     <hr class="divider">
     <h2 class="text-center text-lg text-uppercase my-0">Contact
         <strong>Form</strong>
