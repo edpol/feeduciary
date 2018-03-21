@@ -85,15 +85,21 @@ function comma(){
  *          object.addEventListener ("input", handler, useCapture)
  *
  */
+function numberWithCommas(x) {
+  var parts = x.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return parts.join(".");
+}
+
 function slider() {
     var slider = document.getElementById("myRange");
     var output = document.getElementById("displayDistance");
     if (output !== null && output !== undefined) {
 console.log(slider.value);
-        output.innerHTML = slider.value;
+        output.innerHTML = numberWithCommas(slider.value);
 
         slider.oninput = function() { 
-            output.innerHTML = this.value;
+            output.innerHTML = numberWithCommas(this.value);
         }
         slider.onchange = function() {
             window.location.href = "/advisors/range/" + this.value;
@@ -106,10 +112,10 @@ function feeSlider() {
     var output = document.getElementById("displayFee");
     if (output !== null && output !== undefined) {
 console.log(slider.value);
-        output.innerHTML = slider.value;
+        output.innerHTML = numberWithCommas(slider.value);
 
         slider.oninput = function() { 
-            output.innerHTML = this.value;
+            output.innerHTML = numberWithCommas(this.value);
         }
         slider.onchange = function() {
             window.location.href = "/advisors/feeRange/" + this.value;
