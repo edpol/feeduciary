@@ -46,7 +46,7 @@
 					@endif	
 				</div>
 
-				<!-- Button to sort by Fee or distance. If no zipcode can only show/sort fee -->
+				<!-- Button to sort by Fee or distance. If no zip code can only show/sort fee -->
 		        <div class="col-md-2" style="margin-top:8px;">
 					@if(isset($zip) && $zip!="")
 						<a class="btn btn-primary" href="/advisors/resort/<?= $newOrder['val'];?>"><?= $newOrder['text']; ?></a>
@@ -106,7 +106,7 @@
 								@endif
 							</div>
 							<br clear="all" />
-							Approx Fee: <?= "$".number_format($advisor->totalFee,0); ?> <br />
+							Approx Annual Fee: <?= "$".number_format($advisor->totalFee,0); ?> <br />
 <?php						if ($advisor->distance>0) {
 								echo "Approx Distance: " . number_format($advisor->distance,0) . " miles"; 
 							} ?>

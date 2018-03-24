@@ -14,7 +14,7 @@
                                 <input type="text" class="form-control" id="investment" name="amount" autofocus/>
                             </div>
                             <div class="form-group">
-                                <label for="zipcode">Zipcode:</label>
+                                <label for="zipcode">Zip Code:</label>
                                 <input type="text" class="form-control" id="zipcode" name="zipcode" />
                             </div>
                             <div class="form-group">
