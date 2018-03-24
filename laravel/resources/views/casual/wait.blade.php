@@ -4,20 +4,27 @@
 	<title>Working...</title>
 	<style>
 	body {
-		background-color:#191919; color:#86BCFC; 
+		background-color:#000; color:#39B54A; 
 		font-family: arial; font-weight:bold; font-size:36px;
     	display: block; 
 	}
-	#calculating {
+	#calculating { 
 		text-align:center; margin:40px auto; 
-		height:500px; width:800px; 
-		background-repeat: no-repeat;
+/*
+		-webkit-background-size: contain;
+    	   -moz-background-size: contain;
+    	     -o-background-size: contain;
+    	        background-size: contain;
+*/
+    	background-repeat: no-repeat;
+    	background-position: center; 
+    	width:600px; height:200px;
 	}
 </style>
 </head>
 <body>
 	<div id="calculating" style="background-image:url('images/wait.gif')">
-		Calculating
+		Calculating Annual Fees
 	</div>	
 <script>
 var calc = document.getElementById("calculating");
