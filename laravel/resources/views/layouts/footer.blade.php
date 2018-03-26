@@ -11,10 +11,10 @@
 
             <li class="list-inline-item"><a href="#services">Services</a></li>
             <li class="footer-menu-divider list-inline-item">&sdot;</li>
--->
+
             <li class="list-inline-item"><a href="{{ url('rss') }}">RSS</a></li>
             <li class="footer-menu-divider list-inline-item">&sdot;</li>
-
+-->
             <li class="list-inline-item"><a href="{{ url('contact') }}">Contact</a></li>
             <li class="footer-menu-divider list-inline-item">&sdot;</li>
 

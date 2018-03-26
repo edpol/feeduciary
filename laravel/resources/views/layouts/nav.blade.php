@@ -15,10 +15,11 @@
                     <li class="nav-item">
                         <a class="nav-link" id="home"  href="{{ url('/') }}">Home</a>
                     </li>
-
+<!--
                     <li class="nav-item">
                         <a class="nav-link" id="rss"  href="{{ url('/rss') }}">RSS</a>
                     </li>
+-->
 <!--
                     if   (Auth::check())
 -->                 @if (auth()->check())
