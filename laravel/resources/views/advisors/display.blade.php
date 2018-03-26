@@ -136,10 +136,10 @@
 
                 <br clear="all" />
                 <div class="row">
-                    <div class="col-lg-1">
+                    <div class="col-sm-1">
                         Bio:
                     </div>
-                    <div class="col-lg-11">
+                    <div class="col-sm-11">
                         {{ $advisor->bio }}
                     </div>
                     <br />
@@ -148,7 +148,7 @@
 
                 @if (!auth()->check())
                 <div class="row">
-                    <div class="col-lg-12 alert alert-info">
+                    <div class="col-sm-4 alert alert-info">
                         <a href="{{ url('/claim') }}/{{ $advisor->id }}">Claim this account</a>
                     </div>
                 </div>

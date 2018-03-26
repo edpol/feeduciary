@@ -26,10 +26,31 @@ class GeocodeController extends Controller
     public function index()
     {
         $advisors = Advisor::all();
-        foreach ($advisors as $advisor){
+        foreach ($advisors as $advisor) {
             $this->store($advisor);
         }
         return view('geocode.index', compact('advisors'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Advisor $advisor) {
+        $location = self::geocode($advisor);
+
+        $msg = "";
+        if ($location===false) {
+            $msg = "Error, undefined offset with " . $advisor->id . " " . $advisor->name;
+        } else {
+            $advisor->lat = $location['lat'];
+            $advisor->lng = $location['lng'];
+            $advisor->save();
+        }
+
+        return view('geocode.store', compact('advisor', 'msg'));
     }
 
     /*
@@ -157,7 +178,7 @@ if($id==76) {
         return $data;
     }
 
-    public static function geocode2($advisor) {
+    public static function geocode($advisor) {
         $address =  $advisor->address1 . " " . $advisor->address2 . " " . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
         $clean_address =  urlencode($address);
         $ch = curl_init();
@@ -179,27 +200,6 @@ if($id==76) {
  https://maps.googleapis.com/maps/api/distancematrix/json
  ?origins=dehli &destinations=pune &mode=bicycling &language=en-EN &sensor=true &key=AppKey
 */
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Advisor $advisor) {
-        $location = self::geocode($advisor);
-
-        $msg = "";
-        if ($location===false) {
-            $msg = "Error, undefined offset with " . $advisor->id . " " . $advisor->name;
-        } else {
-            $advisor->lat = $location['lat'];
-            $advisor->lng = $location['lng'];
-            $advisor->save();
-        }
-
-        return view('geocode.store', compact('advisor', 'msg'));
     }
 
 }

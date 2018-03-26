@@ -1,4 +1,4 @@
-<?php $tab = "Contact"; ?>
+<?php $tab = "Contact Us"; ?>
 @extends('layouts.master')
 
 @section('box1')
@@ -21,6 +21,16 @@
 
 <?php   $key = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE"; 
         $q="2719+Hollywood+Blvd,+Hollywood,+FL+33020+United+States";
+
+        if (App::environment('local')) {
+            // local captcha
+            $siteKey = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+            $secret  = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe";
+        } else {
+            // feeduciary.com captcha keys
+            $siteKey = "6LdSt04UAAAAACh-RI4c9lpMTjxKIPvAt1jl4y9Z";
+            $secret  = "6LdSt04UAAAAACJAQXJcKM-pGzjFZbaoGnQEhoUu";
+        }
 ?>
 
 <!--
