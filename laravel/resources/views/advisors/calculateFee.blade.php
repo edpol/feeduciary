@@ -60,7 +60,7 @@
 					<br /><br /> 
 				@endif
 					<input id="myFee"   name="feeSlider" class="slider" type="range" step="<?= $feeStep; ?>" min="<?= $feeMin; ?>" max="<?= $feeMax; ?>" value="<?= $fee;   ?>" />
-					&nbsp; Fee: <span id="displayFee"></span>
+					&nbsp; Fee: $<span id="displayFee"></span>
 				</div>
 
 			</div>
