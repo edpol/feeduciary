@@ -42,7 +42,7 @@
 		        <div class="col-md-4">
 					<span style="font-weight:bold;">Investment Amount:</span> ${{ number_format($amount,0) }}<br />
 					@if(isset($zip) && $zip!="")
-						<span style="font-weight:bold;">Zip-code:</span> {{ $zip }}<br />
+						<span style="font-weight:bold;">Zip Code:</span> {{ $zip }}<br />
 					@endif	
 				</div>
 

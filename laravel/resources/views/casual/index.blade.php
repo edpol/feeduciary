@@ -18,7 +18,7 @@
                     OUR MISSION
                 </h2>
                 <p class="lead">
-                    Feeduciary is an independent and privately held company with a singular focus on connecting fee conscious investors seeking investment advice with fee-based financial advisors seeking new clients. 
+                    The singular focus of Feeduciary.com is to connect fee conscious investors seeking investment advice with fee-based financial advisors.
                     <br /><br />
                     Please enter the approximate amount you wish to invest and we can supply you with a list of advisors and their fees.
                 </p>
