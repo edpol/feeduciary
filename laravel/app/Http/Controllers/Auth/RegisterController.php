@@ -110,7 +110,7 @@ class RegisterController extends Controller
         // Sign them in
         auth()->login($user);
 
-        \Mail::to($user)->send(new Welcome($user));
+//        \Mail::to($user)->send(new Welcome($user));
 
         // After creating your USER information, we need your ADVISOR information
 
