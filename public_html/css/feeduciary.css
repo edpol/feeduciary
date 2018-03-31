@@ -81,3 +81,23 @@ th { text-align:center; }
 	padding-top:0px; 
 	padding-bottom:0px; 
 }
+
+#calculating { 
+	text-align:center; 
+	color:#39B54A; 
+	margin-top:20px;
+/*
+	margin:40px auto; 
+	-webkit-background-size: contain;
+	   -moz-background-size: contain;
+	     -o-background-size: contain;
+	        background-size: contain;
+*/
+	background-repeat: no-repeat;
+	background-position: center; 
+}
+#calculating2, .wait img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

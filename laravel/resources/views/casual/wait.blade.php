@@ -1,31 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Working...</title>
-	<style>
+<?php $tab = "Working..."; ?>
+@extends('layouts.wait')
+
+@section('box1')
+<style>
 	body {
 		background-color:#000; color:#39B54A; 
-		font-family: arial; font-weight:bold; font-size:36px;
+		font-weight:bold; font-size:36px;
     	display: block; 
 	}
-	#calculating { 
-		text-align:center; margin:40px auto; 
-/*
-		-webkit-background-size: contain;
-    	   -moz-background-size: contain;
-    	     -o-background-size: contain;
-    	        background-size: contain;
-*/
-    	background-repeat: no-repeat;
-    	background-position: center; 
-    	width:600px; height:200px;
-	}
 </style>
-</head>
-<body>
-	<div id="calculating" style="background-image:url('images/wait.gif')">
-		Calculating Annual Fees
-	</div>	
+@endsection
+
+@section('box2')
+<section>
+	<div class="container">
+		<br />
+		<div class="row">
+			<div class="col-sm-5"> </div>
+			<div class="col-sm-2 wait">
+				<img src='images/wait.gif' />
+			</div>
+			<div class="col-sm-5"> </div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2"> </div>
+			<div class="col-sm-8" id="calculating"> <!-- style="background-image:url('images/wait.gif')"> -->
+				Calculating Annual Fees
+			</div>	
+		</div>
+	</div>
+</section>
+
 <script>
 var calc = document.getElementById("calculating");
 var myVar = setInterval(myTimer, 1000);
@@ -41,6 +46,4 @@ function clearTimer() {
 }
 
 </script>
-
-</body>
-</html>
+@endsection
