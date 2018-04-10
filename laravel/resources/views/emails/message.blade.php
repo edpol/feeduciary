@@ -1,21 +1,21 @@
-@component('mail::message')
-# Message
+@component('mail::layout')
+    @slot('header')
+        @component('mail::header', ['url' => config('app.url')])
+            <span style="color:green;">Contact from Feeduciary.com</span>
+        @endcomponent
+    @endslot
 
-Contact from a visiting guest.
+    To:		{{ $data['advisorName']  }} ({{ $data['advisorEmail'] }})<br />
+    From:   {{ $data['name']         }} ({{ $data['guestEmail']   }})<br />
+    <br />
+		    {{ $data['content']      }}<br />
+    <br />
+    Phone:  {{ $data['phone']        }}<br />
 
-@component('mail::button', ['url' => 'http://feeduciary.com'])
-Feeduciary.com
-@endcomponent
-<br />
-
-@component('mail::panel', ['url' => 'http://feeduciary.com'])
-{{ $data['content']     }}<br />
-<br />
-{{ $data['name']   }}<br />
-Phone:   {{ $data['phone']       }}<br />
-Email:    {{ $data['fromEmail']   }}<br />
-@endcomponent
-
-<br>
-{{ config('app.name') }}
+    {{-- Footer --}}
+    @slot('footer')
+        @component('mail::footer', ['url' => 'http://feeduciary.com/contact'])
+            [Review your info @ Feeduciary.com](http://{{ $data['server_name'] }}/advisors/{{ $data['id'] }} "Feeduciary.com")
+        @endcomponent
+    @endslot
 @endcomponent

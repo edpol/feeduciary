@@ -1,6 +1,6 @@
 <?php
 
-return [
+$data = [
 
     /*
     |--------------------------------------------------------------------------
@@ -120,3 +120,16 @@ return [
     ],
 
 ];
+
+/* this is for local */
+    if (env('APP_ENV')!="production") {
+        $data['stream'] = [
+            'ssl' => [
+                'allow_self_signed' => true,
+                'verify_peer'       => false,
+                'verify_peer_name'  => false,
+            ],
+        ];
+    }
+
+    return $data;

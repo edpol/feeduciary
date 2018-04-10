@@ -4,40 +4,67 @@ namespace feeduciary\Http\Controllers;
 
 use feeduciary\Advisor;
 use feeduciary\Mail;
-use feeduciary\Mail\Welcome;
+use feeduciary\Mail\ContactUs;
 use feeduciary\Mail\Message;
+use feeduciary\Mail\Welcome;
 use feeduciary\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class EmailController extends Controller
 {
-	public function send(Request $request)
+    public function contactUs(Request $request)
     {
-        $id = $request->input('id');
-        $advisorName = $request->input('id');
-        $toEmail = $request->input('toEmail');
-		$name = $request->input('name');
-		$subject = "Message from " . $name;
+        $name    = $request->input('name');
+        $email   = $request->input('email');
+        $phone   = $request->input('phone');
+        $message = $request->input('message');
+        $toEmail = env('MAIL_USERNAME'); // message@feeduciary.com
 
-        $data = array (	"title"      => $request->input('title'),
-			       		"name"       => $request->input('name'),
-			       		"advisorName"=> $request->input('advisorName'),
-						"fromEmail"  => $request->input('fromEmail'),
-        				"phone"      => $request->input('phone'),
-						"content"    => $request->input('message'),
-                        "subject"    => $subject 
-					);
+        $data = array ( "title"      => "Customer Contact",
+                        "name"       => $request->input('name'),
+                        "fromEmail"  => $request->input('email'),
+                        "phone"      => $request->input('phone'),
+                        "content"    => $request->input('message'),
+                        "subject"    => "Customer Contact"
+                    );
 
-        \Mail::to($toEmail)->send(new Message($data));
+        \Mail::to($toEmail)->send(new ContactUs($data));
+        return view('casual.thankYou', compact('data'));
+    }
+
+    public function send(Request $request)
+    {
+        $id      = $request->input('id');
+        $name    = $request->input('name');
+        $advisorName = $request->input('advisorName');
+        $advisorEmail= $request->input('advisorEmail');
+        $phone   = $request->input('phone');
+        $message = $request->input('message');
+        $toEmail = env('MAIL_USERNAME'); // message@feeduciary.com
+        $subject = "Message from " . $name;
+
+        $data = array ( "title"        => $request->input('title'),
+                        "id"           => $request->input('id'),
+                        "name"         => $request->input('name'),
+                        "advisorName"  => $request->input('advisorName'),
+                        "advisorEmail" => $request->input('advisorEmail'),
+                        "guestEmail"   => $request->input('guestEmail'),
+                        "phone"        => $request->input('phone'),
+                        "content"      => $request->input('message'),
+                        "server_name"  => $request->input('server_name'),
+                        "subject"      => $subject
+                    );
+
+        \Mail::to($advisorEmail, $advisorName)->send(new Message($data));
 /*
-        \Mail::send('emails.send', $data, function ($message) use ($advisorName, $toEmail, $subject, $name)
+        \Mail::send('emails.message', $data, function ($message) use ($advisorName, $toEmail, $subject, $name)
         {
             $message->from('message@feeduciary.com', "Feeduciary.com");
             $message->to($toEmail,$advisorName);
             $message->subject($subject);
         });
 */
-		$advisor = Advisor::where("id",$id)->first();
+		$advisor = Advisor::find($id);
 //        return view('advisors.show', compact('advisor'));
 //        return response()->json(['message' => 'Request completed']);
 		return redirect("/advisors/{$advisor->id}");

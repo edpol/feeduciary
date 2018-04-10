@@ -1,23 +1,34 @@
 <?php
+use feeduciary\Advisor;
+
 Route::get('/',                        'CasualController@index');
 Route::get('/about',                   'CasualController@about');
 Route::get('/blog',                    'CasualController@blog');
 Route::get('/contact',                 'CasualController@contact');
 
+Route::post('/contact',                'EmailController@contactUs');
+Route::post('/send',                   'EmailController@send');
+//Route::post('/contact/{advisor}',      'AdvisorsController@contact');
+
+Route::post('/contact/{id}', function($id) {
+    $advisor = Advisor::find($id);
+    return view('advisors.contact', compact('advisor'));
+});
+/*
+Route::post('/contact/{advisor}', function($advisor) {
+    return view('advisors.contact', compact('advisor'));
+});
+*/
 Route::view('/terms',   'casual.terms');
 Route::view('/privacy', 'casual.privacy');
 
-Route::post('/send',                   'EmailController@send');
-
-Route::post('/contact/{advisor}',      'AdvisorsController@contact');
-
 Route::prefix('advisors')->group(function () {
-    Route::get('/',               'AdvisorsController@index');
-    Route::get('/{advisor}',      'AdvisorsController@show'); 
-    Route::get('/page/{page}',    'AdvisorsController@page'); 
-    Route::get('/resort/{order}', 'AdvisorsController@resort'); 
-    Route::get('/range/{miles}',  'AdvisorsController@range'); 
-    Route::get('/feeRange/{fee}', 'AdvisorsController@feeRange'); 
+    Route::get('/',                    'AdvisorsController@index');
+    Route::get('/{advisor}',           'AdvisorsController@show'); 
+    Route::get('/page/{page}',         'AdvisorsController@page'); 
+    Route::get('/resort/{order}',      'AdvisorsController@resort'); 
+    Route::get('/range/{miles}',       'AdvisorsController@range'); 
+    Route::get('/feeRange/{fee}',      'AdvisorsController@feeRange'); 
 });
 
 Route::post('/store',                  'AdvisorsController@store'); 

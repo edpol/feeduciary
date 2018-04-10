@@ -1,26 +1,22 @@
-@component('mail::message')
-# Introduction
+@component('mail::layout')
+    @slot('header')
+        @component('mail::header', ['url' => config('app.url')])
+            <span style="color:green;">Thank you for registering with Feeduciary.com</span>
+        @endcomponent
+    @endslot
 
-Thank you for registering with us!
+	Name:    {{ $data['name']        }}<br />
+	Title:   {{ $data['title']       }}<br />
+	Advisor: {{ $data['advisorName'] }}<br />
+	From:    {{ $data['fromEmail']   }}<br />
+	Phone:   {{ $data['phone']       }}<br />
+	Subject: {{ $data['subject']     }}<br />
+	Content: {{ $data['content']     }}<br />
 
-
-
-@component('mail::button', ['url' => 'http://feeduciary.com'])
-Feeduciary.com
-@endcomponent
-<br />
-
-@component('mail::panel', ['url' => ''])
-Panel Text <br />
-Name:    {{ $data['name']        }}<br />
-Title:   {{ $data['title']       }}<br />
-Advisor: {{ $data['advisorName'] }}<br />
-From:    {{ $data['fromEmail']   }}<br />
-Phone:   {{ $data['phone']       }}<br />
-Subject: {{ $data['subject']     }} <br />
-Content: {{ $data['content']     }}<br />
-@endcomponent
-
-Thanks,<br>
-{{ config('app.name') }}
+    {{-- Footer --}}
+    @slot('footer')
+        @component('mail::footer', ['url' => 'http://feeduciary.com/contact'])
+            [Review your info @ Feeduciary.com](http://{{ $data['server_name'] }}/advisors/{{ $data['id'] }} "Feeduciary.com")
+        @endcomponent
+    @endslot
 @endcomponent

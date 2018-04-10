@@ -1,4 +1,9 @@
-<?php $tab = "Show Advisor"; ?>
+<?php $tab = "Show Advisor"; 
+    $key = "AIzaSyAWOL3Onr0xG3zs0U_vNDk15XOm82qb5wE";
+    $q = $advisor->address1 . " " . $advisor->address2 . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
+    $q = htmlentities($q);
+    $hideEmail = true;
+?>
 @extends('layouts.master')
 
 @section('box1')
@@ -11,16 +16,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-<?php           $hideEmail = true;   ?>
                 @include('advisors.display')
             </div>
-<?php
-            $key = "AIzaSyAWOL3Onr0xG3zs0U_vNDk15XOm82qb5wE";
-            $q = $advisor->address1 . " " . $advisor->address2 . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
-            $q = htmlentities($q);
-?>
             <div id="map" class="col-lg-4">
-
+            </div>
         </div>
     </div>
 </section>

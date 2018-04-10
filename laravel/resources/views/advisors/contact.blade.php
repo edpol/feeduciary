@@ -15,12 +15,14 @@
         </h2>
         <hr class="divider" />
         <div class="row">
-            <form action="/{{ url('send') }}" method="post">
+            <form action="{{ url('send') }}" method="post">
                 {{ csrf_field() }}
-                <input type="hidden" name="title"       value="User Message" />
-                <input type="hidden" name="id"          value="{{ $advisor->id }}" />
-                <input type="hidden" name="advisorName" value="{{ $advisor->id }}" />
-                <input type="hidden" name="toEmail"     value="{{ $advisor->email }}" />
+                <?php $server_name =  (isset($_SERVER["SERVER_NAME"])) ? $_SERVER["SERVER_NAME"] : "feeduciary.com"; ?>
+                <input type="hidden" name="server_name"  value="{{ $server_name }}" />
+                <input type="hidden" name="title"        value="User Message" />
+                <input type="hidden" name="id"           value="{{ $advisor->id }}" />
+                <input type="hidden" name="advisorName"  value="{{ $advisor->name }}" />
+                <input type="hidden" name="advisorEmail" value="{{ $advisor->email }}" />
                 <div class="row">
                     <div class="form-group col-lg-4">
                         <label class="text-heading">Name</label>
@@ -28,7 +30,7 @@
                     </div>
                     <div class="form-group col-lg-4">
                         <label class="text-heading">Email Address</label>
-                        <input type="email" name="fromEmail" class="form-control">
+                        <input type="email" name="guestEmail" class="form-control">
                     </div>
                     <div class="form-group col-lg-4">
                         <label class="text-heading">Phone Number</label>
@@ -40,7 +42,7 @@
                         <textarea class="form-control" name="message" rows="6"></textarea>
                     </div>
                     <div class="form-group col-lg-12">
-                        <button type="submit" class="btn btn-secondary">Submit to {{ $advisor->name }}</button>
+                        <button type="submit" class="btn btn-primary">Submit to {{ $advisor->name }}</button>
                     </div>
                 </div>
             </form>
