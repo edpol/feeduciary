@@ -101,3 +101,8 @@ th { text-align:center; }
     margin-left: auto;
     margin-right: auto;
 }
+.mytable>tbody>tr>td, .mytable>tbody>tr>th, .mytable>tfoot>tr>td, .mytable>tfoot>tr>th, .mytable>thead>tr>td, .mytable>thead>tr>th {
+    padding: 0px;
+	text-align: left;
+	border-bottom-style:none;
+}
