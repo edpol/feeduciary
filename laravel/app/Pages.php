@@ -65,7 +65,7 @@ class Pages extends Model
 				$next = "<a href='" . url('/advisors/page/') . $this->nextPage() . "'>{$next}</a>";
 			}
 		}
-		return $previous . "<ul>" . $answer . "</ul>" . $next;
+		return "<ul><li>{$previous}</li>{$answer}<li>{$next}</li></ul>";
 	}
 
 }

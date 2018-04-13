@@ -39,7 +39,7 @@
 	    <div class="container">
 	    	<div class="row">
 
-		        <div class="col-md-4">
+		        <div class="col-sm-4">
 					<span style="font-weight:bold;">Investment Amount:</span> ${{ number_format($amount,0) }}<br />
 					@if(isset($zip) && $zip!="")
 						<span style="font-weight:bold;">Zip Code:</span> {{ $zip }}<br />
@@ -47,13 +47,13 @@
 				</div>
 
 				<!-- Button to sort by Fee or distance. If no zip code can only show/sort fee -->
-		        <div class="col-md-2" style="margin-top:8px;">
+		        <div class="col-sm-2" style="margin-top:8px;">
 					@if(isset($zip) && $zip!="")
 						<a class="btn btn-primary" href="/advisors/resort/<?= $newOrder['val'];?>"><?= $newOrder['text']; ?></a>
 					@endif
 				</div>
 
-				<div class="col-md-6" style="margin-top:8px;">
+				<div class="col-sm-6" style="margin-top:8px;">
 				@if(isset($zip) && $zip!="")
 					<input id="myRange" name="slider"    class="slider" type="range" step="<?= $step; ?>"    min="<?= $min; ?>"    max="<?= $max; ?>"    value="<?= $miles; ?>" />
 					&nbsp; Distance: <span id="displayDistance"></span>
@@ -118,15 +118,20 @@
 		@endif
 	@endforeach
 
-	<section class="<?= $class; ?>">
-	    <div class="container">
+		<section class="<?= $class; ?>" style="padding-top:4px;">
 	        <div class="row">
-	        	<div class="col-md-2"></div>
-				<div class="col-md-6 pagination pagination-lg">
-<?php				$pages = new Pages($displayCount, $page);
-					echo $pages->pageLinks();
-?>		    	</div>
+				<div class="col-sm-12 center" style="color:grey;">
+					Annual fees do not include internal costs and expenses associated with investments inside of a fee based portfolio.
+				</div>
 			</div>
-    	</div>
-	</section>
+			<br />
+	        <div class="row">
+				<div class="col-sm-12">
+					<div class="pagination center pagination-sm">
+<?php					$pages = new Pages($displayCount, $page);
+						echo $pages->pageLinks();
+?>					</div>
+		    	</div>
+			</div>
+		</section>
 @endsection

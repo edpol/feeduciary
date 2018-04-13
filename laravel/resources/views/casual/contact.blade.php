@@ -12,7 +12,7 @@
         $secret  = "6LdSt04UAAAAACJAQXJcKM-pGzjFZbaoGnQEhoUu";
     }
 ?>
-@extends('layouts.master')
+@extends('layouts.captcha')
 
 @section('box1')
 <div class="paddingForHeader">
@@ -73,7 +73,7 @@
     <div class="row">
         <div class="col-sm-2"> </div>
         <div class="col-sm-8">
-            <hr class="divider">
+            <hr class="divider" />
             <h2 class="text-center text-lg text-uppercase my-0">Contact Form</h2>
             <hr class="divider" />
             <form action="{{ url('contact') }}" method="post">
@@ -100,7 +100,13 @@
                         <textarea class="form-control" name="message" rows="6"></textarea>
                     </div>
                     <div class="form-group col-sm-12">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <div id='recaptcha' class="g-recaptcha"
+            data-sitekey="6LfWbVIUAAAAAJhi-Tz2TP1jmrR4vYKBIokA19CF"
+            data-callback="onSubmit"
+            data-size="invisible"></div>
+        <button type="submit" id='submit' class="btn btn-primary">Submit</button>
+
                     </div>
                 </div>
             </form>
