@@ -112,8 +112,8 @@ class RegisterController extends Controller
 
         $data['id'] = $user->id;
         $data['server_name'] = env('APP_URL');
-
-        \Mail::to($user)->send(new Welcome($user));
+        $data["subject"] = "Welcome " . $data["name"];
+        \Mail::to($user)->send(new Welcome($data));
 
         // After creating your USER information, we need your ADVISOR information
 

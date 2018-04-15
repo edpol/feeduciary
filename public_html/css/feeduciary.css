@@ -104,7 +104,7 @@ th { text-align:center; }
 .mytable>tbody>tr>td, .mytable>tbody>tr>th, .mytable>tfoot>tr>td, .mytable>tfoot>tr>th, .mytable>thead>tr>td, .mytable>thead>tr>th {
     padding: 0px;
 	text-align: left;
-	border-bottom-style:none;
+	border-style:none;
 }
 
 .pagination.center,

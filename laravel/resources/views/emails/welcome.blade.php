@@ -5,12 +5,12 @@
         @endcomponent
     @endslot
 
-	Thanks you for registering {{ $data['name'] }}<br />
+	Thank you for registering with feeduciary.com {{ $data['name'] }}<br />
 
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer', ['url' => 'http://feeduciary.com/contact'])
-            [Review your info @ Feeduciary.com](http://{{ $data['server_name'] }}/advisors/{{ $data['id'] }} "Feeduciary.com")
+            [Review your info @ Feeduciary.com](http://{{ $data['server_name'] }}/welcome/{{ $data['id'] }} "Feeduciary.com")
         @endcomponent
     @endslot
 @endcomponent

@@ -38,6 +38,19 @@ class AdvisorsController extends Controller
         return view('advisors.show', compact('advisor'));
     }
 
+    public function welcome(User $user)
+    {
+        $advisor = Advisor::where("user_id",$user->id)->first();
+        // if user has no advisor entry, go to login 
+        $count = (is_null($advisor)) ? 0 : $advisor->count();
+        if ($count==0) {
+            return redirect('/login')->with('email', $user->email);
+        } else {
+            $advisor = checkURLs($advisor);
+            return view('advisors.show', compact('advisor'));
+        }
+    }
+
     /*
      *  Calculate the advisors fee
      */
@@ -375,7 +388,7 @@ class AdvisorsController extends Controller
         return view('advisors.contact', compact('advisor'));
     }
 
-    public function delete($id){
+    public function delete($id) {
 //      Advisor::destroy($id);
         $results = User::where('id', $id)->delete();
         $results = Advisor::where('id', $id)->delete();

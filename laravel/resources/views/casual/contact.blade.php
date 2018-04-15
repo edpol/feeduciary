@@ -76,7 +76,7 @@
             <hr class="divider" />
             <h2 class="text-center text-lg text-uppercase my-0">Contact Form</h2>
             <hr class="divider" />
-            <form action="{{ url('contact') }}" method="post">
+            <form id="contact" action="{{ url('contact') }}" method="post">
                 {{ csrf_field() }}
 
                 <div class="row">

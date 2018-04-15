@@ -31,6 +31,7 @@ Route::prefix('advisors')->group(function () {
     Route::get('/feeRange/{fee}',      'AdvisorsController@feeRange'); 
 });
 
+Route::get('/welcome/{user}',          'AdvisorsController@welcome'); 
 Route::post('/store',                  'AdvisorsController@store'); 
 Route::get('/edit/{advisor}',          'AdvisorsController@edit'); 
 Route::get('/update/{advisor}',        'AdvisorsController@update'); 
