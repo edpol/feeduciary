@@ -14,35 +14,32 @@ class EmailController extends Controller
 {
     public function contactUs(Request $request)
     {
+        $recaptcha = new \ReCaptcha\ReCaptcha($secret);
+        $resp = $recaptcha->verify($gRecaptchaResponse, $remoteIp);
+        if ($resp->isSuccess()) {
+            // verified!
+            // if Domain Name Validation turned off don't forget to check hostname field
+            // if($resp->getHostName() === $_SERVER['SERVER_NAME']) {  }
 
+            $name    = $request->input('name');
+            $email   = $request->input('email');
+            $phone   = $request->input('phone');
+            $message = $request->input('message');
+            $toEmail = env('MAIL_USERNAME'); // message@feeduciary.com
 
-$recaptcha = new \ReCaptcha\ReCaptcha($secret);
-$resp = $recaptcha->verify($gRecaptchaResponse, $remoteIp);
-if ($resp->isSuccess()) {
-    // verified!
-    // if Domain Name Validation turned off don't forget to check hostname field
-    // if($resp->getHostName() === $_SERVER['SERVER_NAME']) {  }
+            $data = array ( "title"      => "Customer Contact",
+                            "name"       => $request->input('name'),
+                            "fromEmail"  => $request->input('email'),
+                            "phone"      => $request->input('phone'),
+                            "content"    => $request->input('message'),
+                            "subject"    => "Customer Contact"
+                        );
 
-
-        $name    = $request->input('name');
-        $email   = $request->input('email');
-        $phone   = $request->input('phone');
-        $message = $request->input('message');
-        $toEmail = env('MAIL_USERNAME'); // message@feeduciary.com
-
-        $data = array ( "title"      => "Customer Contact",
-                        "name"       => $request->input('name'),
-                        "fromEmail"  => $request->input('email'),
-                        "phone"      => $request->input('phone'),
-                        "content"    => $request->input('message'),
-                        "subject"    => "Customer Contact"
-                    );
-
-        \Mail::to($toEmail)->send(new ContactUs($data));
-        return view('casual.thankYou', compact('data'));
-} else {
-    $errors = $resp->getErrorCodes();
-}
+            \Mail::to($toEmail)->send(new ContactUs($data));
+            return view('casual.thankYou', compact('data'));
+        } else {
+            $errors = $resp->getErrorCodes();
+        }
     }
 
     public function send(Request $request)
