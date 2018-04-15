@@ -6,12 +6,7 @@
     @endslot
 
 	Name:    {{ $data['name']        }}<br />
-	Title:   {{ $data['title']       }}<br />
-	Advisor: {{ $data['advisorName'] }}<br />
-	From:    {{ $data['fromEmail']   }}<br />
-	Phone:   {{ $data['phone']       }}<br />
-	Subject: {{ $data['subject']     }}<br />
-	Content: {{ $data['content']     }}<br />
+{{ $user->name }} {{ $user->id }}
 
     {{-- Footer --}}
     @slot('footer')
