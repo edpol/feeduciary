@@ -5,7 +5,7 @@
         @endcomponent
     @endslot
 
-	Thanks you for registering  {{ $data['name'] }}<br />
+	Thanks you for registering {{ $data['name'] }}<br />
 
     {{-- Footer --}}
     @slot('footer')
