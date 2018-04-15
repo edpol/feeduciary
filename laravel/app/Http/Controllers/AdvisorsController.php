@@ -111,7 +111,7 @@ class AdvisorsController extends Controller
         $range["feeMin"]  = (int) (ceil($feeMin/10)) * 10;
         $range["feeMax"]  = (int) (ceil($feeMax/10)) * 10;
         $range["feeStep"] = (int) ceil(($feeMax-$feeMin)/100);
-$range["feeMax"] += $range["feeStep"] ;
+        $range["feeMax"] += $range["feeStep"] ;
         session(compact('advisors', 'range'));
         return;
     }
@@ -377,6 +377,7 @@ $range["feeMax"] += $range["feeStep"] ;
 
     public function delete($id){
 //      Advisor::destroy($id);
+        $results = User::where('id', $id)->delete();
         $results = Advisor::where('id', $id)->delete();
         $results = Rate::where("advisor_id",$id)->delete();
         return redirect('/admin/advisors')->with('status', "Advisor {$id} deleted!");
