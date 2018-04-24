@@ -57,12 +57,18 @@
                             </ul>
                         </li>
                     @else
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/login') }}">FA Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/register') }}">FA Register</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"  href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Advisors <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/login') }}">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/register') }}">Register</a>
+                                </li>
+                            </ul>
                         </li>
                     @endif
                 </ul>

@@ -19,7 +19,7 @@
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="https://twitter.com/findadvisor" target="_blank">
+                                <a href="https://twitter.com/feeduciary" target="_blank">
                                     <img align="right" src="{{ url('images/social-twitter.png') }}" alt="twitter find advisor" />
                                 </a>
                             </div>

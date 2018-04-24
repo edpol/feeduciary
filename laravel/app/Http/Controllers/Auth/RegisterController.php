@@ -33,6 +33,8 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/';
 
+    public $company = env('MAIL_FROM_ADDRESS', 'message@feeduciary.com');
+
     /**
      * Create a new controller instance.
      *
@@ -113,7 +115,7 @@ class RegisterController extends Controller
         $data['id'] = $user->id;
         $data['server_name'] = env('APP_URL');
         $data["subject"] = "Welcome " . $data["name"];
-        \Mail::to($user)->send(new Welcome($data));
+        \Mail::to($user)->bcc($this->company)->send(new Welcome($data));
 
         // After creating your USER information, we need your ADVISOR information
 

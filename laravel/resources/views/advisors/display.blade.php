@@ -143,7 +143,7 @@
                 </div>
                 <hr clear="all" />
 
-                @if (!auth()->check())
+                @if (!auth()->check() && $advisor->user_id==0)
                 <div class="row">
                     <div class="col-sm-4 alert alert-info">
                         <a href="{{ url('/claim') }}/{{ $advisor->id }}">Claim this account</a>

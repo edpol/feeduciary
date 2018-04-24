@@ -12,7 +12,9 @@ use Illuminate\Http\Request;
 
 class EmailController extends Controller
 {
-    public function contactUs(Request $request)
+      public $company = env('MAIL_FROM_ADDRESS', 'message@feeduciary.com');
+  
+      public function contactUs(Request $request)
     {
         // if Domain Name Validation turned off don't forget to check hostname field
         // if($resp->getHostName() === $_SERVER['SERVER_NAME']) {  }
@@ -21,7 +23,6 @@ class EmailController extends Controller
         $email   = $request->input('email');
         $phone   = $request->input('phone');
         $message = $request->input('message');
-        $toEmail = env('MAIL_FROM_ADDRESS', 'message@feeduciary.com');
         $subject = "Contact from Feeduciary.com " . $name;
 
         $data = array ( "title"        => "Customer Contact",
@@ -33,7 +34,7 @@ class EmailController extends Controller
                         "subject"      => $subject
                     );
 
-        \Mail::to($toEmail)->send(new ContactUs($data));
+        \Mail::to($this->company)->send(new ContactUs($data));
         return view('casual.thankYou', compact('data'));
     }
 
@@ -59,7 +60,7 @@ class EmailController extends Controller
                         "subject"      => $subject
                     );
 
-        \Mail::to($advisorEmail, $advisorName)->send(new Message($data));
+        \Mail::to($advisorEmail, $advisorName)->bcc($this->company)->send(new Message($data));
 /*
         \Mail::send('emails.message', $data, function ($message) use ($advisorName, $toEmail, $subject, $name)
         {
