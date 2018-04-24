@@ -30,7 +30,7 @@
                     <div class="form-group{{ $errors->has('roof') ? ' has-error' : '' }}">
                         <label for="roof" class="col-md-8 control-label">What is the maximum dollar amount on this tier of your fee schedule?</label>
                         <div class="col-md-8">
-                            <input id="investment" type="text" class="form-control" name="roof" value="{{ old('roof') }}" autofocus />
+                            <input type="text" class="form-control comma" name="roof" value="{{ old('roof') }}" autofocus />
                             @if ($errors->has('roof'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('roof') }}</strong>

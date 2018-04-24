@@ -136,7 +136,7 @@ if (!isset($user)) {
                         <div class="form-group">
                             <label for="minimum_amt" class="col-md-8 control-label">Minimum Investment Amount</label>
                             <div class="col-md-8 {{ $errors->has('minimum_amt') ? ' has-error' : '' }}">
-                                <input id="minimum_amt" type="text" class="form-control" name="minimum_amt" value="{{ old('minimum_amt') }}" />
+                                <input id="minimum_amt" type="text" class="form-control comma" name="minimum_amt" value="{{ old('minimum_amt') }}" />
                                 @if ($errors->has('minimum_amt'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('minimum_amt') }}</strong>
@@ -160,7 +160,7 @@ if (!isset($user)) {
                         <div class="form-group">
                             <label for="minimum_fee" class="col-md-8 control-label">Minimum Fee</label>
                             <div class="col-md-8 {{ $errors->has('minimum_fee') ? ' has-error' : '' }}">
-                                <input id="minimum_fee" type="text" class="form-control" name="minimum_fee" value="{{ old('minimum_fee') }}" />
+                                <input id="minimum_fee" type="text" class="form-control comma" name="minimum_fee" value="{{ old('minimum_fee') }}" />
                                 @if ($errors->has('minimum_fee'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('minimum_fee') }}</strong>
@@ -252,7 +252,7 @@ if (!isset($user)) {
                         <div class="form-group">
                             <label for="discretionaryAUM" class="col-md-8 control-label">Discretionary AUM</label>
                             <div class="col-md-8 {{ $errors->has('discretionaryAUM') ? ' has-error' : '' }}">
-                                <input id="discretionaryAUM" type="text" class="form-control" name="discretionaryAUM" value="{{ old('discretionaryAUM') }}" />
+                                <input id="discretionaryAUM" type="text" class="form-control comma" name="discretionaryAUM" value="{{ old('discretionaryAUM') }}" />
                                 @if ($errors->has('discretionaryAUM'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('discretionaryAUM') }}</strong>

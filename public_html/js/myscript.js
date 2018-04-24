@@ -44,35 +44,35 @@ function numbersonly(e) {
     }
 } 
 
+function addCommas(target) {
+    target.addEventListener("keyup", function(event) {
+        noCommas = target.value.replace(/\D/g, '');
+        newValue = noCommas;
+        if (noCommas.length>0) newValue = "$ " + noCommas;
+        if (noCommas.length > 3) { 
+            newValue = "";
+            while (noCommas.length>3) {
+                // 1,234,567,890
+                last3 = noCommas.slice(-3,noCommas.length); 
+                noCommas = noCommas.slice(0,-3);
+                newValue = "," + last3 + newValue;
+            }
+            newValue = noCommas + newValue;
+            newValue = "$ " + newValue;
+        }
+        target.value = newValue;
+
+        if (event.key === "Enter") {
+            document.forms[0].submit();
+        }
+    });
+}
 function comma(){
-    var investment = document.getElementById("investment");
-
-    if (investment !== null && investment !== undefined) {
-        investment.addEventListener("keyup", function(event) {
-            noCommas = investment.value.replace(/\D/g, '');
-            newValue = noCommas;
-            if (noCommas.length>0) newValue = "$ " + noCommas;
-            console.log("no Commas: " + noCommas); 
-            if (noCommas.length > 3) { 
-                newValue = "";
-                while (noCommas.length>3) {
-                    // 1,234,567,890
-                    last3 = noCommas.slice(-3,noCommas.length); 
-                    noCommas = noCommas.slice(0,-3);
-                    newValue = "," + last3 + newValue;
-                console.log("noCommas: " + noCommas + " - last3: " + last3 );
-                }
-                newValue = noCommas + newValue;
-                console.log("newValue: " + newValue);
-                newValue = "$ " + newValue;
-            }
-                investment.value = newValue;
-
-            if (event.key === "Enter") {
-                // Do work
-              document.forms[0].submit();
-            }
-        });
+    var comma = document.getElementsByClassName("comma");
+    if (comma !== null && comma !== undefined) {
+        for (var i=0; i<comma.length; i++) {
+            comma[i].addEventListener("keyup", addCommas(comma[i]), false);
+        }
     }
 }
 
