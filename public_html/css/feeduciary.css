@@ -116,3 +116,7 @@ th { text-align:center; }
 .pagination.center ul { left: -50%; }
 
 a img { border: 0; }
+
+.no-js [data-responsive-toggle]{
+    display:none;
+}
