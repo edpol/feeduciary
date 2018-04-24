@@ -12,13 +12,12 @@ use Illuminate\Http\Request;
 
 class EmailController extends Controller
 {
-      public $company = env('MAIL_FROM_ADDRESS', 'message@feeduciary.com');
-  
       public function contactUs(Request $request)
     {
         // if Domain Name Validation turned off don't forget to check hostname field
         // if($resp->getHostName() === $_SERVER['SERVER_NAME']) {  }
 
+        $company = env('MAIL_FROM_ADDRESS', 'message@feeduciary.com');
         $name    = $request->input('name');
         $email   = $request->input('email');
         $phone   = $request->input('phone');
@@ -34,12 +33,13 @@ class EmailController extends Controller
                         "subject"      => $subject
                     );
 
-        \Mail::to($this->company)->send(new ContactUs($data));
+        \Mail::to($company)->send(new ContactUs($data));
         return view('casual.thankYou', compact('data'));
     }
 
     public function send(Request $request)
     {
+        $company = env('MAIL_FROM_ADDRESS', 'message@feeduciary.com');
         $id      = $request->input('id');
         $name    = $request->input('name');
         $advisorName = $request->input('advisorName');
@@ -60,7 +60,7 @@ class EmailController extends Controller
                         "subject"      => $subject
                     );
 
-        \Mail::to($advisorEmail, $advisorName)->bcc($this->company)->send(new Message($data));
+        \Mail::to($advisorEmail, $advisorName)->bcc($company)->send(new Message($data));
 /*
         \Mail::send('emails.message', $data, function ($message) use ($advisorName, $toEmail, $subject, $name)
         {
