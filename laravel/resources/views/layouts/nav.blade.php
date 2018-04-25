@@ -1,22 +1,5 @@
     <!-- Navigation -->
 
-
-    <div class="navbar-header">
-
-                <button aria-expanded="false" class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button">
-
-                <span class="sr-only">Toggle navigation</span>
-
-                <span class="icon-bar"></span><span class="icon-bar"></span>
-
-                <span class="icon-bar"></span></button>
-
-                <a href="index.html" target="_self" title="SteuartHall.com">
-
-                <img alt="" height="150" src="images/Steuart11310-1-72dpi-150px.jpg" width="150" /></a>
-
-    </div>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
