@@ -39,7 +39,7 @@
 	    <div class="container">
 	    	<div class="row">
 
-		        <div class="col-sm-4">
+		        <div class="col-sm-4 mb-2">
 					<span style="font-weight:bold;">Investment Amount:</span> ${{ number_format($amount,0) }}<br />
 					@if(isset($zip) && $zip!="")
 						<span style="font-weight:bold;">Zip Code:</span> {{ $zip }}<br />
@@ -47,20 +47,31 @@
 				</div>
 
 				<!-- Button to sort by Fee or distance. If no zip code can only show/sort fee -->
-		        <div class="col-sm-2">
+		        <div class="col-sm-2 mb-4">
 					@if(isset($zip) && $zip!="")
 						<a class="btn btn-primary" href="/advisors/resort/<?= $newOrder['val'];?>"><?= $newOrder['text']; ?></a>
 					@endif
 				</div>
-
-				<div class="ml-1 col-sm-5">
+				<div class="col-sm-1"> </div>
+				<div class="col-sm-5">
 				@if(isset($zip) && $zip!="")
+<div class="row">
+	<div class="col-sm-6">
 					<input id="myRange" name="slider"    class="slider" type="range" step="<?= $step; ?>"    min="<?= $min; ?>"    max="<?= $max; ?>"    value="<?= $miles; ?>" />
-					&nbsp; Distance: <span id="displayDistance"></span>
-					<br /><br /> 
+	</div>
+	<div class="col-sm-6 mb-2 ml-0">
+					&nbsp; Distance: <span id="displayDistance"></span><br />
+	</div>
+</div>
 				@endif
+<div class="row">
+	<div class="col-sm-6">
 					<input id="myFee"   name="feeSlider" class="slider" type="range" step="<?= $feeStep; ?>" min="<?= $feeMin; ?>" max="<?= $feeMax; ?>" value="<?= $fee;   ?>" />
-					&nbsp; Fee: $<span id="displayFee"></span>
+	</div>
+	<div class="col-sm-6 mb-2">
+					&nbsp; Fee: $<span id="displayFee"></span><br />
+	</div>
+</div>
 				</div>
 
 			</div>
