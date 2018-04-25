@@ -28,18 +28,30 @@
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('roof') ? ' has-error' : '' }}">
-                        <label for="roof" class="col-md-8 control-label">What is the maximum dollar amount on this tier of your fee schedule?</label>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control comma" name="roof" value="{{ old('roof') }}" autofocus />
-                            @if ($errors->has('roof'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('roof') }}</strong>
-                                </span>
-                            @endif
+
+                        <div class="row">
+                            <label for="roof" class="col-md-12 control-label">
+                                @if ($rates->count()==0)
+                                What is the maximum dollar amount on the FIRST tier of your fee schedule?<br />(For example: $0 to 250,000.  Enter $250,000.00
+                                @else
+                                What is the maximum dollar amount on the NEXT tier of your fee schedule?"
+                                @endif
+                            </label>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="text" class="form-control comma" name="roof" value="{{ old('roof') }}" autofocus />
+                                @if ($errors->has('roof'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('roof') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('rate') ? ' has-error' : '' }}">
+                    <div class="row form-group{{ $errors->has('rate') ? ' has-error' : '' }}">
                         <label for="rate" class="col-md-8 control-label">What is the annual rate for this tier?</label>
                         <div class="col-md-8">
                             <input id="rate" type="rate" class="form-control" name="rate" value="{{ old('rate') }}" />

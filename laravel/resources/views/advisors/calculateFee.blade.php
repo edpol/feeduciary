@@ -47,13 +47,13 @@
 				</div>
 
 				<!-- Button to sort by Fee or distance. If no zip code can only show/sort fee -->
-		        <div class="col-sm-2" style="margin-top:8px;">
+		        <div class="col-sm-2">
 					@if(isset($zip) && $zip!="")
 						<a class="btn btn-primary" href="/advisors/resort/<?= $newOrder['val'];?>"><?= $newOrder['text']; ?></a>
 					@endif
 				</div>
 
-				<div class="col-sm-6" style="margin-top:8px;">
+				<div class="ml-1 col-sm-5">
 				@if(isset($zip) && $zip!="")
 					<input id="myRange" name="slider"    class="slider" type="range" step="<?= $step; ?>"    min="<?= $min; ?>"    max="<?= $max; ?>"    value="<?= $miles; ?>" />
 					&nbsp; Distance: <span id="displayDistance"></span>
