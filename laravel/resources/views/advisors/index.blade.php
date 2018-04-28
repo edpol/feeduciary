@@ -24,11 +24,16 @@
 <?php						$link=url('/advisors'); ?>
 					@endif
 					@foreach( $advisors as $advisor )
+
+						@if( auth()->check() && auth()->user()->isAdmin() || (!$advisor->is_active) ) 
 						<tr>
 					 		<td style="text-align:left;" @if (!$advisor->is_active) class='alert alert-danger' @endif >
-								<a href="<?= $link; ?>/{{ $advisor->id }}">{{ $advisor->name }}, {{ $advisor->st }}</a>
+								<a href="{{ $link }}/{{ $advisor->id }}">
+									{{ $advisor->name }}, {{ $advisor->st }}
+								</a>
 							</td>
 						</tr>
+						@endif
 					@endforeach
 				</table>
 			</div>
