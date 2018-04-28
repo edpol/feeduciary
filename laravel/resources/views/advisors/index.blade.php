@@ -25,7 +25,7 @@
 					@endif
 					@foreach( $advisors as $advisor )
 
-						@if( auth()->check() && auth()->user()->isAdmin() || (!$advisor->is_active) ) 
+						@if( auth()->check() && auth()->user()->isAdmin() || ($advisor->is_active) ) 
 						<tr>
 					 		<td style="text-align:left;" @if (!$advisor->is_active) class='alert alert-danger' @endif >
 								<a href="{{ $link }}/{{ $advisor->id }}">
