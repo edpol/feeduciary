@@ -28,4 +28,14 @@ class Advisor extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    public function phone() {
+        $phone = preg_replace("/[^[:alnum:][:space:]]/u", '', $this->phone);
+        if (strlen($phone)==10) {
+            $phone = "(" . substr($phone,0,3) . ")" . substr($phone,3,3) . "-" . substr($phone,6);
+        } else {
+            $phone = $this->phone;
+        }
+        return $phone;
+    }
 }

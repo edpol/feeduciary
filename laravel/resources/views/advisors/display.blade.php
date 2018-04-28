@@ -3,7 +3,7 @@
                     <div class="col-sm-10">
                         <table class='table mytable' style="padding:0; margin:0;">
                             <tr style="padding:0; margin:0;"><th>name*:  </th><td> {{ $advisor->name  }} </td></tr>
-                            <tr><th>phone:  </th><td> {{ $advisor->phone }} </td></tr>
+                            <tr><th>phone:  </th><td> {{ $advisor->phone() }} </td></tr>
 <?php if(isset($hideEmail) && $hideEmail==false) { ?>
                             <tr><th>email*: </th><td> {{ $advisor->email }} </td></tr>
 <?php } ?>
