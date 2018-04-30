@@ -51,7 +51,7 @@ class Pages extends Model
 		if($this->totalPages() > 1) {
 			$previous = '&laquo; Previous'; 
 			if($this->hasPreviousPage()) { 
-				$previous = "<a href='" . url('/advisors/page/') . $this->previousPage() . "'>{$previous}</a>";
+				$previous = "<a href='" . url("/advisors/page/{$this->previousPage()}") . "'>{$previous}</a>";
 			}
 			for($i=1; $i <= $this->totalPages(); $i++) {
 				if($i == $this->current_page) {
@@ -62,7 +62,7 @@ class Pages extends Model
 			}
 			$next = "Next &raquo;";
 			if($this->hasNextPage()) { 
-				$next = "<a href='" . url('/advisors/page/') . $this->nextPage() . "'>{$next}</a>";
+				$next = "<a href='" . url("/advisors/page/{$this->nextPage()}") . "'>{$next}</a>";
 			}
 		}
 		return "<ul><li>{$previous}</li>{$answer}<li>{$next}</li></ul>";

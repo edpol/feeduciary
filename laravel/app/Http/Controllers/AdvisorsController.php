@@ -384,7 +384,7 @@ class AdvisorsController extends Controller
 
     }
 
-    public function contact (Advisor $advisor) {
+    public function contact(Advisor $advisor) {
         return view('advisors.contact', compact('advisor'));
     }
 
