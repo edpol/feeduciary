@@ -53,7 +53,7 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<form action="{{ url('/admin/create') }}" method="post">
+				<form action="{{ url('/admin/create') }}" method="get">
 					{{ csrf_field() }}
 					<button type="submit" class="btn btn-primary"><b>+</b></button>
 				</form>
