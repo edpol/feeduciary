@@ -139,7 +139,7 @@ class AdvisorsController extends Controller
 
         $zip = implode('',request(['zipcode']));
         $zip = cleanZipcode($zip);
-        $advisors = Advisor::where("minimum_amt", "<", $amount)->get();
+        $advisors = Advisor::where("minimum_amt", "<=", $amount)->get();
         session(compact('advisors'));
 
         /*
