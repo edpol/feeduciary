@@ -29,7 +29,7 @@ if (!isset($user)) {
                         <div class="form-group">
                             <label for="name" class="col-md-8 control-label">Name*</label>
                             <div class="col-md-8 {{ $errors->has('name') ? ' has-error' : '' }}">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name',$user->name ) }}" />
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name',$user->name ) }}" required autofocus />
                                 @if ($errors->has('name')) 
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -53,7 +53,7 @@ if (!isset($user)) {
                         <div class="form-group">
                             <label for="email" class="col-md-8 control-label">E-mail Address*</label>
                             <div class="col-md-8 {{ $errors->has('email') ? ' has-error' : '' }}">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $user->email) }}" />
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $user->email) }}" required />
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -123,7 +123,7 @@ if (!isset($user)) {
                                 @endif
                             </div>
                             <div style="float:left;" class="col-md-4 {{ $errors->has('zip') ? ' has-error' : '' }}">
-                                <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip') }}" autofocus/>
+                                <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip') }}" required />
                                 @if ($errors->has('zip'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('zip') }}</strong>
@@ -264,8 +264,8 @@ if (!isset($user)) {
                         <div class="form-group">
                             @include('rates.info')
                             <div class="col-md-8" {{ $errors->has('feeCalculation') ? ' has-error' : '' }}>
-				                <input id="feeCalculation" type="radio" name="feeCalculation" value="0" /> Cumulative rates per tier<br />
-				                <input id="feeCalculation" type="radio" name="feeCalculation" value="1" /> Total Portfolio, Single Rate<br />
+				                <input id="feeCalculation" type="radio" name="feeCalculation" value="0" required /> Cumulative rates per tier<br />
+				                <input id="feeCalculation" type="radio" name="feeCalculation" value="1" required /> Total Portfolio, Single Rate<br />
                                 @if ($errors->has('feeCalculation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('feeCalculation') }}</strong>
