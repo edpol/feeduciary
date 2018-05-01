@@ -51,6 +51,7 @@
                                      if   (Auth::user()->isAdmin()) this works too
 -->                                 @if (auth()->user()->isAdmin())
                                         <a class="nav-link" href="{{ url('/admin/advisors') }}">Update Advisors</a>
+                                        <a class="nav-link" href="{{ url('/admin/create') }}">Create Advisor</a>
                                     @else
                                         <a class="nav-link" href="{{ url('/update') }}">Update</a>
                                     @endif

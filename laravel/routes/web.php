@@ -74,7 +74,7 @@ Route::get('/admin/advisors', ['middleware' => ['auth', 'admin'], function() {
     $advisors = feeduciary\Advisor::paginate(10); //all();
 	return view('advisors.index', compact('advisors'));
 }]);
-Route::post('/admin/create', ['middleware' => ['auth', 'admin'], function() {
+Route::get('/admin/create', ['middleware' => ['auth', 'admin'], function() {
     $state = optionState();
 	return view('advisors.entry', compact('state'));
 }]);
