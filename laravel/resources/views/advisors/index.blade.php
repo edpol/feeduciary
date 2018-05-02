@@ -18,6 +18,14 @@
 
 				<table class='table table-striped table-hover pagination'>
 				
+					@if (session('status'))
+						<tr>
+							<th class="text-left alert alert-success">
+								{{ session('status') }}
+							</th>
+						</tr>
+					@endif
+
 					@if(auth()->check() && auth()->user()->isAdmin()) 
 <?php						$link=url('/admin/advisors'); ?>
 					@else
@@ -27,7 +35,7 @@
 
 						@if( auth()->check() && auth()->user()->isAdmin() || ($advisor->is_active) ) 
 						<tr>
-					 		<td style="text-align:left;" @if (!$advisor->is_active) class='alert alert-danger' @endif >
+					 		<td class="text-left" @if (!$advisor->is_active) class='alert alert-danger' @endif >
 								<a href="{{ $link }}/{{ $advisor->id }}">
 									{{ $advisor->name }}, {{ $advisor->st }}
 								</a>
@@ -41,11 +49,6 @@
 
 		<div class="row">
 			<div class="col-md-4 ml-auto">
-				@if (session('status'))
-					<div class="row alert alert-success">
-						{{ session('status') }}
-					</div>
-				@endif
 			</div>
 			<div class="col-md-4 ml-auto">
 				<div class="pagination pagination-lg">

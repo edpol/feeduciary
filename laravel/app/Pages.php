@@ -12,7 +12,7 @@ class Pages extends Model
 	public $total_count;
 
 	public function __construct($displayCount, $page=1) {
-		$this->current_page = (int)$page;
+		$this->current_page = ($page<1) ? 1 : (int)$page;
 		$this->total_count = $displayCount;
 	}
 

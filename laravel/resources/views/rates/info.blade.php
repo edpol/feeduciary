@@ -14,27 +14,28 @@
                 </div>
                 <div class="modal-body col-centered">
 
-                    <p class="text-info">
+                    <p>
                         <u>Total Portfolio, Single Rate</u>:<br />
                         Example: $500,000 Investment:<br />
-                        <table class="squish text-muted">
-                            <tr><td>  </td><th>Investment          </th><th colspan=2>Rate</th><th>Fees</th><td></td></tr>
-                            <tr><td>1.</td><td>$0 - $250,000       </td><td>at</td><td> 1.0% =</td><td><s>$2,500</s></td><td></td></tr>
-                            <tr><td>2.</td><td>$0 - $500,000       </td><td>at</td><td> 0.5% =</td><td>$1,250</td><td></td></tr>  
-                            <tr><td>3.</td><td colspan=3>               Total management fee =</td><td>$1,250</td><td>per year</td></tr>
+                        <table class="squish">
+                            <tr><td>  </td><th>Investment     </th><th colspan=2>Rate    </th><th>Fees         </th></tr>
+                            <tr><td>1.</td><td>$0 - $250,000  </td><td>at</td><td> 1.0% =</td><td><s>$2,500</s></td></tr>
+                            <tr><td>2.</td><td>$0 - $500,000  </td><td>at</td><td>  .5% =</td><td>   $1,250    </td></tr>  
+                            <tr><td>3.</td><td colspan=3>      Total mgt fee (per year) =</td><td>   $1,250    </td></tr>
                         </table>
                     </p>
 
-                    <p class="text-info">
+                    <p>
                         <u>Cumulative Rates Per Tier</u>:<br /> 
                         Example: $500,000 Investment:<br />
-                        <table class="squish text-muted">
-                            <tr><td>  </td><th>Investment          </th><th colspan=2>Rate</th><th>Fees</th><td></td></tr>
-                            <tr><td>1.</td><td>$0 - $250,000       </td><td>at</td><td>.5%  =</td><td>$1,250</td><td></td></tr>
-                            <tr><td>2.</td><td>$250,000 - $500,000 </td><td>at</td><td>.25% =</td><td>  $625</td><td></td></tr>  
-                            <tr><td>3.</td><td colspan=3>              Total management fee =</td><td>$1,875</td><td>per year</td></tr>
+                        <table class="squish">
+                            <tr><td>  </td><th>Investment          </th><th colspan=2>Rate   </th><th>Fees  </th></tr>
+                            <tr><td>1.</td><td>$0 - $250,000       </td><td>at</td><td>.5%  =</td><td>$1,250</td></tr>
+                            <tr><td>2.</td><td>$250,000 - $500,000 </td><td>at</td><td>.25% =</td><td>  $625</td></tr>  
+                            <tr><td>3.</td><td colspan=3>          Total mgt fee (per year) =</td><td>$1,875</td></tr>
                         </table>
                     </p>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

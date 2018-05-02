@@ -27,7 +27,7 @@ class AdvisorsController extends Controller
     //
     public function index()
     {
-        $advisors = Advisor::paginate(10); //all();
+        $advisors = Advisor::orderBy('name','asc')->paginate(100); //all();
         return view('advisors.index', compact('advisors'));
     }
 

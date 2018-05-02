@@ -44,7 +44,7 @@
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-8 control-label">E-mail Address*</label>
                             <div class="col-md-8 {{ $errors->has('email') ? ' has-error' : '' }}">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $advisor->email) }}" />
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $advisor->email) }}" required />
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -269,8 +269,8 @@
                         <div class="form-group">
                             @include('rates.info')
                             <div class="col-md-8 {{ $errors->has('feeCalculation') ? ' has-error' : '' }}">
-                                <input id="feeCalculation" type="radio" name="feeCalculation" value="0" @if ($advisor->feeCalculation == 0) checked @endif /> Cumulative rates per tier<br />
-                                <input id="feeCalculation" type="radio" name="feeCalculation" value="1" @if ($advisor->feeCalculation != 0) checked @endif /> Total Portfolio, Single Rate<br />
+                                <input required id="feeCalculation" type="radio" name="feeCalculation" value="0" @if ($advisor->feeCalculation == 0) checked @endif /> Cumulative rates per tier<br />
+                                <input required id="feeCalculation" type="radio" name="feeCalculation" value="1" @if ($advisor->feeCalculation != 0) checked @endif /> Total Portfolio, Single Rate<br />
                                 @if ($errors->has('feeCalculation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('feeCalculation') }}</strong>

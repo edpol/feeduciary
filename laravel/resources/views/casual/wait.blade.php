@@ -1,4 +1,8 @@
-<?php $tab = "Working..."; ?>
+<?php $tab = "Working..."; 
+if (env("APP_ENV")!="production") { 
+	header("Location: /advisors/page/1");
+}
+?>
 @extends('layouts.wait')
 
 @section('box1')

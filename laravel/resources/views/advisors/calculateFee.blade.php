@@ -54,24 +54,24 @@
 				</div>
 				<div class="col-sm-1"> </div>
 				<div class="col-sm-5">
-				@if(isset($zip) && $zip!="")
-<div class="row">
-	<div class="col-sm-6">
-					<input id="myRange" name="slider"    class="slider" type="range" step="<?= $step; ?>"    min="<?= $min; ?>"    max="<?= $max; ?>"    value="<?= $miles; ?>" />
-	</div>
-	<div class="col-sm-6 mb-2 ml-0">
-					&nbsp; Distance: <span id="displayDistance"></span><br />
-	</div>
-</div>
-				@endif
-<div class="row">
-	<div class="col-sm-6">
-					<input id="myFee"   name="feeSlider" class="slider" type="range" step="<?= $feeStep; ?>" min="<?= $feeMin; ?>" max="<?= $feeMax; ?>" value="<?= $fee;   ?>" />
-	</div>
-	<div class="col-sm-6 mb-2">
-					&nbsp; Fee: $<span id="displayFee"></span><br />
-	</div>
-</div>
+					@if(isset($zip) && $zip!="")
+						<div class="row">
+							<div class="col-sm-6">
+								<input id="myRange" name="slider"    class="slider" type="range" step="<?= $step; ?>"    min="<?= $min; ?>"    max="<?= $max; ?>"    value="<?= $miles; ?>" />
+							</div>
+							<div class="col-sm-6 mb-2 ml-0">
+								&nbsp; Distance: <span id="displayDistance"></span><br />
+							</div>
+						</div>
+					@endif
+					<div class="row">
+						<div class="col-sm-6">
+							<input id="myFee"   name="feeSlider" class="slider" type="range" step="<?= $feeStep; ?>" min="<?= $feeMin; ?>" max="<?= $feeMax; ?>" value="<?= $fee;   ?>" />
+						</div>
+						<div class="col-sm-6 mb-2">
+							&nbsp; Fee: $<span id="displayFee"></span><br />
+						</div>
+					</div>
 				</div>
 
 			</div>
