@@ -71,7 +71,7 @@ Route::get('/home',                    'HomeController@index');
 
 // this page requires that you be logged in AND be an Admin
 Route::get('/admin/advisors', ['middleware' => ['auth', 'admin'], function() {
-    $advisors = feeduciary\Advisor::orderBy('name')->paginate(100); //all();
+    $advisors = feeduciary\Advisor::orderBy('name','asc')->paginate(100); //all();
 	return view('advisors.index', compact('advisors'));
 }]);
 Route::get('/admin/create', ['middleware' => ['auth', 'admin'], function() {

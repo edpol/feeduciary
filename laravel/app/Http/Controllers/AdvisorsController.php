@@ -173,7 +173,7 @@ class AdvisorsController extends Controller
         $advisors = $this->resort();
         $page = 1;
         $range = session('range');
-        $miles = 75; //(int) $range['max'];
+        $miles = ($range['min']>75) ? (int) $range['min'] : 75; //(int) $range['max'];
         $fee = (int) $range['feeMax'];
         $output = $this->slicer($page,$miles,$fee);
 

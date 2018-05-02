@@ -47,6 +47,8 @@ function numbersonly(e) {
 function addCommas(target) {
     target.addEventListener("keyup", function(event) {
         noCommas = target.value.replace(/\D/g, '');
+        num = Number(noCommas);
+        noCommas = num.toString();
         newValue = noCommas;
         if (noCommas.length>0) newValue = "$ " + noCommas;
         if (noCommas.length > 3) { 
@@ -71,7 +73,31 @@ function comma(){
     var comma = document.getElementsByClassName("comma");
     if (comma !== null && comma !== undefined) {
         for (var i=0; i<comma.length; i++) {
-            comma[i].addEventListener("keyup", addCommas(comma[i]), false);
+            addCommas(comma[i]);
+        }
+    }
+}
+
+/* I lose original formatting */
+function formatPhone(target) {
+    target.addEventListener("keyup", function(event) {
+        alphaNumeric = target.value.replace(/\W/g, ''); 
+        if (alphaNumeric.length>0 && alphaNumeric.length<11) {
+            pad = (alphaNumeric+"          ").substring(0, 10);
+            newValue = "(" + pad.substring(0,3) +")" + pad.substring(3,6) + "-" + pad.substring(6,10);
+            target.value = newValue.replace(/\s+/g,"");
+        } 
+        if (alphaNumeric.length==11) {
+            console.log(alphaNumeric);
+            target.value = alphaNumeric;
+        } 
+    });
+}
+function phone(){
+    var phone = document.getElementsByClassName("phone");
+    if (phone !== null && phone !== undefined) {
+        for (var i=0; i<phone.length; i++) {
+            formatPhone(phone[i]);
         }
     }
 }
@@ -129,4 +155,5 @@ window.onload = function () {
     slider();
     feeSlider();
     comma();
+    phone();
 };
