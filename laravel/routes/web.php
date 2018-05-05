@@ -80,8 +80,8 @@ Route::get('/admin/create', ['middleware' => ['auth', 'admin'], function() {
 }]);
 Route::post('/admin/advisor/{id}', 'AdvisorsController@delete');
 
-Route::get('/admin/advisors/{id}', 'AdminController@show');
-Route::post('/admin/inactive/{id}','AdminController@inactive');
+Route::post('/admin/advisors/{id}', 'AdminController@show');
+Route::post('/admin/inactive/{id}', 'AdminController@inactive');
 
 /*
 // here we don't need a controller checking if we are logged in and admin, we just go to the view
