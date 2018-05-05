@@ -49,7 +49,7 @@
 				<!-- Button to sort by Fee or distance. If no zip code can only show/sort fee -->
 		        <div class="col-sm-2 mb-4">
 					@if(isset($zip) && $zip!="")
-						<a class="btn btn-primary" href="/advisors/resort/<?= $newOrder['val'];?>"><?= $newOrder['text']; ?></a>
+						<a class="btn btn-primary" href="{{ url('/advisors/resort/'.$newOrder['val']) }}">{{ $newOrder['text'] }}</a>
 					@endif
 				</div>
 				<div class="col-sm-1"> </div>
@@ -57,7 +57,7 @@
 					@if(isset($zip) && $zip!="")
 						<div class="row">
 							<div class="col-sm-6">
-								<input id="myRange" name="slider"    class="slider" type="range" step="<?= $step; ?>"    min="<?= $min; ?>"    max="<?= $max; ?>"    value="<?= $miles; ?>" />
+								<input id="myRange" name="slider" class="slider" type="range" step="<?= $step; ?>" min="<?= $min; ?>"    max="<?= $max; ?>"    value="<?= $miles; ?>" />
 							</div>
 							<div class="col-sm-6 mb-2 ml-0">
 								&nbsp; Distance: <span id="displayDistance"></span><br />
@@ -97,7 +97,7 @@
 			<section class="<?= $class; ?>">
 			    <div class="container">
 			        <div class="row">
-						<div style="width:400px; height:240px; padding:20px 8px; <?= $align; ?>  box-shadow: 10px 10px 5px #888888;  background: url({{ asset('images/paper.gif') }});">
+						<div style="width:400px; height:240px; padding:20px 20px 40px 20px; <?= $align; ?>  box-shadow: 10px 10px 5px #888888;  background: url({{ asset('images/paper.gif') }});">
 
 							<p style="margin:0 auto; text-align:center; border-top:solid black 1px; border-bottom:solid black 1px; width:80%; ">
 								<a href="{{ url('/advisors') }}/{{ $advisor->id }}">{{ $advisor->name }}</a><br />
@@ -111,16 +111,17 @@
 									{{ $advisor->address2 }}<br /> 
 								@endif
 								{{ $advisor->city }}, {{ $advisor->st }} {{ $advisor->zip }}<br />
-								<br />
 								@if (empty($advisor->address2)) 
 									<br />
 								@endif
 							</div>
 							<br clear="all" />
-							Approx Annual Fee: <?= "$".number_format($advisor->totalFee,0); ?> <br />
-<?php						if ($advisor->distance>0) {
-								echo "Approx Distance: " . number_format($advisor->distance,0) . " miles"; 
-							} ?>
+							<div style="padding-top:12px;">
+								Approx Annual Fee: <?= "$".number_format($advisor->totalFee,0); ?> <br />
+<?php							if ($advisor->distance>0) {
+									echo "Approx Distance: " . number_format($advisor->distance,0) . " miles"; 
+								} ?>
+							</div>		
 						</div>
 						<br />
 					</div>

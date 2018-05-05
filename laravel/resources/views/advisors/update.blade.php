@@ -270,7 +270,8 @@
                         @include('rates.info')
                         <div class="col-md-8 {{ $errors->has('feeCalculation') ? ' has-error' : '' }}">
                             <input required id="feeCalculation" type="radio" name="feeCalculation" value="0" @if ($advisor->feeCalculation == 0) checked @endif /> Cumulative rates per tier<br />
-                            <input required id="feeCalculation" type="radio" name="feeCalculation" value="1" @if ($advisor->feeCalculation != 0) checked @endif /> Total Portfolio, Single Rate<br />
+                            <input required id="feeCalculation" type="radio" name="feeCalculation" value="1" @if ($advisor->feeCalculation == 1) checked @endif /> Total Portfolio, Single Rate<br />
+                            <input required id="feeCalculation" type="radio" name="feeCalculation" value="2" @if ($advisor->feeCalculation == 2) checked @endif /> Fee Only<br />
                             @if ($errors->has('feeCalculation'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('feeCalculation') }}</strong>

@@ -8,6 +8,7 @@ use feeduciary\Rate;
 use feeduciary\Advisor;
 use feeduciary\Mail\Welcome;
 use feeduciary\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -114,7 +115,7 @@ class RegisterController extends Controller
         $data['id'] = $user->id;
         $data['server_name'] = env('APP_URL');
         $data["subject"] = "Welcome " . $data["name"];
-        \Mail::to($user)->bcc($company)->send(new Welcome($data));
+        Mail::to($user)->bcc($company)->send(new Welcome($data));
 
         // After creating your USER information, we need your ADVISOR information
 

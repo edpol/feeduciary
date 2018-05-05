@@ -54,11 +54,9 @@
                             </tr>
                             <tr><th>fee calculation*: </th>
                                 <td>
-                                    @if ($advisor->feeCalculation==0) 
-                                        Cumulative rates per tier
-                                    @else
-                                        Rate changes with investment amount
-                                    @endif
+                                    @if ($advisor->feeCalculation==0) Cumulative rates per tier @endif
+                                    @if ($advisor->feeCalculation==1) Rate changes with investment amount @endif
+                                    @if ($advisor->feeCalculation==2) Rate is fixed amount @endif
                                 </td>
                             </tr>
                             <tr><th>Facebook: </th>

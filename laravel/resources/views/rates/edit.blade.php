@@ -31,10 +31,15 @@
 
                         <div class="row">
                             <label for="roof" class="col-md-12 control-label">
-                                @if ($rates->count()==0)
-                                What is the maximum dollar amount on the FIRST tier of your fee schedule?<br />(For example: $0 to 250,000.  Enter $250,000.00
+<?php $advisor->feeCalculation = (int)$advisor->feeCalculation; ?>
+                                @if ($advisor->feeCalculation==2)
+                                    What is your fee?
                                 @else
-                                What is the maximum dollar amount on the NEXT tier of your fee schedule?"
+                                    @if ($rates->count()==0)
+                                        What is the maximum dollar amount on the FIRST tier of your fee schedule?<br />(For example: $0 to 250,000.  Enter $250,000.00
+                                    @else
+                                        What is the maximum dollar amount on the NEXT tier of your fee schedule?
+                                    @endif
                                 @endif
                             </label>
                         </div>
@@ -51,10 +56,11 @@
                         </div>
                     </div>
 
+                    @if ($advisor->feeCalculation!='2' && $advisor->feeCalculation!=2)
                     <div class="row form-group{{ $errors->has('rate') ? ' has-error' : '' }}">
                         <label for="rate" class="col-md-8 control-label">What is the annual rate for this tier?</label>
                         <div class="col-md-8">
-                            <input id="rate" type="rate" class="form-control" name="rate" value="{{ old('rate') }}" />
+                            <input id="rate" type="number" class="form-control" name="rate" value="{{ old('rate') }}" />
                             @if ($errors->has('rate'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('rate') }}</strong>
@@ -62,15 +68,26 @@
                             @endif
                         </div>
                     </div>
-
+                    @else
+                            <input id="rate" type="hidden" class="form-control" name="rate" value="{{-1*$advisor->feeCalculation}}" />
+                    @endif
                     <input id="advisor_id" type="hidden" class="form-control" name="advisor_id" value="{{ $advisor->id }}" />
                     <input id="advisor"    type="hidden" class="form-control" name="advisor"    value="{{ $advisor }}" />
 
                     <div class="form-group">
                         <div class="col-md-8 col-md-offset-2">
-                            <button type="submit" class="btn btn-primary">
+<?php
+/* if the fee calculation method equals 2 and the rates count is greater than 0 disable the add rate button */
+                            if ($advisor->feeCalculation==2 && $rates->count()!=0) {
+                                $disabled="disabled"; 
+                            }else{
+                                $disabled=""; 
+                            }
+?>
+                            <button type="submit" {{ $disabled }} class="btn btn-primary">
                                 Add Rate ({{ $advisor->name }})
                             </button>
+
                             @if (auth()->user()->isAdmin())
                                 <button style="float:right;" type="submit" class="btn btn-primary" formaction="{{ url('/admin/advisors/'.$advisor->id) }}" formmethod="get">
                             @else
@@ -92,7 +109,11 @@
                     <input id="advisor"    type="hidden" class="form-control" name="advisor"    value="{{ $advisor }}" />
 
                    <table border=0>
-                        <tr><th>&nbsp;</th><th>Tiers&nbsp;</th><th>Annual Rate</th></tr>
+                        @if ($advisor->feeCalculation==2) 
+                            <tr><th>&nbsp;</th><th>Annual Fee&nbsp;</th><th></th></tr>
+                        @else
+                            <tr><th>&nbsp;</th><th>Tiers&nbsp;</th><th>Annual Rate</th></tr>
+                        @endif
                         @foreach ($rates as $rate)
                         <tr>
 <?php                       $class = (!isset($class)||$class=="white") ? "grey" : "white"; ?>
@@ -100,7 +121,9 @@
                                 <button type="submit" name='delete' class='del_up' value='{{ $rate->id }}'>del</button>
                             </td>
                             <td class="<?= $class; ?>">${{ number_format($rate->roof, 0) }}</td>
+                            @if ($advisor->feeCalculation!=2 || $rates->count()==0) 
                             <td class="<?= $class; ?>">{{ number_format($rate->rate*100, 3) }}%</td>
+                            @endif
                         </tr>
                         @endforeach
                     </table>

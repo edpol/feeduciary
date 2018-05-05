@@ -264,8 +264,9 @@ if (!isset($user)) {
                         <div class="form-group">
                             @include('rates.info')
                             <div class="col-md-8" {{ $errors->has('feeCalculation') ? ' has-error' : '' }}>
-				                <input id="feeCalculation" type="radio" name="feeCalculation" value="0" required /> Cumulative rates per tier<br />
-				                <input id="feeCalculation" type="radio" name="feeCalculation" value="1" required /> Total Portfolio, Single Rate<br />
+				                <input id="fee0" type="radio" name="feeCalculation" value="0" required /> Cumulative rates per tier<br />
+                                <input id="fee1" type="radio" name="feeCalculation" value="1" required /> Total Portfolio, Single Rate<br />
+                                <input id="fee2" type="radio" name="feeCalculation" value="2" required /> Fixed Rate<br />
                                 @if ($errors->has('feeCalculation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('feeCalculation') }}</strong>

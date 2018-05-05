@@ -88,6 +88,9 @@ class AdvisorsController extends Controller
                 $totalFee = $charge;
                 $base = $investment;
             }
+            if ($advisor->feeCalculation == 2) {
+                $totalFee = $roof;
+            }
         }
         return round($totalFee,0);
     }
