@@ -80,6 +80,7 @@ Route::get('/admin/create', ['middleware' => ['auth', 'admin'], function() {
 }]);
 Route::post('/admin/advisor/{id}', 'AdvisorsController@delete');
 
+Route::match(array('GET', 'POST'), '/admin/advisors/{id}', 'AdminController@show');
 Route::post('/admin/advisors/{id}', 'AdminController@show');
 Route::post('/admin/inactive/{id}', 'AdminController@inactive');
 
