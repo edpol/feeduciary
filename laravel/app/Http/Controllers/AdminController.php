@@ -107,6 +107,7 @@ class AdminController extends Controller
         $advisor=Advisor::where('id',$id)->first();
         $advisor->is_active=!$advisor->is_active;
         $advisor->save();
+//$this->show($id);
         return redirect("/admin/advisors/{$id}");
     }
 }
