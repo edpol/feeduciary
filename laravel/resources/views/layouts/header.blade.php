@@ -30,7 +30,7 @@
 <!--
                 <ul class="list-inline intro-social-buttons">
                     <li class="list-inline-item">
-                        <a href="#" class="btn btn-secondary btn-lg">
+                        <a href="https://twitter.com/feeduciary" class="btn btn-secondary btn-lg">
                             <i class="fa fa-twitter fa-fw"></i>
                             <span class="network-name">Twitter</span>
                         </a>

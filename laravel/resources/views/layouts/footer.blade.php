@@ -1,6 +1,5 @@
 <!-- Footer -->
-<footer style="text-align: center;">
-    Fees listed are subject to change. Please contact the advisor directly to verify fees. 
+<footer class="text-center small">
     <div class="container">
         <ul class="list-inline">
             <li class="list-inline-item"><a href="/">Home</a></li>
