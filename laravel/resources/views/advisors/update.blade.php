@@ -20,7 +20,7 @@
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-8 control-label">Name*</label>
                         <div class="col-md-8 {{ $errors->has('name') ? ' has-error' : '' }}">
-                            <input id="name" type="text" class="form-control" name="name" value="{{ old('name',$advisor->name ) }}" required />
+                            <input id="name" type="text" class="form-control" name="name" value="{{ old('name',$advisor->name ) }}" />
                             @if ($errors->has('name')) 
                                 <span class="help-block">
                                     <strong>{{ $errors->first('name') }}</strong>
@@ -44,7 +44,7 @@
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         <label for="email" class="col-md-8 control-label">E-mail Address*</label>
                         <div class="col-md-8 {{ $errors->has('email') ? ' has-error' : '' }}">
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $advisor->email) }}" required />
+                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $advisor->email) }}" />
                             @if ($errors->has('email'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('email') }}</strong>
@@ -129,7 +129,7 @@
                     <div class="form-group{{ $errors->has('zip') ? ' has-error' : '' }}">
                         <label for="zip" class="col-md-8 control-label">Zip*</label>
                         <div class="col-md-8 {{ $errors->has('zip') ? ' has-error' : '' }}">
-                            <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip',$advisor->zip) }}" required autofocus />
+                            <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip',$advisor->zip) }}" @if (!count($errors)) autofocus @endif />
                             @if ($errors->has('zip'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('zip') }}</strong>
