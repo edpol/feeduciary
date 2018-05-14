@@ -11,9 +11,10 @@
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
 
-            <form id="trackingFile" action="{{ url('import') }}" method="get">
+            <form id="trackingFile" action="/" method="get">
                 {{ csrf_field() }}
-                <p><input type="submit" class='btn btn-default' name="submit" value="Return to Imports" /></p>
+                <p><input type="submit" class='btn btn-default' name="submit" 
+                    value="Return Home" /></p>
             </form>
         </div>
     </div>

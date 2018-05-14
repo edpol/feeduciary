@@ -4,6 +4,7 @@ namespace feeduciary\Http\Controllers;
 
 use Illuminate\Http\Request;
 use feeduciary\Advisor;
+use feeduciary\Rate;
 use Auth;
 use Imagick;
 
@@ -11,11 +12,13 @@ class ImportController extends Controller
 {
     public function upload(Advisor $advisor, Request $request)
     {
+        $rates=$advisor->rate();
+
 		$file = $request->file('fileUpload');
 
         if ($file==null) {
             $errors = "No file";
-            return view('import.results',compact('errors'));
+            return view('import.results',compact('errors','advisor','rates'));
         }
 
 		$ext = strtolower($file->getClientOriginalExtension());
@@ -23,27 +26,27 @@ class ImportController extends Controller
 		if(!in_array($ext,$list)) {
             $errors = "Not an image file";
             echo $errors;
-            return view('import.results',compact('errors'));
+            return view('import.results',compact('errors','advisor','rates'));
 //          return redirect()->back()->withErrors("Not a csv file");
 		}
 
         $filename = $file->getPathname(); // tmp file
         if (empty($filename)) {
             $errors = "No file name";
-            return view('import.results',compact('errors'));
+            return view('import.results',compact('errors','advisor','rates'));
 //          return redirect()->back()->withErrors("No File Name");
         }
 
         if (!file_exists($filename)) {
             $errors = "File {$filename} does not exist";
-            return view('import.results',compact('errors'));
+            return view('import.results',compact('errors','advisor','rates'));
 //          return redirect()->back()->withErrors("File {$filename} does not exist");
         }
 
         $thumbImage = public_path() ."/images/advisorImages/" . $advisor->id . "-thumb." . $ext;
         $this->resize($filename, $thumbImage, $ext);
 		unlink($filename);	// delete temp file
-        return view('import.results',compact('success'));
+        return view('import.results',compact('success','advisor','rates'));
     }
 
     public function resize($image,$thumbImage,$ext)
