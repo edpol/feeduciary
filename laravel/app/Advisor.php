@@ -3,6 +3,7 @@
 namespace feeduciary;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Advisor extends Model
 {
@@ -37,5 +38,29 @@ class Advisor extends Model
             $phone = $this->phone;
         }
         return $phone;
+    }
+
+    public function photo() {
+        if (file_exists( public_path() . '/images/advisorImages/' . $this->id . '-thumb.png')) {
+            return '/images/advisorImages/' . $this->id .'-thumb.png';
+        } else {
+            if (file_exists( public_path() . '/images/advisorImages/' . $this->id . '-thumb.jpg')) {
+                return '/images/advisorImages/' . $this->id .'-thumb.jpg';
+            } else {
+                return '/images/placeholder.png';
+            }
+        }
+    }
+
+   /*
+    *   Is person loggedin the owner of this account
+    */
+    public function owner() {
+        $user = Auth::user();
+        if ($user->id == $this->user_id) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -149,6 +149,10 @@ console.log(slider.value);
     }
 }
 
+function chooseFile() {
+    document.getElementById("fileUpload").click();
+}
+
 window.onload = function () {
     greyout();
     buttonSetup("del");

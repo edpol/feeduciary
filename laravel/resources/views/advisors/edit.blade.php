@@ -10,7 +10,7 @@
 <section class="content-section-b" id="section">
     <div class="container" id="container" style="border-radius: 10px; @if(!$advisor->is_active) background-color:#fee; @endif" >
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <h3>Advisor Information</h3>
 <?php           $hideEmail = false;   ?>
                 @include('advisors.display')
@@ -26,7 +26,7 @@
                 </form>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-5">
                 <h3>Rates Information</h3>
                 @include('rates.display')
                 <form class="form-horimaximum_amtontal " method="GET" action="{{ url('/rates') }}/{{ $advisor->id }}">
@@ -46,11 +46,8 @@
                             <button type="submit" class="btn btn-danger" id="inactive" name="inactive">
                                 Delete Advisor
                             </button>
-                        </form>
-                        &nbsp;<br />
-                        <form id="form1" class="form-horimaximum_amtontal " method="POST" action="{{ url('/admin/inactive') }}/{{ $advisor->id }}">
-                            {{ csrf_field() }}
-                            <button type="submit" class="btn btn-primary" id="inactive" name="inactive">
+                            &nbsp;
+                            <button type="submit" class="btn btn-primary" id="inactive" name="inactive" formaction="{{ url('/admin/inactive') }}/{{ $advisor->id }}">
                             @if ($advisor->is_active)
                                 Deactivate Advisor
                             @else

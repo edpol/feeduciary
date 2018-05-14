@@ -1,12 +1,18 @@
 
                 <div class="row">
-                    <div class="col-sm-10">
-                        <table class='table mytable' style="padding:0; margin:0;">
-                            <tr style="padding:0; margin:0;"><th>name*:  </th><td> {{ $advisor->name  }} </td></tr>
-                            <tr><th>phone:  </th><td> {{ $advisor->phone() }} </td></tr>
-<?php if(isset($hideEmail) && $hideEmail==false) { ?>
+                    <div class="col-sm-9">
+                        <table class='table mytable' style="padding:0; margin:0;" border=0>
+                            <tr style="padding:0; margin:0;">
+                                <th>name*:  </th><td> {{ $advisor->name    }} </td>
+                            </tr>
+                            <tr>
+                                <th>phone:  </th><td> {{ $advisor->phone() }} </td>
+                            </tr>
+                            @if(isset($hideEmail) && $hideEmail==false)
+<?php //                      if(isset($hideEmail) && $hideEmail==false) { ?>
                             <tr><th>email*: </th><td> {{ $advisor->email }} </td></tr>
-<?php } ?>
+<?php //                      } ?>
+                            @endif
                             <tr><th>company: </th>
                                 <td>
                                     @if(isset($advisor->url) && !empty($advisor->url))
@@ -119,14 +125,39 @@
                         </table>
                     </div>
 
-                    <div class="col-sm-2">
-<?php if(isset($hideEmail) && $hideEmail==true && !empty($advisor->email)) { ?>
+                    <div class="col-sm-3 text-center">
+                        <br />
+                        <!-- logged in and admin or owner -->
+                        @if (auth()->check() && ($advisor->owner() || auth()->user()->isAdmin()))
+                        <!-- 
+                            Can't format input type file, so hide it and add a button   
+                            you can format and use javascript to execute the hidden 
+                            div when the visible formated button is clicked
+                        -->
+                           <form id="trackingFile" action="{{ url('upload') }}/{{ $advisor->id}}" method="post" enctype="multipart/form-data"> 
+                                {{ csrf_field() }}
+                                <div style="height:0px;overflow:hidden">
+                                    <input type="file"  name="fileUpload" id="fileUpload"/>
+                                </div>
+                                <button class="importButton" type="button" onclick="chooseFile();">
+                                    Click to<br />Import Photo <br />
+                                    <img src="{{url($advisor->photo())}}" width=120/>
+                                </button>
+                                <br /><br />
+                                <input type="submit" class='alert alert-info' name="submit" value="Upload File" /></p>
+                            </form>
+                        @else
+                            Photo<br />
+                            <img src="{!! $advisor->photo() !!}" alt="" width=120><br />
+                        @endif
+                        <br />
+                        @if(isset($hideEmail) && $hideEmail==true && !empty($advisor->email)) 
                             <form action="/contact/{{ $advisor->id }}" method="post">
                                 {{ csrf_field() }}
                                 <button type="submit" class="btn btn-primary">email</button>
                             </form>
-<?php } ?>          </div>
-
+                        @endif
+                    </div>
                 </div>
 
                 <br clear="all" />
