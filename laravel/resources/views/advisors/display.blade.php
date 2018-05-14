@@ -140,11 +140,15 @@
                                     <input type="file"  name="fileUpload" id="fileUpload"/>
                                 </div>
                                 <button class="importButton" type="button" onclick="chooseFile();">
-                                    Click to<br />Import Photo <br />
-                                    <img src="{{url($advisor->photo())}}" width=120/>
+                                    Click to<br />Select Image <br />
+                                    <img src="{{url($advisor->photo())}}@isset($success)?tim()@endisset" width=120/>
                                 </button>
                                 <br /><br />
-                                <input type="submit" class='alert alert-info' name="submit" value="Upload File" /></p>
+                                <input type="submit" class='alert alert-info' name="submit" value="Upload File" /><br />
+                                @isset($success)
+                                    <p class="alert alert-success">{{ $success }}</p>
+                                @endisset
+
                             </form>
                         @else
                             Photo<br />

@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
             @isset($success)
-            <p class="alert alert-success">{{ $success }}</p>
+                <p class="alert alert-success">{{ $success }}</p>
             @endisset
         </div>
     </div>
