@@ -33,9 +33,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary">
-                                Edit Rates
-                            </button>
+                            <button type="submit" class="btn btn-primary">Edit Rates</button>
                         </div>
                     </div>
                 </form>
