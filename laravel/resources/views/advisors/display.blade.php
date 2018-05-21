@@ -1,6 +1,6 @@
 
                 <div class="row">
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <table class='table mytable' style="padding:0; margin:0;" border=0>
                             <tr style="padding:0; margin:0;">
                                 <th>name*:  </th><td> {{ $advisor->name    }} </td>
@@ -125,7 +125,7 @@
                         </table>
                     </div>
 
-                    <div class="col-sm-3 text-center">
+                    <div class="col-sm-4 text-center">
                         <br />
                         <!-- logged in and admin or owner -->
                         @if (auth()->check() && ($advisor->owner() || auth()->user()->isAdmin()))
@@ -141,15 +141,14 @@
                                 </div>
                                 <button class="importButton" type="button" onclick="chooseFile();">
                                     Click to<br />Select Image <br />
-                                    <img src="{{url($advisor->photo())}}@isset($success)?time()@endisset" width=120/>
+                                    <img src="{{url($advisor->photo())}}@isset($success)?time()@endisset" width="{{DEFAULT_SIZE}}" />
                                 </button>
                                 <br /><br />
                                 <input type="submit" class='alert alert-info' name="submit" value="Upload File" /><br />
-
                             </form>
                         @else
                             Photo<br />
-                            <img src="{!! $advisor->photo() !!}" alt="" width=120><br />
+                            <img src="{!! $advisor->photo() !!}" alt="" width="{{DEFAULT_SIZE}}"><br />
                         @endif
                         <br />
                         <!-- hide send mail button if you are displaying the email -->
@@ -161,7 +160,7 @@
                         @endif
                         <!-- hello $success -->
                         @isset($success)
-                            <p class="alert alert-success">{{ $success }}</p>
+                            <p style="margin-top:20px;" class="alert alert-success">{{ $success }}</p>
                         @endisset
                     </div>
                 </div>
@@ -180,9 +179,10 @@
 
                 @if (!auth()->check() && $advisor->user_id==0)
                 <div class="row">
-                    <div class="col-sm-4 alert alert-info">
-                        <a href="{{ url('/claim') }}/{{ $advisor->id }}">Claim this account</a>
-                    </div>
+                    <form id="claim" action="{{ url('claim') }}/{{ $advisor->id}}" method="get"> 
+                        {{ csrf_field() }}
+                        <button class="btn btn-info" type="submit">Claim this account</button>
+                    </form>
                 </div>
                 <br />
                 @endif

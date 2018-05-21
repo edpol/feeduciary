@@ -15,7 +15,7 @@
 <section class="content-section-b">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 @include('advisors.display')
             </div>
             <div id="map" class="col-lg-4">

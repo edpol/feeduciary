@@ -42,7 +42,7 @@ class ImportController extends Controller
 //          return redirect()->back()->withErrors("File {$filename} does not exist");
         }
 
-        $thumbImage = public_path() ."/images/advisorImages/" . $advisor->id . "-thumb." . $ext;
+        $thumbImage = public_path() ."/images/advisorImages/" . $advisor->id . "-thumb.jpg";
         $this->resize($filename, $thumbImage, $ext);
 		unlink($filename);	// delete temp file
         $success = "Photo Uploaded Successfully";
@@ -60,7 +60,7 @@ class ImportController extends Controller
 		$h = array();
 		$w[0] = $imageprops['width'];
 		$h[0] = $imageprops['height'];
-		$w[1] = 120;
+		$w[1] = DEFAULT_SIZE;
 		$h[1] = intval( round($h[0] * $w[1]/$w[0] ,0) );
 
 		$x = $thumb->resizeImage($w[1],$h[1],Imagick::FILTER_LANCZOS,1);

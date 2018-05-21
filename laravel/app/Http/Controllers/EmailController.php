@@ -83,6 +83,6 @@ class EmailController extends Controller
 //      return response()->json(['message' => 'Request completed']);
         $success = "Message Sent " . $result;
         $rates = Rate::where("id",$advisor->id)->get();
-        return view('advisors.edit',compact('success', 'advisor', 'rates'));
+        return view('advisors.show',compact('success', 'advisor', 'rates'));
     }
 }
