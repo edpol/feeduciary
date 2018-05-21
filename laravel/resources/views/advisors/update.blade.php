@@ -117,7 +117,7 @@
                         <label for="st" class="col-md-8 control-label">State</label>
                         <div class="col-md-8 {{ $errors->has('st') ? ' has-error' : '' }}">
                             <!-- html_entity_decode -->
-                            {!! $state !!}  
+                            {!! optionState($advisor->st) !!}  
                             @if ($errors->has('st'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('st') }}</strong>

@@ -47,7 +47,7 @@ class LoginController extends Controller
         $user = Auth::user();
 
         if (auth()->user()->isAdmin()) {
-            return redirect('/admin/advisors');
+            return redirect('/admin/advisors/list');
         }
 
         // use user->id to get record from ADVISOR table

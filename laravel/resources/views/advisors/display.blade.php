@@ -141,13 +141,10 @@
                                 </div>
                                 <button class="importButton" type="button" onclick="chooseFile();">
                                     Click to<br />Select Image <br />
-                                    <img src="{{url($advisor->photo())}}@isset($success)?tim()@endisset" width=120/>
+                                    <img src="{{url($advisor->photo())}}@isset($success)?time()@endisset" width=120/>
                                 </button>
                                 <br /><br />
                                 <input type="submit" class='alert alert-info' name="submit" value="Upload File" /><br />
-                                @isset($success)
-                                    <p class="alert alert-success">{{ $success }}</p>
-                                @endisset
 
                             </form>
                         @else
@@ -155,12 +152,17 @@
                             <img src="{!! $advisor->photo() !!}" alt="" width=120><br />
                         @endif
                         <br />
+                        <!-- hide send mail button if you are displaying the email -->
                         @if(isset($hideEmail) && $hideEmail==true && !empty($advisor->email)) 
                             <form action="/contact/{{ $advisor->id }}" method="post">
                                 {{ csrf_field() }}
-                                <button type="submit" class="btn btn-primary">email</button>
+                                <button type="submit" class="btn btn-primary">e-mail</button>
                             </form>
                         @endif
+                        <!-- hello $success -->
+                        @isset($success)
+                            <p class="alert alert-success">{{ $success }}</p>
+                        @endisset
                     </div>
                 </div>
 

@@ -89,7 +89,7 @@
                             </button>
 
                             @if (auth()->user()->isAdmin())
-                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="{{ url('/admin/advisors/'.$advisor->id) }}">
+                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="{{ url('/admin/advisor/'.$advisor->id) }}">
                             @else
                                 <button style="float:right;" type="submit" class="btn btn-primary" formaction="{{ url('/done/'.$advisor->id) }}">
                             @endif

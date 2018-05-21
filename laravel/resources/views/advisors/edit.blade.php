@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </form>
-                @if (auth()->user()->isAdmin())
+                @if (auth()->check() && auth()->user()->isAdmin())
                     <div style="position: absolute; bottom: 0; padding-bottom:16px;">
                         <form id="form1" class="form-horimaximum_amtontal " method="POST" action="{{ url('/admin/advisor') }}/{{ $advisor->id }}">
                             {{ csrf_field() }}

@@ -63,16 +63,6 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function experiment()
-    {
-        if ($validator->fails()) {
-            return redirect('post/create')
-                    ->withErrors($validator)
-                    ->withInput();
-        }
-        return $validator;
-    }
-
     /**
      * Create a new user instance after a valid registration.
      *
@@ -125,8 +115,8 @@ class RegisterController extends Controller
         // if i time out it errors here
         $count = (is_null($advisor)) ? 0 : $advisor->count();
         if ($count==0) {
-            $state = optionState();
-            return view('advisors.entry', compact('user','state'));
+//            return view('advisors.entry', compact('user'));
+            return redirect('/advisor/entry/' . $user->id); 
         } else {
             $rates = $advisor->rate;
             $advisor = checkURLs($advisor);

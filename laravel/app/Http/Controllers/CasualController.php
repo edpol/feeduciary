@@ -19,8 +19,4 @@ class CasualController extends Controller
     	return view ('casual.blog');
     }
 
-    public function contact () {
-        return view ('casual.contact');
-    }
-
 }

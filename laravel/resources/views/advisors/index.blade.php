@@ -27,7 +27,7 @@
 					@endif
 
 					@if(auth()->check() && auth()->user()->isAdmin()) 
-<?php						$link=url('/admin/advisors'); ?>
+<?php						$link=url('/admin/advisor'); ?>
 					@else
 <?php						$link=url('/advisors'); ?>
 					@endif

@@ -9,6 +9,7 @@ use feeduciary\User;
 use feeduciary\Pages;
 use feeduciary\Advisor;
 use feeduciary\Zipcode;
+use Illuminate\Http\Request;
 
 class AdvisorsController extends Controller
 {
@@ -341,20 +342,24 @@ class AdvisorsController extends Controller
         return $data;
     }
 
+    public function entryForm (User $user) {
+        return view('advisors.entry', compact('user'));
+    }
+
     public function validating() {
         // Validate the form.  email checks email format
         $validation = $this->validate(request(), [
-            'name'        => 'required|string|min:2',
-            'email'       => 'required|email:unique:advisors',
-            'zip'         => 'required|string|min:5',
+            'name'           => 'required|string|min:2',
+            'email'          => 'required|string|email:unique:advisors',
+            'zip'            => 'required|string|min:5',
             'feeCalculation' => 'required'
         ]);
         return $validation;
     }
 
-    public function store() {
+    public function store(Request $request) {
         $validation = $this->validating();
-        $data = $this->buildArray();
+        $data = $this->buildArray($request);
 
         $advisor = Advisor::create($data);
         $rates = $advisor->rate;
@@ -365,8 +370,7 @@ class AdvisorsController extends Controller
 
     // this goes to the form to get new advisor information
     public function edit(Advisor $advisor) {
-        $state = optionState($advisor->st);
-        return view('advisors.update', compact('advisor','state'));
+        return view('advisors.update', compact('advisor'));
     }
 
     public function update(Advisor $advisor) {

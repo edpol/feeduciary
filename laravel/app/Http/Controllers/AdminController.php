@@ -108,6 +108,6 @@ class AdminController extends Controller
         $advisor->is_active=!$advisor->is_active;
         $advisor->save();
 //$this->show($id);
-        return redirect("/admin/advisors/{$id}");
+        return redirect("/admin/advisor/{$id}");
     }
 }

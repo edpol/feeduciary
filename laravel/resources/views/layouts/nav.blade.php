@@ -27,7 +27,7 @@
 
                         @if (auth()->user()->isAdmin())
                             <li class="nav-item">
-                                <a class="nav-link" id="updateAdvisors" href="{{ url('/admin/advisors') }}">Update Advisors</a>
+                                <a class="nav-link" id="updateAdvisors" href="{{ url('/admin/advisors/list') }}">Update Advisors</a>
                             </li>
                         @endif
 
@@ -50,7 +50,7 @@
 <!--
                                      if   (Auth::user()->isAdmin()) this works too
 -->                                 @if (auth()->user()->isAdmin())
-                                        <a class="nav-link" href="{{ url('/admin/advisors') }}">Update Advisors</a>
+                                        <a class="nav-link" href="{{ url('/admin/advisors/list') }}">Update Advisors</a>
                                         <a class="nav-link" href="{{ url('/admin/create') }}">Create Advisor</a>
                                     @else
                                         <a class="nav-link" href="{{ url('/update') }}">Update</a>

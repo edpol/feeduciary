@@ -30,7 +30,7 @@ if (!isset($user)) {
                         <div class="form-group">
                             <label for="name" class="control-label">Name*</label>
                             <div class="{{ $errors->has('name') ? ' has-error' : '' }}">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name',$user->name ) }}" required autofocus />
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name',$user->name ) }}"  autofocus />
                                 @if ($errors->has('name')) 
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -54,7 +54,7 @@ if (!isset($user)) {
                         <div class="form-group">
                             <label for="email" class="control-label">E-mail Address*</label>
                             <div class="{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $user->email) }}" required />
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $user->email) }}"  />
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -111,20 +111,21 @@ if (!isset($user)) {
                             </div>
                         </div>
 
+                        
                         <div class="form-group">
-                            <label for="st" class="col-md-4 control-label">State</label>
-                            <label for="zip" class="col-md-4 control-label">Zip*</label>
+                            <label for="st"  class="col-sm-5 control-label">State</label>
+                            <label for="zip" class="col-sm-6 control-label">Zip*</label>
 
-                            <div style="float:left;" class="col-md-4 {{ $errors->has('st') ? ' has-error' : '' }}">
-                                {!! $state !!}
+                            <div style="float:left;" class="col-sm-5 {{ $errors->has('st') ? ' has-error' : '' }}">
+                                {!! optionState() !!}
                                 @if ($errors->has('st'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('st') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                            <div style="float:left;" class="col-md-4 {{ $errors->has('zip') ? ' has-error' : '' }}">
-                                <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip') }}" required />
+                            <div style="float:left;" class="col-sm-7 {{ $errors->has('zip') ? ' has-error' : '' }}">
+                                <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip') }}"  />
                                 @if ($errors->has('zip'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('zip') }}</strong>
@@ -133,6 +134,7 @@ if (!isset($user)) {
                             </div>
                             <br clear="both" />
                         </div>
+                        
 
                         <div class="form-group">
                             <label for="minimum_amt" class="control-label">Minimum Investment Amount</label>
@@ -265,9 +267,9 @@ if (!isset($user)) {
                         <div class="form-group">
                             @include('rates.info')
                             <div class="col-md-8" {{ $errors->has('feeCalculation') ? ' has-error' : '' }}>
-				                <input id="fee0" type="radio" name="feeCalculation" value="0" required /> Cumulative rates per tier<br />
-                                <input id="fee1" type="radio" name="feeCalculation" value="1" required /> Total Portfolio, Single Rate<br />
-                                <input id="fee2" type="radio" name="feeCalculation" value="2" required /> Fixed Rate<br />
+				                <input id="fee0" type="radio" name="feeCalculation" value="0"  /> Cumulative rates per tier<br />
+                                <input id="fee1" type="radio" name="feeCalculation" value="1"  /> Total Portfolio, Single Rate<br />
+                                <input id="fee2" type="radio" name="feeCalculation" value="2"  /> Fixed Rate<br />
                                 @if ($errors->has('feeCalculation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('feeCalculation') }}</strong>

@@ -15,14 +15,11 @@
         </h2>
         <hr class="divider" />
         <div class="row">
-            <form action="{{ url('send') }}" method="post">
+            <form action="{{ url('send') }}/{{ $advisor->id }}" method="post">
                 {{ csrf_field() }}
                 <?php $server_name =  (isset($_SERVER["SERVER_NAME"])) ? $_SERVER["SERVER_NAME"] : "feeduciary.com"; ?>
                 <input type="hidden" name="server_name"  value="{{ $server_name }}" />
                 <input type="hidden" name="title"        value="User Message" />
-                <input type="hidden" name="id"           value="{{ $advisor->id }}" />
-                <input type="hidden" name="advisorName"  value="{{ $advisor->name }}" />
-                <input type="hidden" name="advisorEmail" value="{{ $advisor->email }}" />
                 <div class="row">
                     <div class="form-group col-lg-4">
                         <label class="text-heading">Name</label>

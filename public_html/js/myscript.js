@@ -73,29 +73,18 @@ function comma(){
     var comma = document.getElementsByClassName("comma");
     if (comma !== null && comma !== undefined) {
         for (var i=0; i<comma.length; i++) {
+console.log("hello");
             addCommas(comma[i]);
         }
     }
 }
 
-document.getElementById('phone').addEventListener('input', function (e) {
-  var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-});
 
 /* I lose original formatting */
 function formatPhone(target) {
-    target.addEventListener("keyup", function(event) {
-        alphaNumeric = target.value.replace(/\W/g, ''); 
-        if (alphaNumeric.length>0 && alphaNumeric.length<11) {
-            pad = (alphaNumeric+"          ").substring(0, 10);
-            newValue = "(" + pad.substring(0,3) +")" + pad.substring(3,6) + "-" + pad.substring(6,10);
-            target.value = newValue.replace(/\s+/g,"");
-        } 
-        if (alphaNumeric.length==11) {
-            console.log(alphaNumeric);
-            target.value = alphaNumeric;
-        } 
+    target.addEventListener('input', function (e) {
+      var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+      e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
     });
 }
 function phone(){
@@ -126,7 +115,6 @@ function slider() {
     var slider = document.getElementById("myRange");
     var output = document.getElementById("displayDistance");
     if (output !== null && output !== undefined) {
-console.log(slider.value);
         output.innerHTML = numberWithCommas(slider.value);
 
         slider.oninput = function() { 
