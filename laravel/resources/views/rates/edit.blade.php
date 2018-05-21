@@ -60,7 +60,7 @@
                     <div class="row form-group{{ $errors->has('rate') ? ' has-error' : '' }}">
                         <label for="rate" class="col-md-8 control-label">What is the annual rate for this tier?</label>
                         <div class="col-md-8">
-                            <input id="rate" type="number" class="form-control" name="rate" value="{{ old('rate') }}" />
+                            <input id="rate" type="text" class="form-control" name="rate" value="{{ old('rate') }}" />
                             @if ($errors->has('rate'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('rate') }}</strong>

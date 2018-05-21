@@ -58,7 +58,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/advisor/entry/{user}',    'AdvisorsController@entryForm');
 
     Route::post('/storeRate/{advisor}',    'RatesController@store'); 
-    Route::get('/rates/{advisor}',         'RatesController@edit'); 
+    Route::post('/rates/{advisor}',        'RatesController@edit'); 
     Route::post('/done/{advisor}',         'RatesController@done'); 
     Route::get('/finishedRates',           'RatesController@show'); 
 
@@ -82,8 +82,8 @@ Route::group(['middleware' => ['auth','admin']], function () {
     	return view('advisors.entry');
     });
 
-    Route::get('/admin/advisor/{id}',   'AdminController@show');
-    Route::post('/admin/advisor/{id}',  'AdvisorsController@delete');
-    Route::post('/admin/inactive/{id}', 'AdminController@inactive');
+    Route::get('/admin/advisor/{id}',           'AdminController@show');
+    Route::post('/admin/advisor/{id}/delete',   'AdvisorsController@delete');
+    Route::post('/admin/advisor/{id}/inactive', 'AdminController@inactive');
 
 });

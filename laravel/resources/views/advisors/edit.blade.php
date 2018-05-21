@@ -29,7 +29,7 @@
             <div class="col-lg-5">
                 <h3>Rates Information</h3>
                 @include('rates.display')
-                <form class="form-horimaximum_amtontal " method="GET" action="{{ url('/rates') }}/{{ $advisor->id }}">
+                <form class="form-horimaximum_amtontal " method="POST" action="{{ url('/rates') }}/{{ $advisor->id }}">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
@@ -39,13 +39,13 @@
                 </form>
                 @if (auth()->check() && auth()->user()->isAdmin())
                     <div style="position: absolute; bottom: 0; padding-bottom:16px;">
-                        <form id="form1" class="form-horimaximum_amtontal " method="POST" action="{{ url('/admin/advisor') }}/{{ $advisor->id }}">
+                        <form id="form1" class="form-horimaximum_amtontal " method="POST" action="{{ url('/admin/advisor') }}/{{ $advisor->id }}/delete">
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-danger" id="inactive" name="inactive">
                                 Delete Advisor
                             </button>
                             &nbsp;
-                            <button type="submit" class="btn btn-primary" id="inactive" name="inactive" formaction="{{ url('/admin/inactive') }}/{{ $advisor->id }}">
+                            <button type="submit" class="btn btn-primary" id="inactive" name="inactive" formaction="{{ url('/admin/advisor') }}/{{ $advisor->id }}/inactive">
                             @if ($advisor->is_active)
                                 Deactivate Advisor
                             @else
