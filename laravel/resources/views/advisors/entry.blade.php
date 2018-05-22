@@ -76,6 +76,18 @@ if (!isset($user)) {
                         </div>
 
                         <div class="form-group">
+                            <label for="url" class="control-label">Company URL</label>
+                            <div class="{{ $errors->has('url') ? ' has-error' : '' }}">
+                                <input id="url" type="url" class="form-control" name="url" value="{{ old('url') }}" />
+                                @if ($errors->has('url'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('url') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="address1" class="control-label">Address 1</label>
                             <div class="{{ $errors->has('address1') ? ' has-error' : '' }}">
                                 <input id="address1" type="text" class="form-control" name="address1" value="{{ old('address1') }}" />

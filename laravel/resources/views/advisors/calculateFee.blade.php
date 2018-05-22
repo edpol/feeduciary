@@ -102,10 +102,17 @@
 							<p style="margin:0 auto; text-align:center; border-top:solid black 1px; border-bottom:solid black 1px; width:80%; ">
 								<a href="{{ url('/advisors') }}/{{ $advisor->id }}">{{ $advisor->name }}</a><br />
 							</p>
-							<p style="margin:0 auto; text-align:center;">
-									{{ $advisor->company }}<br /><br />
-							</p>
+							<div style="margin:0 auto; text-align:center;">
+								{{ $advisor->company }}
+							</div>
+
+							<div style="float:left;">
+								@if ($advisor->photo()!="/images/placeholder.png")
+									<img src="{{ $advisor->photo() }}" width=100 />
+								@endif
+							</div>
 							<div style="float:right;">
+								<br />
 								{{ $advisor->address1}}<br />
 								@if (!empty($advisor->address2)) 
 									{{ $advisor->address2 }}<br /> 
@@ -117,9 +124,10 @@
 							</div>
 							<br clear="all" />
 							<div style="padding-top:12px;">
-								Approx Annual Fee: <?= "$".number_format($advisor->totalFee,0); ?> <br />
+								Approx Annual Fee: <font size="+1" style="background-color:#A5D0FF;">&nbsp;<?= "$".number_format($advisor->totalFee,0); ?>&nbsp;</font><br /> 
 <?php							if ($advisor->distance>0) {
-									echo "Approx Distance: " . number_format($advisor->distance,0) . " miles"; 
+									echo "Approx Distance: " . number_format($advisor->distance,0) . " ";
+									echo ($advisor->distance>1) ? "miles" : " mile"; 
 								} ?>
 							</div>		
 						</div>

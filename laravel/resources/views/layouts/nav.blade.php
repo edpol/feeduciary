@@ -37,12 +37,12 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li class="nav-item">
-                                    <a  class="nav-link" href="{{ route('logout') }}"
+                                    <a  class="nav-link" href="{{ url('/logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         Logout 
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="GET" style="display: none;">
+                                    <form id="logout-form" action="{{ url('/logout') }}" method="GET" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
                                 </li>

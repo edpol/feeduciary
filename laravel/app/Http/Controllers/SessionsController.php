@@ -17,9 +17,8 @@ die();
 	}
 
     public function destroy() {
-    	auth()->logout();
-
-    	return redirect('/');
+        auth()->logout();
+        return redirect('/');
     }
 
     public function store() {

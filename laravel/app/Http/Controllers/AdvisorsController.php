@@ -400,6 +400,6 @@ class AdvisorsController extends Controller
         $results = User::where('id', $id)->delete();
         $results = Advisor::where('id', $id)->delete();
         $results = Rate::where("advisor_id",$id)->delete();
-        return redirect('/admin/advisors')->with('status', "Advisor {$id} deleted!");
+        return redirect('/admin/advisors/list')->with('status', "Advisor {$id} deleted!");
     }
 }

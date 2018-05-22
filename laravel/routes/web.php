@@ -51,7 +51,7 @@ Route::get('/home',                   'HomeController@index');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/update',                  'Auth\LoginController@update');
 
-    Route::get('/logout',                  'SessionsController@destroy');
+    Route::get('/logout',                  'SessionsController@destroy')->name('logout');
 
     Route::get('/edit/{advisor}',          'AdvisorsController@edit'); 
     Route::get('/update/{advisor}',        'AdvisorsController@update'); 

@@ -36,7 +36,7 @@
                                     What is your fee?
                                 @else
                                     @if ($rates->count()==0)
-                                        What is the maximum dollar amount on the FIRST tier of your fee schedule?<br />(For example: $0 to 250,000.  Enter $250,000.00
+                                        What is the maximum dollar amount on the FIRST tier of your fee schedule?<br />(For example: $0 to 250,000 Enter $250,000.00)
                                     @else
                                         What is the maximum dollar amount on the NEXT tier of your fee schedule?
                                     @endif
@@ -55,12 +55,12 @@
                             </div>
                         </div>
                     </div>
-
+<!-- -->
                     @if ($advisor->feeCalculation!='2' && $advisor->feeCalculation!=2)
                     <div class="row form-group{{ $errors->has('rate') ? ' has-error' : '' }}">
                         <label for="rate" class="col-md-8 control-label">What is the annual rate for this tier?</label>
                         <div class="col-md-8">
-                            <input id="rate" type="text" class="form-control" name="rate" value="{{ old('rate') }}" />
+                            <input onkeypress="return numbersOnly(event)"  id="rate" type="text" class="form-control" name="rate" value="{{ old('rate') }}" />
                             @if ($errors->has('rate'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('rate') }}</strong>
@@ -87,11 +87,10 @@
                             <button type="submit" {{ $disabled }} class="btn btn-primary">
                                 Add Rate ({{ $advisor->name }})
                             </button>
-
                             @if (auth()->user()->isAdmin())
-                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="{{ url('/admin/advisor/'.$advisor->id) }}">
+                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="{{ url('/admin/advisor/'.$advisor->id) }}" formmethod="GET">
                             @else
-                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="{{ url('/done/'.$advisor->id) }}">
+                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="{{ url('/update') }}" formmethod="GET">
                             @endif
                                 Done
                             </button>
