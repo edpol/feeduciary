@@ -54,6 +54,7 @@ class Advisor extends Model
 
    /*
     *   Is person loggedin the owner of this account
+    *   
     */
     public function owner() {
         $user = Auth::user();

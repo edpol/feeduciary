@@ -30,7 +30,7 @@
         return preg_replace("/[^a-z0-9.]+/i", "", $zip);
     }
 
-    function optionState ($state="") {
+    function optionState ($state="",$tabindex=0) {
 
         $us_states = array (
              ""  => ["Choose", "", "disabled"],
@@ -102,7 +102,9 @@
             $us_state[""] = ["Choose", "selected", "disabled"];
         }
 
-        $msg = '<select id="st" name="st" class="form-control">' . "\n";
+        $msg = '<select id="st" name="st" class="form-control"';
+        if ($tabindex>0) $msg .= " tabindex={$tabindex} ";
+        $msg .= ">\n";
         foreach ($us_states as $abbr => $name) {
             $state    = $name[0];
             $selected = $name[1];

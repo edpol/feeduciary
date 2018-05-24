@@ -173,7 +173,7 @@ if (!isset($user)) {
                         </div>
 -->
                         <div class="form-group">
-                            <label for="minimum_fee" class="control-label">Minimum Fee</label>
+                            <label for="minimum_fee" class="control-label">Minimum Annual Fee</label>
                             <div class="{{ $errors->has('minimum_fee') ? ' has-error' : '' }}">
                                 <input id="minimum_fee" type="text" class="form-control comma" name="minimum_fee" value="{{ old('minimum_fee') }}" />
                                 @if ($errors->has('minimum_fee'))

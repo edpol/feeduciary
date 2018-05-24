@@ -37,13 +37,19 @@ function buttonSetup (button) {
     }
 }
 
-function numbersonly(e) {
+/*  For percent input
+ *  only numbers, Back Space, Tab and percent sign
+ */
+function numbersOnly(e) {
     var unicode=e.charCode? e.charCode : e.keyCode;
-    if  (unicode!=8 && unicode!=9) { //if the key isn't the backspace key or TAB (which we should allow)
+    if  (unicode!=8 && unicode!=9 && unicode!=37 && unicode!=46) { //if the key isn't the backspace key or TAB (which we should allow)
         if (unicode<48||unicode>57) return false;//if not a number return false //disable key press
     }
 } 
 
+/*
+ *  format for whole dollar amounts
+ */
 function addCommas(target) {
     target.addEventListener("keyup", function(event) {
         noCommas = target.value.replace(/\D/g, '');
@@ -65,7 +71,7 @@ function addCommas(target) {
         target.value = newValue;
 
         if (event.key === "Enter") {
-            document.forms[0].submit();
+            chkenter(target);
         }
     });
 }
@@ -73,14 +79,15 @@ function comma(){
     var comma = document.getElementsByClassName("comma");
     if (comma !== null && comma !== undefined) {
         for (var i=0; i<comma.length; i++) {
-console.log("hello");
             addCommas(comma[i]);
         }
     }
 }
 
 
-/* I lose original formatting */
+/* 
+ *      Formats phone number in US format as entered
+ */
 function formatPhone(target) {
     target.addEventListener('input', function (e) {
       var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
@@ -146,6 +153,36 @@ function chooseFile() {
     document.getElementById("fileUpload").click();
 }
 
+function ModifyEnterKeyPressAsTab() {
+    if (window.event && window.event.keyCode == 13) {
+        window.event.keyCode = 9;
+    }
+}
+
+/* this needs to be cleaned up */
+function chkenter(target) {
+    target.addEventListener('keypress', function(e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            var inputs = document.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                if (document.activeElement.id == inputs[i].id && i+1 < inputs.length ) {
+                    inputs[i+1].focus();
+                    break;   
+                }
+            }
+        }
+    });
+}
+function enter2tab() {
+    var inputs = document.getElementsByTagName('input');
+    for (var x = 0; x < inputs.length; x++) {
+        chkenter(inputs[x]);
+    }
+}
+
+
+
 window.onload = function () {
     greyout();
     buttonSetup("del");
@@ -153,4 +190,6 @@ window.onload = function () {
     feeSlider();
     comma();
     phone();
+    enter2tab();
+//    prepareEventHandlers();
 };

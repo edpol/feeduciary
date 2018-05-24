@@ -75,7 +75,13 @@
 				</div>
 
 			</div>
-			<i>Fees listed are subject to change.  Please contact the advisor directly to verify fees.</i>
+	    	<div class="row">
+		        <div class="col-sm-2"> </div>
+		        <div class="col-sm-8"> 
+					<i>Advisor information, including fees, are subject to change. Please view public disclosures on Securities Exchange Commission database or contact the advisor directly to verify any information posted on Feeduciary.com</i>
+				</div>
+		        <div class="col-sm-2"> </div>
+			</div>
 		</div>
 	</section>
 
@@ -139,15 +145,6 @@
 	@endforeach
 
 		<section class="<?= $class; ?>" style="padding-top:4px;">
-	        <div class="row">
-				<div class="col-sm-1"> </div>
-				<div class="col-sm-10 text-center small" style="color:grey;">
-				    Fees listed are subject to change. Please contact the advisor directly to verify fees. <br />
-
-					Annual fees do not include internal costs and expenses associated with investments inside of a fee based portfolio.
-				</div>
-			</div>
-			<br />
 	        <div class="row">
 				<div class="col-sm-12">
 					<div class="pagination center pagination-sm">

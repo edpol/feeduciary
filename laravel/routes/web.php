@@ -53,7 +53,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/logout',                  'SessionsController@destroy')->name('logout');
 
-    Route::get('/edit/{advisor}',          'AdvisorsController@edit'); 
+    Route::post('/edit/{advisor}',         'AdvisorsController@edit'); 
     Route::get('/update/{advisor}',        'AdvisorsController@update'); 
     Route::get('/advisor/entry/{user}',    'AdvisorsController@entryForm');
 
