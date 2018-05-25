@@ -402,4 +402,11 @@ class AdvisorsController extends Controller
         $results = Rate::where("advisor_id",$id)->delete();
         return redirect('/admin/advisors/list')->with('status', "Advisor {$id} deleted!");
     }
+
+    public function search(Request $request) {
+        $target = request('search');
+        $advisors = Advisor::where('name','like',"%$target%")->orderBy('name','asc')->paginate(100); //->orWhere('company', 'like', "%$target%" ) )->get();
+// id like to hightlight the string found
+        return view('advisors.index', compact('advisors'));
+    }
 }

@@ -64,4 +64,10 @@ class Advisor extends Model
             return false;
         }
     }
+
+    public function targetSearch($search_string) {
+        $results = Self::where('name', 'like', $search_string.'%')->get();
+    }
+
+
 }

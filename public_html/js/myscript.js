@@ -164,6 +164,9 @@ function chkenter(target) {
     target.addEventListener('keypress', function(e) {
         if (e.which == 13) {
             e.preventDefault();
+            if(target.name=="search" && target.value!='') {
+                document.forms["myform"].submit();
+            }
             var inputs = document.getElementsByTagName('input');
             for (var i = 0; i < inputs.length; i++) {
                 if (document.activeElement.id == inputs[i].id && i+1 < inputs.length ) {
@@ -177,11 +180,9 @@ function chkenter(target) {
 function enter2tab() {
     var inputs = document.getElementsByTagName('input');
     for (var x = 0; x < inputs.length; x++) {
-        chkenter(inputs[x]);
+            chkenter(inputs[x]);
     }
 }
-
-
 
 window.onload = function () {
     greyout();
@@ -191,5 +192,4 @@ window.onload = function () {
     comma();
     phone();
     enter2tab();
-//    prepareEventHandlers();
 };

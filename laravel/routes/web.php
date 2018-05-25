@@ -11,6 +11,8 @@ Route::post('/contact',               'EmailController@contactUs');    // this s
 Route::post('/contact/{advisor}',     'EmailController@contactAdvisor');// contact advisor form
 Route::post('/send/{advisor}',        'EmailController@send');          // send email to advisor
 
+Route::post('/search',                'AdvisorsController@search');
+
 Route::view('/terms',   'casual.terms');
 Route::view('/privacy', 'casual.privacy');
 

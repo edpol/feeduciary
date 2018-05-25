@@ -13,17 +13,29 @@
                     <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+@if ($tab == "Display Advisor")
+                    <li class="nav-item">
+                        <form id='myform' action="{{ url('/search') }}" method="POST">
+                            {{ csrf_field() }}
+<?php                       if (auth()->check() && auth()->user()->isAdmin()) {
+                                $target="/admin/advisors/list";
+                            } else {
+                                $target="/advisors";
+                            }
+?>                          <button type="submit" class="btn btn-primary" formtarget="{{url('$target')}}">Reset Search</button> 
+                            <input class="search" type="text" name="search" placeholder="search" />
+                        </form>
+                    </li>
+@endif
+
                     <li class="nav-item">
                         <a class="nav-link" id="home"  href="{{ url('/') }}">Home</a>
                     </li>
-<!--
-                    <li class="nav-item">
+<!--                <li class="nav-item">
                         <a class="nav-link" id="rss"  href="{{ url('/rss') }}">RSS</a>
                     </li>
 -->
-<!--
-                    if   (Auth::check())
--->                 @if (auth()->check())
+                    @if (auth()->check())
 
                         @if (auth()->user()->isAdmin())
                             <li class="nav-item">
