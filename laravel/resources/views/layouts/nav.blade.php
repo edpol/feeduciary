@@ -15,14 +15,14 @@
                         <!-- Authentication Links -->
 @if ($tab == "Display Advisor")
                     <li class="nav-item">
-                        <form id='myform' action="{{ url('/search') }}" method="POST">
+                        <form id='myform' action="{{ url('/search') }}" method="GET">
                             {{ csrf_field() }}
 <?php                       if (auth()->check() && auth()->user()->isAdmin()) {
-                                $target="/admin/advisors/list";
+                                $target='/admin/advisors/list';
                             } else {
-                                $target="/advisors";
+                                $target='/advisors';
                             }
-?>                          <button type="submit" class="btn btn-primary" formtarget="{{url('$target')}}">Reset Search</button> 
+?>                          <button type="submit" class="btn btn-primary" formaction="{{ url($target) }}">Reset Search</button> 
                             <input class="search" type="text" name="search" placeholder="search" />
                         </form>
                     </li>

@@ -11,7 +11,7 @@ Route::post('/contact',               'EmailController@contactUs');    // this s
 Route::post('/contact/{advisor}',     'EmailController@contactAdvisor');// contact advisor form
 Route::post('/send/{advisor}',        'EmailController@send');          // send email to advisor
 
-Route::post('/search',                'AdvisorsController@search');
+Route::get('/search',                'AdvisorsController@search');
 
 Route::view('/terms',   'casual.terms');
 Route::view('/privacy', 'casual.privacy');
@@ -75,17 +75,14 @@ Route::group(['middleware' => ['auth','admin']], function () {
     // validator fail is a GET, but we used POST because we are POSTing
     Route::post('/destroy/{advisor}',      'RatesController@destroy');
 
-    Route::get('/admin/advisors/list', function() {
-        $advisors = feeduciary\Advisor::orderBy('name','asc')->paginate(100); //all();
-        return view('advisors.index', compact('advisors'));
-    });
+    Route::get('/admin/advisors/list',     'AdvisorsController@index');
 
     Route::get('/admin/create', function() {
     	return view('advisors.entry');
     });
 
     Route::get('/admin/advisor/{id}',           'AdminController@show');
-    Route::post('/admin/advisor/{id}/delete',   'AdvisorsController@delete');
     Route::post('/admin/advisor/{id}/inactive', 'AdminController@inactive');
+    Route::post('/admin/advisor/{id}/delete',   'AdvisorsController@delete');
 
 });

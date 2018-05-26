@@ -36,7 +36,7 @@
 							<tr>
 						 		<td class="text-left" @if (!$advisor->is_active) class='alert alert-danger' @endif >
 									<a href="{{ $link }}/{{ $advisor->id }}">
-										{{ $advisor->name }}, {{ $advisor->st }}
+										{!! $advisor->name !!}, {{ $advisor->st }}
 									</a>
 								</td>
 <!--
@@ -54,12 +54,10 @@
 			</div>
 		</div>
 
-
-
 		<div class="row">
 			<div class="text-center col-sm-12">
 				<div class="pagination pagination-sm" style="margin: 0 auto; display: inline-block">
-					<?= $advisors->render(); ?>
+					{{ $advisors->render() }}
 				</div>
 			</div>
 		</div>

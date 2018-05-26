@@ -26,9 +26,10 @@ class AdvisorsController extends Controller
     }
 
     //
-    public function index()
+    public function index(Request $request)
     {
-        $advisors = Advisor::orderBy('name','asc')->paginate(100); //all();
+        $request->session()->forget('findme'); 
+        $advisors = Advisor::orderBy('name','asc')->paginate(ROWS_PER_PAGE); //all();
         return view('advisors.index', compact('advisors'));
     }
 
@@ -403,10 +404,38 @@ class AdvisorsController extends Controller
         return redirect('/admin/advisors/list')->with('status', "Advisor {$id} deleted!");
     }
 
+    public function highlight($advisor, $findme=""){
+        if($findme!="") {
+            $len = strlen($findme);
+            $pos = strpos(strtolower($advisor->name), strtolower($findme));
+            if ($pos !== false) {
+                $tmp=$advisor->name;
+                $parts[0] = substr($tmp, 0, $pos);
+                $parts[1] = "<span style='background-color:#" . HEX_HIGHLIGHT_COLOR . ";'>";
+                $parts[2] = substr($tmp,$pos,$len);
+                $parts[3] = "</span>";
+                $parts[4] = substr($tmp,$pos+$len);
+                $advisor->name = $parts[0] . $parts[1] . $parts[2] . $parts[3] . $parts[4];
+            }
+        }
+        return $advisor;
+    }
+
     public function search(Request $request) {
-        $target = request('search');
-        $advisors = Advisor::where('name','like',"%$target%")->orderBy('name','asc')->paginate(100); //->orWhere('company', 'like', "%$target%" ) )->get();
-// id like to hightlight the string found
-        return view('advisors.index', compact('advisors'));
+        $findme = request('search');
+        // if null check sessions
+        if ($findme == NULL) {
+            if($request->session()->has('findme')) {
+                $findme=session('findme');
+            }
+        } else {
+            session(compact('findme'));
+        }
+// $request->session()->forget('findme'); on index
+        $advisors = Advisor::where('name','like',"%$findme%")->orderBy('name','asc')->paginate(ROWS_PER_PAGE); //->orWhere('company', 'like', "%$target%" ) )->get();
+        foreach($advisors as $advisor){
+            $advisor = $this->highlight($advisor, $findme);
+        }
+        return view('advisors.index', compact('advisors','findme'));
     }
 }
