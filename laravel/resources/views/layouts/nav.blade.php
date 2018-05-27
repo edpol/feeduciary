@@ -14,18 +14,19 @@
                 <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
 @if ($tab == "Display Advisor")
-                    <li class="nav-item">
                         <form id='myform' action="{{ url('/search') }}" method="GET">
-                            {{ csrf_field() }}
-<?php                       if (auth()->check() && auth()->user()->isAdmin()) {
-                                $target='/admin/advisors/list';
-                            } else {
-                                $target='/advisors';
-                            }
-?>                          <button type="submit" class="btn btn-primary" formaction="{{ url($target) }}">Reset Search</button> 
-                            <input class="search" type="text" name="search" placeholder="search" />
+                            <li class="nav-item">
+                                {{ csrf_field() }}
+<?php                           if (auth()->check() && auth()->user()->isAdmin()) {
+                                    $target='/admin/advisors/list';
+                                } else {
+                                    $target='/advisors';
+                                }
+?>                              <button type="submit" class="btn btn-primary" formaction="{{ url($target) }}">Reset Search</button> 
+                                <button type="submit" class="btn btn-primary"><image src="{{ asset('/images/search.png')}}"/></button>
+                                <input class="search" type="text" name="search" placeholder="search" />
+                            </li>
                         </form>
-                    </li>
 @endif
 
                     <li class="nav-item">
