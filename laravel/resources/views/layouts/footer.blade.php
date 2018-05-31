@@ -5,6 +5,8 @@
             <div class="col-sm-2"> </div>
             <div class="col-sm-8">
                 Advisor information, including fees, are subject to change. Please view public disclosures on Securities Exchange Commission database or contact the advisor directly to verify all information posted on Feeduciary.com.        
+<br /> <br />
+Annual fees listed are for investment management only.
             </div>
         </div>
         <div class="row">
