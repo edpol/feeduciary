@@ -3,7 +3,12 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{ asset('images/Black-logo.png') }}" height="40" /> 
+                <div style="float:left; padding-top:10px;"><img src="{{ asset('images/logo.png') }}" height="40" /></div>
+                <div style="float:left;vertical-align: top;">
+                    <div style="color:black; font-size:26px; padding:0; margin:0;">Feeduciary</div>
+                    <div style="color:green; font-size:14px; padding:0; margin:0; margin-top:-6px;">Let The Annual Fee Set You Free</div>
+                </div>
+                <br clear="all" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
