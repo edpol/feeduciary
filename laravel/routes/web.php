@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/rates/{advisor}',        'RatesController@edit'); 
     Route::post('/done/{advisor}',         'RatesController@done'); 
     Route::get('/finishedRates',           'RatesController@show'); 
+    Route::post('/destroy/{advisor}',      'RatesController@destroy');
 
     Route::post('/upload/{advisor}',       'ImportController@upload')->name('upload');
     Route::get('/import', function () {
@@ -73,8 +74,6 @@ Route::group(['middleware' => ['auth']], function () {
 // this page requires that you be logged in AND be an Admin
 Route::group(['middleware' => ['auth','admin']], function () {
     // validator fail is a GET, but we used POST because we are POSTing
-    Route::post('/destroy/{advisor}',      'RatesController@destroy');
-
     Route::get('/admin/advisors/list',     'AdvisorsController@index');
 
     Route::get('/admin/create', function() {

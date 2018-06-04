@@ -4,7 +4,7 @@
         <div class="container">
             <div class="intro-message">
                 <h1>Feeduciary</h1>
-                <h4>Let The Annual Fee Set You Free!</h4>
+                <h4>Let The Annual Fee Set You Free</h4>
                 <hr class="intro-divider" />
                     <div class="bluebox" style="margin:0 auto; text-align:left; width:40%; min-width:280px;">
                         <form method="GET" action="{{url('/calculateFee')}}">
