@@ -51,21 +51,21 @@ Route::get('/home',                   'HomeController@index');
 
 // this page requires that you be logged in 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/update',                  'Auth\LoginController@update');
+    Route::get('/update',                    'Auth\LoginController@update');
 
-    Route::get('/logout',                  'SessionsController@destroy')->name('logout');
+    Route::get('/logout',                    'SessionsController@destroy')->name('logout');
 
-    Route::post('/edit/{advisor}',         'AdvisorsController@edit'); 
-    Route::get('/update/{advisor}',        'AdvisorsController@update'); 
-    Route::get('/advisor/entry/{user}',    'AdvisorsController@entryForm');
+    Route::get('/edit/{advisor}',            'AdvisorsController@edit'); 
+    Route::get('/update/advisor/{advisor}',  'AdvisorsController@update'); 
+    Route::get('/advisor/entry/{user}',      'AdvisorsController@entryForm');
 
-    Route::post('/storeRate/{advisor}',    'RatesController@store'); 
-    Route::post('/rates/{advisor}',        'RatesController@edit'); 
-    Route::post('/done/{advisor}',         'RatesController@done'); 
-    Route::get('/finishedRates',           'RatesController@show'); 
-    Route::post('/destroy/{advisor}',      'RatesController@destroy');
+    Route::post('/storeRate/{advisor}',      'RatesController@store'); 
+    Route::post('/rates/{advisor}',          'RatesController@edit'); 
+    Route::post('/done/{advisor}',           'RatesController@done'); 
+    Route::get('/finishedRates',             'RatesController@show'); 
+    Route::post('/destroy/{advisor}',        'RatesController@destroy');
 
-    Route::post('/upload/{advisor}',       'ImportController@upload')->name('upload');
+    Route::post('/upload/{advisor}',         'ImportController@upload')->name('upload');
     Route::get('/import', function () {
         return view('import.picture');
     });

@@ -2,6 +2,7 @@
 
 namespace feeduciary;
 
+use Auth;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -35,7 +36,12 @@ class User extends Authenticatable
         return $this->belongsTo(Advisor::class);
     }
 
+    // this looks for an admin column in your users table
     public function isAdmin() {
-        return $this->admin; // this looks for an admin column in your users table
+        if (auth()->check() && $this->admin) {
+            return true;
+        } else { 
+            return false;
+        }
     }
 }
