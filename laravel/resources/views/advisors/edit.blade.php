@@ -14,7 +14,7 @@
                 <h3>Advisor Information</h3>
 <?php           $hideEmail = false;   ?>
                 @include('advisors.display')
-                <form class="form-group" method="POST" action="{{ url('/edit') }}/{{ $advisor->id }}">
+                <form class="form-group" method="GET" action="{{ url('/edit') }}/{{ $advisor->id }}">
                     {{ csrf_field() }}
                     <button type="submit" class="btn btn-primary">
                         Edit Advisor

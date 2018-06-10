@@ -14,7 +14,7 @@
             <div class="col-lg-8 ml-auto">
                 <div class="clearfix"></div>
                 <h3 class="section-heading">Update Advisor Information</h3>
-                <form class="form-horimaximum_amtontal " method="GET" action="{{ url('/update') }}/{{ $advisor->id }}" id="frmContact">
+                <form class="form-horimaximum_amtontal " method="GET" action="{{ url('/update/advisor') }}/{{ $advisor->id }}" id="frmContact">
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -289,15 +289,15 @@
 
                     <input id="user_id"    type="hidden" class="form-control" name="user_id"    value="{{ $advisor->user_id }}" />
 
+                    @include('layouts.errors')
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary" tabindex="22">
+                            <button type="submit" class="btn btn-primary" tabindex="22" @if (count($errors)) autofocus @endif>
                                 Update Advisor
                             </button>
                         </div>
                     </div>
 
-                    @include('layouts.errors')
                 </form>
 
             </div>
