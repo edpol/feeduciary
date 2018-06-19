@@ -93,6 +93,9 @@ class AdvisorsController extends Controller
             if ($advisor->feeCalculation == 2) {
                 $totalFee = $roof;
             }
+            if ($advisor->minimum_fee>$totalFee) {
+                $totalFee = $advisor->minimum_fee;
+            }
         }
         return round($totalFee,0);
     }
@@ -129,7 +132,7 @@ class AdvisorsController extends Controller
         $range["feeMin"]  = (int) (ceil($feeMin/10)) * 10;
         $range["feeMax"]  = (int) (ceil($feeMax/10)) * 10;
         $range["feeStep"] = (int) ceil(($feeMax-$feeMin)/100);
-        $range["feeMax"] += $range["feeStep"] ;
+        $range["feeMax"] += $range["feeStep"];
         session(compact('advisors', 'range'));
         return;
     }
