@@ -99,13 +99,13 @@
 				$align = "margin-left:auto; margin-right:0;";
 			}
 			?>
-
+	
 			<section class="<?= $class; ?>">
 			    <div class="container">
 			        <div class="row">
-						<div style="width:400px; height:240px; padding:20px 20px 40px 20px; <?= $align; ?>  box-shadow: 10px 10px 5px #888888;  background: url({{ asset('images/paper.gif') }});">
+						<div style="width:400px; min-height:240px; padding:15px; <?= $align; ?>  box-shadow: 10px 10px 5px #888888;  background: url({{ asset('images/paper.gif') }});">
 
-							<p style="margin:0 auto; text-align:center; border-top:solid black 1px; border-bottom:solid black 1px; width:80%; ">
+							<p style="margin:0 auto; padding:0; text-align:center; border-top:solid black 1px; border-bottom:solid black 1px;">
 								<a href="{{ url('/advisors') }}/{{ $advisor->id }}">{{ $advisor->name }}</a><br />
 							</p>
 							<div style="margin:0 auto; text-align:center;">
@@ -113,12 +113,13 @@
 							</div>
 
 							<div class="row">
-					            <div class="col-lg-3">
+					            <div class="col-3 col-sm-3" style="padding-right:0; ">
 									@if ($advisor->photo()!="/images/placeholder.png")
-										<img src="{{ $advisor->photo() }}" width="90" />
+										<img class="img-fluid" src="{{ $advisor->photo() }}"  />
 									@endif
 								</div>
-					            <div class="col-lg-9" style="padding-top:10px;">
+
+					            <div class="col-9 col-sm-9" style="padding:10px 5px 0 5px;">
 									{{ $advisor->address1}}<br />
 									@if (!empty($advisor->address2)) 
 										{{ $advisor->address2 }}<br /> 
@@ -127,20 +128,17 @@
 									@if (empty($advisor->address2)) 
 										<br />
 									@endif
+									<div style="vertical-align: bottom; display: table-cell;">
+										<br />
+										Approx Annual Fee: <font size="+1" style="background-color:#A5D0FF;">&nbsp;<?= "$".number_format($advisor->totalFee,0); ?>&nbsp;</font><br /> 
+<?php									if ($advisor->distance>0) {
+											echo "Approx Distance: " . number_format($advisor->distance,0) . " ";
+											echo ($advisor->distance>1) ? "miles" : " mile"; 
+										} 
+?>									</div>
 								</div>
 							</div>
-
-							<div class="row" style="padding-top:12px;">
-					            <div class="col-lg-12">
-									Approx Annual Fee: <font size="+1" style="background-color:#A5D0FF;">&nbsp;<?= "$".number_format($advisor->totalFee,0); ?>&nbsp;</font><br /> 
-<?php								if ($advisor->distance>0) {
-										echo "Approx Distance: " . number_format($advisor->distance,0) . " ";
-										echo ($advisor->distance>1) ? "miles" : " mile"; 
-									} 
-?>								</div>
-							</div>		
 						</div>
-						<br />
 					</div>
 				</div>
 			</section>
