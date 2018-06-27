@@ -93,10 +93,13 @@ class AdvisorsController extends Controller
             if ($advisor->feeCalculation == 2) {
                 $totalFee = $roof;
             }
-            if ($advisor->minimum_fee>$totalFee) {
-                $totalFee = $advisor->minimum_fee;
-            }
+
         }
+
+        if ($advisor->minimum_fee>$totalFee) {
+            $totalFee = $advisor->minimum_fee;
+        }
+
         return round($totalFee,0);
     }
 

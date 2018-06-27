@@ -112,29 +112,32 @@
 								{{ $advisor->company }}
 							</div>
 
-							<div style="float:left;">
-								@if ($advisor->photo()!="/images/placeholder.png")
-									<img src="{{ $advisor->photo() }}" width=100 />
-								@endif
+							<div class="row">
+					            <div class="col-lg-3">
+									@if ($advisor->photo()!="/images/placeholder.png")
+										<img src="{{ $advisor->photo() }}" width="90" />
+									@endif
+								</div>
+					            <div class="col-lg-9" style="padding-top:10px;">
+									{{ $advisor->address1}}<br />
+									@if (!empty($advisor->address2)) 
+										{{ $advisor->address2 }}<br /> 
+									@endif
+									{{ $advisor->city }}, {{ $advisor->st }} {{ $advisor->zip }}<br />
+									@if (empty($advisor->address2)) 
+										<br />
+									@endif
+								</div>
 							</div>
-							<div style="float:right;">
-								<br />
-								{{ $advisor->address1}}<br />
-								@if (!empty($advisor->address2)) 
-									{{ $advisor->address2 }}<br /> 
-								@endif
-								{{ $advisor->city }}, {{ $advisor->st }} {{ $advisor->zip }}<br />
-								@if (empty($advisor->address2)) 
-									<br />
-								@endif
-							</div>
-							<br clear="all" />
-							<div style="padding-top:12px;">
-								Approx Annual Fee: <font size="+1" style="background-color:#A5D0FF;">&nbsp;<?= "$".number_format($advisor->totalFee,0); ?>&nbsp;</font><br /> 
-<?php							if ($advisor->distance>0) {
-									echo "Approx Distance: " . number_format($advisor->distance,0) . " ";
-									echo ($advisor->distance>1) ? "miles" : " mile"; 
-								} ?>
+
+							<div class="row" style="padding-top:12px;">
+					            <div class="col-lg-12">
+									Approx Annual Fee: <font size="+1" style="background-color:#A5D0FF;">&nbsp;<?= "$".number_format($advisor->totalFee,0); ?>&nbsp;</font><br /> 
+<?php								if ($advisor->distance>0) {
+										echo "Approx Distance: " . number_format($advisor->distance,0) . " ";
+										echo ($advisor->distance>1) ? "miles" : " mile"; 
+									} 
+?>								</div>
 							</div>		
 						</div>
 						<br />
