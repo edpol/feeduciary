@@ -106,7 +106,7 @@
                     </div>
 
                     <div class="col-4 col-md-4">Discretionary AUM: </div>
-                    <div class="col-7 ml-1 col-md-8 ml-md-0">
+                    <div class="col-7 ml-2 col-md-8 ml-md-0">
                         @if(isset($advisor->discretionaryAUM) && !empty($advisor->discretionaryAUM))
                             ${{ number_format($advisor->discretionaryAUM, 0) }} 
                         @endif
