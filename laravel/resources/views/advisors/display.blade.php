@@ -105,8 +105,8 @@
                         @endif
                     </div>
 
-                    <div class="col-4">Discretionary AUM: </div>
-                    <div class="col-8">
+                    <div class="col-4 pr-1 col-md-4 pr-md-0">Discretionary AUM: </div>
+                    <div class="col-8      col-md-8">
                         @if(isset($advisor->discretionaryAUM) && !empty($advisor->discretionaryAUM))
                             ${{ number_format($advisor->discretionaryAUM, 0) }} 
                         @endif
