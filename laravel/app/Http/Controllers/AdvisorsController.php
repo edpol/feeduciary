@@ -367,8 +367,10 @@ class AdvisorsController extends Controller
     public function store(Request $request) {
         $validation = $this->validating();
         $data = $this->buildArray($request);
-
         $advisor = Advisor::create($data);
+
+        $user = $advisor->user;
+        $results = $user->updateId($advisor->id);
         $rates = $advisor->rate;
 
         // After creating your ADVISOR information, we need your RATES information
@@ -386,9 +388,8 @@ class AdvisorsController extends Controller
         $data = $this->buildArray();
         $advisor->update($data);
 
-        $rates = Rate::where("advisor_id",$advisor->id)->get();
+        $rates = $advisor->rate;
         if ($rates->count()==0) {
-            $rates = $advisor->rate;
             return view('rates.edit', compact('advisor','rates'));
         }
 
@@ -396,6 +397,17 @@ class AdvisorsController extends Controller
         $advisor = checkURLs($advisor);
         return view('advisors.edit', compact('advisor', 'rates'));
 
+    }
+
+    public function display(Advisor $advisor) {
+        $advisor = checkURLs($advisor);
+        $rates = $advisor->rate;
+        // error message if no rates for this Advisor 
+        if ($rates->count()==0) {
+            return view('advisors.edit', compact('advisor', 'rates'))->withErrors(["msg" => "Need at least on entry for Rates"]);
+        } else {
+            return view('advisors.edit', compact('advisor', 'rates'));
+        }
     }
 
     public function contact(Advisor $advisor) {
@@ -410,7 +422,7 @@ class AdvisorsController extends Controller
         return redirect('/admin/advisors/list')->with('status', "Advisor {$id} deleted!");
     }
 
-    public function highlight($advisor, $findme=""){
+    public function highlight($advisor, $findme="") {
         if($findme!="") {
             $len = strlen($findme);
             $pos = strpos(strtolower($advisor->name), strtolower($findme));

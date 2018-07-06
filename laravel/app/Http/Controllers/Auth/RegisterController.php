@@ -72,11 +72,13 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => bcrypt($data['password']),
-            'user_id'  => $data['advisor_id'],
+            'name'       => $data['name'],
+            'email'      => $data['email'],
+            'password'   => bcrypt($data['password']),
+            'advisor_id' => $data['advisor_id'],
         ]);
+        // if you are claiming an account the $advisor->id exists, so $user->advisor_id = $advisor->id
+        // if new user ???
     }
 
     public function validating() {
@@ -115,8 +117,11 @@ class RegisterController extends Controller
         // if i time out it errors here
         $count = (is_null($advisor)) ? 0 : $advisor->count();
         if ($count==0) {
-//            return view('advisors.entry', compact('user'));
-            return redirect('/advisor/entry/' . $user->id); 
+//          return view('advisors.entry', compact('user'));
+            $errors = new \Illuminate\Support\MessageBag();
+            $errors->add('zip', 'The zip field is required.');
+            $errors->add('feeCalculation', 'The feeCalculation field is required.');
+            return redirect('/advisor/entry/' . $user->id)->withErrors($errors);; 
         } else {
             $rates = $advisor->rate;
             $advisor = checkURLs($advisor);

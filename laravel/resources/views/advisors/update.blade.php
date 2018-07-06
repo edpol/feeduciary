@@ -32,7 +32,7 @@
                     <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                         <label for="phone" class="col-md-8 control-label">Phone</label>
                         <div class="col-md-8 {{ $errors->has('phone') ? ' has-error' : '' }}">
-                            <input id="phone" type="tel" class="form-control" name="phone" value="{{ old('phone',$advisor->phone) }}" tabindex="2"/>
+                            <input id="phone" type="tel" class="form-control phone" name="phone" value="{{ old('phone',$advisor->phone) }}" tabindex="2"/>
                             @if ($errors->has('phone'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('phone') }}</strong>

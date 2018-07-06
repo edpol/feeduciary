@@ -53,23 +53,6 @@ class GeocodeController extends Controller
         return view('geocode.store', compact('advisor', 'msg'));
     }
 
-    /*
-     *  Takes Advisor Address and gets lat & lng
-     *  used with new Advisor and when an Advisor is updated
-     */
-    public static function nossl_file_get_contents($send) {
-
-        $stream_opts = [
-            "ssl" => [
-            "verify_peer"=>false,
-            "verify_peer_name"=>false,
-            ]
-        ];  
-     
-        $response = file_get_contents($send, false, stream_context_create($stream_opts));
-        return $response;
-    }
-
     public static function ssl_file_get_contents($send) {
         $cafile = __DIR__ . DIRECTORY_SEPARATOR . "cacert.pem";
         $arrContextOptions=array(
@@ -153,29 +136,6 @@ if($id==76) {
         } else {
             return $miles;
         }
-    }
-
-    public static function getDistance(Advisor $advisor, $zipcode)
-    {
-        $address  = $advisor->address1 . ",";
-        if (!empty($advisor->address2)) $address .= $advisor->address2 . ",";
-        $address .= $advisor->city . "," . $advisor->st . " " . $advisor->zip;
-        $address = urlencode($address);
-
-        $key2  = "AIzaSyCdltmUqKisvFuUxvU-Ljf7CmTAjV0GZqw";
-        $url2  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&key=" . $key2;
-        $url2 .= "&origins={$zipcode}"; 
-        $url2 .= "&destinations={$address}";
-        $result = file_get_contents($url2);
-        $response = json_decode($result);
-
-        if ($response->status=="OK") {
-            $data["distance"] = $response->rows[0]->elements[0]->distance->text;
-            $data["duration"] = $response->rows[0]->elements[0]->duration->text;
-        } else {
-            $data = false;
-        }
-        return $data;
     }
 
     public static function geocode($advisor) {

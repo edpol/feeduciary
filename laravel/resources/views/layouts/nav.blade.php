@@ -1,18 +1,26 @@
     <!-- Navigation -->
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+
+
+
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <div style="float:left; padding-top:10px;"><img src="{{ asset('images/logo.png') }}" height="40" /></div>
-                <div style="float:left;vertical-align: top;">
-                    <div style="color:black; font-size:26px; padding:0; margin:0;">Feeduciary</div>
-                    <div style="color:green; font-size:14px; padding:0; margin:0; margin-top:-6px;">Let The Annual Fee Set You Free</div>
+
+                <div class="row m-0">
+                    <div class="col-2 col-md-2 px-0">
+                        <img class="px-0 col-md-12" src="{{ asset('images/logo.png') }}" />
+                    </div>
+                    <div class="col-2 col-md-10 p-0 m-0" style="line-height: 90%">
+                        <h4 class="col-md-12 pt-1 px-0 m-0">Feeduciary</h4>
+                        <h6 class="p-0 m-0" style="color:green;">Let The Annual Fee Set You Free</h6>
+                    </div>
                 </div>
-                <br clear="all" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarResponsive">
 
                     <!-- Right Side Of Navbar -->

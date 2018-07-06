@@ -16,7 +16,7 @@ class ImportController extends Controller
 		$file = $request->file('fileUpload');
 
         if ($file==null) {
-            $errors = "No file";
+            $errors = "No file selected";
             return view('advisors.edit',compact('errors','advisor','rates'));
         }
 
@@ -31,7 +31,7 @@ class ImportController extends Controller
 
         $filename = $file->getPathname(); // tmp file
         if (empty($filename)) {
-            $errors = "No file name";
+            $errors = "No file path";
             return view('advisors.edit',compact('errors','advisor','rates'));
 //          return redirect()->back()->withErrors("No File Name");
         }

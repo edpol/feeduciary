@@ -11,10 +11,10 @@ Route::post('/contact',               'EmailController@contactUs');    // this s
 Route::post('/contact/{advisor}',     'EmailController@contactAdvisor');// contact advisor form
 Route::post('/send/{advisor}',        'EmailController@send');          // send email to advisor
 
-Route::get('/search',                'AdvisorsController@search');
+Route::get('/search',                 'AdvisorsController@search');
 
-Route::view('/terms',   'casual.terms');
-Route::view('/privacy', 'casual.privacy');
+Route::view('/terms',                 'casual.terms');
+Route::view('/privacy',               'casual.privacy');
 
 Route::prefix('advisors')->group(function () {
     Route::get('/',                   'AdvisorsController@index');
@@ -52,7 +52,8 @@ Route::get('/home',                   'HomeController@index');
 // this page requires that you be logged in 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/update',                    'Auth\LoginController@update');
-
+    Route::get('/update/{advisor}',          'AdvisorsController@display');
+    
     Route::get('/logout',                    'SessionsController@destroy')->name('logout');
 
     Route::get('/edit/{advisor}',            'AdvisorsController@edit'); 
@@ -60,7 +61,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/advisor/entry/{user}',      'AdvisorsController@entryForm');
 
     Route::post('/storeRate/{advisor}',      'RatesController@store'); 
-    Route::post('/rates/{advisor}',          'RatesController@edit'); 
+    Route::get('/rates/{advisor}',           'RatesController@edit'); 
     Route::post('/done/{advisor}',           'RatesController@done'); 
     Route::get('/finishedRates',             'RatesController@show'); 
     Route::post('/destroy/{advisor}',        'RatesController@destroy');

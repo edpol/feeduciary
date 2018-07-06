@@ -103,19 +103,17 @@ function phone(){
     }
 }
 
-/*
- *      Display number for slider
+/*      Display number for slider
  *
  *      so this:
  *          object.oninput = handler;   
  *      is the same as this:
  *          object.addEventListener ("input", handler, useCapture)
- *
  */
 function numberWithCommas(x) {
-  var parts = x.toString().split(".");
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  return parts.join(".");
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
 }
 
 function slider() {
@@ -183,6 +181,7 @@ function enter2tab() {
             chkenter(inputs[x]);
     }
 }
+
 
 window.onload = function () {
     greyout();

@@ -44,4 +44,10 @@ class User extends Authenticatable
             return false;
         }
     }
+
+    // $user->advisor_id = $id
+    public function updateId($id) {
+        $result = $this->update(['advisor_id' => $id]);
+    }
+
 }

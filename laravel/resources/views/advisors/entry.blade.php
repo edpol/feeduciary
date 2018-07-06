@@ -42,7 +42,7 @@ if (!isset($user)) {
                         <div class="form-group">
                             <label for="phone" class="control-label">Phone</label><br />
                             <div class="{{ $errors->has('phone') ? ' has-error' : '' }}">
-                                <input id="phone" type="tel" class="form-control" name="phone" value="{{ old('phone') }}" />
+                                <input id="phone" type="tel" class="form-control phone" name="phone" value="{{ old('phone') }}" />
                                 @if ($errors->has('phone'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('phone') }}</strong>
@@ -123,30 +123,31 @@ if (!isset($user)) {
                             </div>
                         </div>
 
-                        
-                        <div class="form-group">
-                            <label for="st"  class="col-sm-5 control-label">State</label>
-                            <label for="zip" class="col-sm-6 control-label">Zip*</label>
+                        <div class="row">
+                            <div class="form-group col-12 col-sm-6">
+                                <label for="st"  class="control-label">State</label><br />
+                                <div class="{{ $errors->has('st') ? ' has-error' : '' }}">
+                                    {!! optionState() !!}
+                                    @if ($errors->has('st'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('st') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
 
-                            <div style="float:left;" class="col-sm-5 {{ $errors->has('st') ? ' has-error' : '' }}">
-                                {!! optionState() !!}
-                                @if ($errors->has('st'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('st') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="form-group col-12 col-sm-6">
+                                <label for="zip" class="control-label">Zip*</label><br />
+                                <div class="{{ $errors->has('zip') ? ' has-error' : '' }}">
+                                    <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip') }}"  />
+                                    @if ($errors->has('zip'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('zip') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                            <div style="float:left;" class="col-sm-7 {{ $errors->has('zip') ? ' has-error' : '' }}">
-                                <input id="zip" type="text" class="form-control" name="zip" value="{{ old('zip') }}"  />
-                                @if ($errors->has('zip'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('zip') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                            <br clear="both" />
                         </div>
-                        
 
                         <div class="form-group">
                             <label for="minimum_amt" class="control-label">Minimum Investment Amount</label>

@@ -46,7 +46,7 @@
 
                         <div class="row">
                             <div class="col-md-8">
-                                <input type="text" class="form-control comma" name="roof" value="{{ old('roof') }}" autofocus />
+                                <input id="roof" type="text" class="form-control comma" name="roof" value="{{ old('roof') }}" autofocus />
                                 @if ($errors->has('roof'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('roof') }}</strong>
@@ -69,33 +69,40 @@
                         </div>
                     </div>
                     @else
-                            <input id="rate" type="hidden" class="form-control" name="rate" value="{{-1*$advisor->feeCalculation}}" />
+                        <input id="rate"   type="hidden" class="form-control" name="rate"       value="{{-1*$advisor->feeCalculation}}" />
                     @endif
                     <input id="advisor_id" type="hidden" class="form-control" name="advisor_id" value="{{ $advisor->id }}" />
                     <input id="advisor"    type="hidden" class="form-control" name="advisor"    value="{{ $advisor }}" />
 
-                    <div class="form-group">
-                        <div class="col-md-8 col-md-offset-2">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-2">
 <?php
-/* if the fee calculation method equals 2 and the rates count is greater than 0 disable the add rate button */
+                           /* 
+                            *   if the fee calculation method equals 2 and the rates count is greater than 0 disable the add rate button 
+                            */
                             if ($advisor->feeCalculation==2 && $rates->count()!=0) {
                                 $disabled="disabled"; 
-                            }else{
+                            } else {
                                 $disabled=""; 
                             }
+
+                           /* 
+                            *   if administrator go to different place to update rates for advisor
+                            */
+                            if (auth()->user()->isAdmin()) {
+                                $href_update="/admin/advisor/".$advisor->id;
+                            } else {
+                                $href_update="/update/".$advisor->id;
+                            }
 ?>
-                            <button type="submit" {{ $disabled }} class="btn btn-primary">
-                                Add Rate ({{ $advisor->name }})
-                            </button>
-                            @if (auth()->user()->isAdmin())
-                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="{{ url('/admin/advisor/'.$advisor->id) }}" formmethod="GET">
-                            @else
-                                <button style="float:right;" type="submit" class="btn btn-primary" formaction="{{ url('/update') }}" formmethod="GET">
-                            @endif
-                                Done
-                            </button>
+                            <button type="submit" {{ $disabled }} class="btn btn-primary mt-1 mb-1">Add Rate ({{ $advisor->name }})</button>
+                            <a id="done_rates" class="btn btn-primary mt-1 mb-1" href="{{ url($href_update) }}">Done</a>
                         </div>
                     </div>
+
+@if (isset($message) && $message<>"") 
+{{ $message }}
+@endif
                     @include('layouts.errors')
                 </form>
             </div>

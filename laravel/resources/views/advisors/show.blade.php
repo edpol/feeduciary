@@ -2,7 +2,6 @@
     $key = "AIzaSyAWOL3Onr0xG3zs0U_vNDk15XOm82qb5wE";
     $q = $advisor->address1 . " " . $advisor->address2 . $advisor->city . " " . $advisor->st . " " . $advisor->zip;
     $q = htmlentities($q);
-    $hideEmail = true;
 ?>
 @extends('layouts.master')
 
@@ -15,12 +14,25 @@
 <section class="content-section-b">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-12 col-sm-6">
+                <?php $hideEmail = true; ?>
                 @include('advisors.display')
             </div>
-            <div id="map" class="col-lg-4">
+
+            <div class="col-12 col-sm-3">
+                @include('import.display')
+            </div>
+
+            <div class="col-12 col-sm-3" id="map">
             </div>
         </div>
+<br />
+        <!-- Bio Bottom Row -->
+        <div class="row-fluid">
+            <span class='alert alert-success' style="padding: 4px;">Bio:</span> &nbsp; {{ $advisor->bio }}
+        </div>
+
+ 
     </div>
 </section>
 
