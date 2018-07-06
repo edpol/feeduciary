@@ -10,7 +10,12 @@
 <section class="content-section-a">
     <div class="container">
         <div class="row">
-            <div class="col-lg-5 ml-auto">
+            <div class="col-lg-6 mr-auto">
+<!--            <img class="img-fluid" src="images/graph.jpg" alt="chart">  -->
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/uTYa43dExCU?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+
+            <div class="col-lg-5">
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
                 <h2 class="section-heading">
@@ -22,10 +27,8 @@
                     Please enter the approximate amount you wish to invest and we can supply you with a list of advisors and their fees.
                 </p>
             </div>
-            <div class="col-lg-5 mr-auto">
-                <img class="img-fluid" src="images/graph.jpg" alt="">
-            </div>
         </div>
+
         <div class="row" style="padding-top:24px;">
             <div class="col-sm-1"> </div>
             <div class="col-sm-10 text-center small"> 
