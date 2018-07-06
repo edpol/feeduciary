@@ -10,12 +10,13 @@
 <section class="content-section-a">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 mr-auto">
-<!--            <img class="img-fluid" src="images/graph.jpg" alt="chart">  -->
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/uTYa43dExCU?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <div class="col-12 col-md-6">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/uTYa43dExCU?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
             </div>
 
-            <div class="col-lg-5">
+            <div class="col-12 col-md-5">
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
                 <h2 class="section-heading">
