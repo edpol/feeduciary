@@ -37,7 +37,8 @@ class AdvisorsController extends Controller
     public function show(Advisor $advisor)
     {
         $advisor = checkURLs($advisor);
-        return view('advisors.show', compact('advisor'));
+        $fb_pixel_view_content = true;
+        return view('advisors.show', compact('advisor','fb_pixel_view_content'));
     }
 
     public function welcome(User $user)
@@ -196,12 +197,18 @@ class AdvisorsController extends Controller
 
     public function page($page)
     {   /* I think this would work with public variables */
+        if ($page=="search"){
+            $fb_pixel_search = true;
+            $page=1;
+        } else {
+            $fb_pixel_search = false;            
+        }
         session(compact('page'));
         $miles = session('miles');
         $advisors = session('advisors');
         $fee = session('fee');
         $output = $this->slicer($page,$miles,$fee);
-        return view('advisors.calculateFee');
+        return view('advisors.calculateFee', compact('fb_pixel_search'));
     }
 
     /** the target key is always one less than the id, in this example

@@ -15,17 +15,10 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/landing-page.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/feeduciary.css') }}" />
 
-<?php if(env('APP_ENV')!='development') { ?>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112524987-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-112524987-1');
-	</script>
-<?php } ?>
+	@if (env('APP_ENV') != 'development')
+		@include('layouts.analytics')
+		@include('layouts.pixel')
+	@endif
 </head>
 <body>
 

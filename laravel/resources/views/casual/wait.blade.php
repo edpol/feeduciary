@@ -46,7 +46,9 @@ function myTimer() {
 
 function clearTimer() {
 	clearInterval(myVar);
-	window.location.href = "{{ url('/advisors/page') }}/{{$page}}";
+	$page="search";
+//	window.location.href = "{{ url('/advisors/page') }}/{{$page}}";
+	window.location.href = "{{ url('/advisors/page/search') }}";
 }
 
 </script>
