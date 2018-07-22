@@ -155,10 +155,7 @@ a img { border: 0; }
 
 /* small font for small screens */
 @media screen and (max-width: 576px) {
-    .font18 {
-      font-size: 18px; 
-    }
-    .font12 {
-      font-size: 12px; 
-    }
+    .font18 { font-size: 18px; }
+    .font12 { font-size: 12px; }
+    .font11 { font-size: 11px; }
 }

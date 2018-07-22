@@ -8,16 +8,16 @@
             <a class="navbar-brand" href="{{ url('/') }}">
 
                 <div class="row m-0 p-0">
-                    <div class="col-2 col-md-2 px-0 mx-0">
+                    <div    class="col-md-2  col-2 px-0 mx-0">
                         <img class="col-md-12 px-0" src="{{ asset('images/logo.png') }}" />
                     </div>
                     <div    class="col-md-10 col-10 p-0  m-0" style="line-height: 90%;">
                         <h4 class="col-md-12   pt-1 px-0 m-0">Feeduciary</h4>
-                        <h6 class="p-0 m-0 font12" style="color:green;">Let The Annual Fee Set You Free</h6>
+                        <h6 class="p-0 m-0 font11" style="color:green;">Let The Annual Fee Set You Free</h6>
                     </div>
                 </div>
             </a>
-            <button class="navbar-toggler px-0" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler px-0 mr-1" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
