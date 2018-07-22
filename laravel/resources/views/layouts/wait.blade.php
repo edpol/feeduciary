@@ -26,7 +26,7 @@
 	</script>
 
 </head>
-<body>
+<body class="wait">
 
     @yield('box1')
 
