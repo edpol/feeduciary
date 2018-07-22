@@ -16,10 +16,12 @@ Route::get('/search',                 'AdvisorsController@search');
 Route::view('/terms',                 'casual.terms');
 Route::view('/privacy',               'casual.privacy');
 
+Route::get('/advisors/results',       'AdvisorsController@facebookPixel');
+
 Route::prefix('advisors')->group(function () {
     Route::get('/',                   'AdvisorsController@index');
     Route::get('/{advisor}',          'AdvisorsController@show'); 
-    Route::get('/page/{page}',        'AdvisorsController@page'); 
+    Route::get('/page/{page}',        'AdvisorsController@page');   // this also works for /page/search
     Route::get('/resort/{order}',     'AdvisorsController@resort'); 
     Route::get('/range/{miles}',      'AdvisorsController@range'); 
     Route::get('/feeRange/{fee}',     'AdvisorsController@feeRange'); 
@@ -75,7 +77,7 @@ Route::group(['middleware' => ['auth']], function () {
 // this page requires that you be logged in AND be an Admin
 Route::group(['middleware' => ['auth','admin']], function () {
     // validator fail is a GET, but we used POST because we are POSTing
-    Route::get('/admin/advisors/list',     'AdvisorsController@index');
+    Route::get('/admin/advisors/list',          'AdvisorsController@index');
 
     Route::get('/admin/create', function() {
     	return view('advisors.entry');

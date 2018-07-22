@@ -187,7 +187,7 @@ class AdvisorsController extends Controller
         $range = session('range');
         $miles = ($range['min']>75) ? (int) $range['min'] : 75; //(int) $range['max'];
         $fee = (int) $range['feeMax'];
-        $output = $this->slicer($page,$miles,$fee);
+        $this->slicer($page,$miles,$fee);
 
         $found_zipcode = $this->found_zipcode;
         session(compact('page', 'zip', 'found_zipcode', 'range', 'newOrder', 'miles', 'fee'));
@@ -195,19 +195,28 @@ class AdvisorsController extends Controller
 //      return view('advisors.calculateFee');
     }
 
-    public function page($page)
-    {   /* I think this would work with public variables */
-        if ($page=="search"){
-            $fb_pixel_search = true;
-            $page=1;
-        } else {
-            $fb_pixel_search = false;            
-        }
+    /*
+     *  I only use /advisors/results exiting the wait page.
+     *  This way we only call the facebook pixel the first time they go to page 1
+     *  on other calls it uses /advisors/page/1
+     */
+    public function facebookPixel() {
+        $this->pagePrep();
+        return view('advisors.calculateFee', compact('fb_pixel_search'));
+    }
+
+    public function pagePrep($page=1)
+    {
         session(compact('page'));
         $miles = session('miles');
         $advisors = session('advisors');
         $fee = session('fee');
-        $output = $this->slicer($page,$miles,$fee);
+        $this->slicer($page,$miles,$fee);
+        return;
+    }
+    public function page($page) //,$fb_pixel_search = false)
+    {
+        $this->pagePrep($page);
         return view('advisors.calculateFee', compact('fb_pixel_search'));
     }
 
@@ -264,7 +273,7 @@ class AdvisorsController extends Controller
         $displayCount = count($clone);
         session(compact('page', 'output', 'advisors', 'displayCount', 'validAdvisorCount')); 
         // I could send count($clone) instead would save ram.
-        return $output;
+        return; //$output;
     }
 
     public function range($miles)
@@ -272,7 +281,7 @@ class AdvisorsController extends Controller
         session(compact('miles'));
         $page = session('page');
         $fee = session('fee');
-        $output = $this->slicer($page,$miles,$fee);
+        $this->slicer($page,$miles,$fee);
         return view('advisors.calculateFee');
     }
 
@@ -281,7 +290,7 @@ class AdvisorsController extends Controller
         session(compact('fee'));
         $page = session('page');
         $miles = session('miles');
-        $output = $this->slicer($page,$miles,$fee);
+        $this->slicer($page,$miles,$fee);
         return view('advisors.calculateFee');
     }
 
@@ -304,7 +313,7 @@ class AdvisorsController extends Controller
         $fee   = session('fee');
         $max   = $range["max"];
         session(compact('advisors'));
-        $output = $this->slicer($page,$miles,$fee);  // needs $advisors in session
+        $this->slicer($page,$miles,$fee);  // needs $advisors in session
         session(compact('newOrder'));
         return view('advisors.calculateFee');
     }
