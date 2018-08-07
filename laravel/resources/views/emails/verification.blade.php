@@ -9,7 +9,7 @@
     From:   {{ $data['name']         }} ({{ $data['name']  }})<br />
     <br />
 
-    @component('mail:panel', ['url' => config('app.url').'/verify?token='.$data['token']])
+    @component('mail:panel', ['url' => 'http:/feeduciary.loc/email/verify?token='{{$data['token']}}])
     	Click here to verify your email address
 	@endcomponent
 

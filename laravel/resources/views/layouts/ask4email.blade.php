@@ -10,7 +10,7 @@
                             </div>
 
                             <div class="modal-body text-left bg-light text-dark">
-                                <form method="GET" action="{{url('/saveEmail')}}">
+                                <form method="post" action="{{url('/signup/store')}}">
                                     {{ csrf_field() }}
                                     <div class="m-3">
                                         <div class="form-group my-3 my-md-2 row">
@@ -49,7 +49,7 @@
                                             <button type="submit" class="btn btn-info    mb-1 col-md-5 col-12 mr-0" formaction="{{ url('/register') }}">Advisors Register Here</button>
                                             @endguest
                                             <button type="button" class="btn btn-default mb-1 col-md-2 col-12 mr-0" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary mb-1 col-md-2 col-12 mr-0" formaction="{{ url('/register') }}">Save</button>
+                                            <button type="submit" class="btn btn-primary mb-1 col-md-2 col-12 mr-0">Shit</button>
                                         </div>
                                     </div>
 

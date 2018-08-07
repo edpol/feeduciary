@@ -4,6 +4,7 @@ namespace feeduciary\Http\Controllers;
 
 use Illuminate\Http\Request;
 use feeduciary\Signup;
+use feeduciary\Mail;
 use feeduciary\Mail\Verification;
 
 class SignupsController extends Controller
@@ -56,7 +57,7 @@ else
      *    add to DB
      *    email verification email with token
      */
-    public function save2DB(Request $request)
+    public function save2DB(Request $request) {
         $name  = $request->input('name');
         $email = $request->input('email');
         $number_of_bytes = 64;
@@ -68,13 +69,15 @@ else
         $count = (is_null($signup)) ? 0 : $signup->count();
         if ($count==0) {
             $data = [
-                    'name'  => htmlentities(request('name')),
-                    'token' => request('token'),
-                    'email' => htmlentities(request('email'))
+                    'name'   => htmlentities(request('name')),
+                    'token'  => $token,
+                    'email'  => htmlentities(request('email')),
+                    'subject'=> 'Email verification'
                     ];
             $signup = Signup::create($data);
 
-            \Mail::to($data['email'],$data['name'])->send(new Verification);
+            \Mail::to($data['email'],$data['name'])->send(new Verification($data));
+
         } else {
         // display window resend or change
         }
@@ -94,7 +97,7 @@ else
             'email' => 'required|email',
         ]);
         $signup = $this->save2DB($request);
-
+        return "OK, I think it worked " . $signup; //view('advisors.index', compact('advisors'));
     }
 
     /**

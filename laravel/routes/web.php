@@ -7,7 +7,7 @@ Route::get('/cookie/get/{cookie}',       'CookieController@show');
 Route::get('/cookie/clear/{cookie}',     'CookieController@clear');
 Route::get('/',                          'CookieController@index');
 
-Route::put('/signup/store',              'SignupsController@store')->middleware('guest');
+Route::post('/signup/store',              'SignupsController@store')->middleware('guest');
 /*
 lookup email, if exists
     if verified 

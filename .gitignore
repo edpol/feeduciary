@@ -39,3 +39,4 @@ access-logs
 www
 feeduciary_project.*
 .gitconfig
+*.php-tmp
