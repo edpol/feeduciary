@@ -3,7 +3,9 @@
                         <div class="modal-content">
 
                             <div class="modal-header bg-primary text-white">
-                                <h4 class="modal-title" id="myModalLabel">Please enter email address</h4>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Enter your email address to access Feeduciary's free fee-based advisor search features.
+                                </h4>
                                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                                     &times;
                                 </button>
@@ -49,7 +51,7 @@
                                             <button type="submit" class="btn btn-info    mb-1 col-md-5 col-12 mr-0" formaction="{{ url('/register') }}">Advisors Register Here</button>
                                             @endguest
                                             <button type="button" class="btn btn-default mb-1 col-md-2 col-12 mr-0" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary mb-1 col-md-2 col-12 mr-0">Shit</button>
+                                            <button type="submit" class="btn btn-primary mb-1 col-md-2 col-12 mr-0">Save</button>
                                         </div>
                                     </div>
 

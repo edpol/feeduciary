@@ -4,7 +4,11 @@ namespace feeduciary\Http\Controllers;
 
 use Illuminate\Http\Request;
 use feeduciary\Signup;
+use feeduciary\Http\Controllers\Controller;
 use feeduciary\Mail;
+use feeduciary\Mail\ContactUs;
+use feeduciary\Mail\Message;
+use feeduciary\Mail\Welcome;
 use feeduciary\Mail\Verification;
 
 class SignupsController extends Controller
@@ -58,24 +62,27 @@ else
      *    email verification email with token
      */
     public function save2DB(Request $request) {
-        $name  = $request->input('name');
-        $email = $request->input('email');
         $number_of_bytes = 64;
         $token = bin2hex(random_bytes($number_of_bytes));
 
-        //  add to DB
-        //  email verification email with token
+        //  if the email does not exist, add it?
+        // what if there are 2 people using the same address?
+        // maybe i should change the email key to unique
         $signup = Signup::where("email",$email)->first();
         $count = (is_null($signup)) ? 0 : $signup->count();
         if ($count==0) {
             $data = [
                     'name'   => htmlentities(request('name')),
-                    'token'  => $token,
                     'email'  => htmlentities(request('email')),
-                    'subject'=> 'Email verification'
+                    'token'  => $token,
+                    'subject'=> 'Email verification',
+                    "server_name" => env('APP_URL'),
                     ];
+
+            // add to DB
             $signup = Signup::create($data);
 
+            // send email
             \Mail::to($data['email'],$data['name'])->send(new Verification($data));
 
         } else {
@@ -97,7 +104,9 @@ else
             'email' => 'required|email',
         ]);
         $signup = $this->save2DB($request);
-        return "OK, I think it worked " . $signup; //view('advisors.index', compact('advisors'));
+        $data = ['name'   => htmlentities(request('name')),
+                 'email'  => htmlentities(request('email'))];
+        return view('casual.thankYou', ['data'=>$data]);
     }
 
     /**

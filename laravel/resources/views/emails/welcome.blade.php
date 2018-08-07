@@ -5,7 +5,7 @@
         @endcomponent
     @endslot
 
-	Thank you for registering with feeduciary.com {{ $data['name'] }}<br />
+	Thank you for registering with feeduciary.com {{ $data['name'] }} {{ $data['email'] }}<br />
 
     {{-- Footer --}}
     @slot('footer')

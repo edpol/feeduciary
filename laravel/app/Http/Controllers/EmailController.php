@@ -2,14 +2,15 @@
 
 namespace feeduciary\Http\Controllers;
 
+use Illuminate\Http\Request;
 use feeduciary\Advisor;
 use feeduciary\Rate;
+use feeduciary\Http\Controllers\Controller;
 use feeduciary\Mail;
 use feeduciary\Mail\ContactUs;
 use feeduciary\Mail\Message;
+use feeduciary\Mail\Verification;
 use feeduciary\Mail\Welcome;
-use feeduciary\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class EmailController extends Controller
 {
@@ -17,25 +18,32 @@ class EmailController extends Controller
         return view ('casual.contact');
     }
 
+    public function verification(Request $request) {
+        $data = [
+                'name'   => htmlentities(request('name')),
+                'token'  => bin2hex(random_bytes(64)),
+                'email'  => htmlentities(request('email')),
+                'subject'=> 'Email verification',
+                'server_name' => htmlentities(env('APP_URL')),
+                'id' => 7,
+                ];
+        \Mail::to($data['email'],$data['name'])->send(new Verification($data));
+        return view('casual.thankYou', compact('data'));
+    }
+
     public function contactUs(Request $request)
     {
         // if Domain Name Validation turned off don't forget to check hostname field
-        // if($resp->getHostName() === $_SERVER['SERVER_NAME']) {  }
+        // if($response->getHostName() === $_SERVER['SERVER_NAME']) {  }
 
         $company = env('MAIL_FROM_ADDRESS', 'message@feeduciary.com');
-        $name    = $request->input('name');
-        $email   = $request->input('email');
-        $phone   = $request->input('phone');
-        $message = $request->input('message');
-        $subject = "Contact from Feeduciary.com " . $name;
-
         $data = array ( "title"        => "Customer Contact",
-                        "name"         => $request->input('name'),
-                        "fromEmail"    => $request->input('email'),
-                        "phone"        => $request->input('phone'),
-                        "content"      => $request->input('message'),
+                        "name"         => htmlentities($request->input('name')),
+                        "fromEmail"    => htmlentities($request->input('email')),
+                        "phone"        => htmlentities($request->input('phone')),
+                        "content"      => htmlentities($request->input('message')),
                         "server_name"  => env('APP_URL'),
-                        "subject"      => $subject
+                        "subject"      => "Contact from Feeduciary.com " . $request->input('name')
                     );
 
         \Mail::to($company)->send(new ContactUs($data));
@@ -68,7 +76,7 @@ class EmailController extends Controller
                         "phone"        => $request->input('phone'),
                         "content"      => $request->input('message'),
                         "server_name"  => env('APP_URL'),
-                        "subject"      => $subject
+                        "subject"      => "Message from " . $request->input('name')
                     );
 
         $result = \Mail::to($advisor->email, $advisor->name)->bcc($company)->send(new Message($data));

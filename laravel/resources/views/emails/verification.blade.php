@@ -5,18 +5,17 @@
         @endcomponent
     @endslot
 
-    To:		{{ $data['email']        }} ({{ $data['email'] }})<br />
-    From:   {{ $data['name']         }} ({{ $data['name']  }})<br />
+    To:		{{ $data['name']  }} ({{ $data['email'] }})<br />
     <br />
-
-    @component('mail:panel', ['url' => 'http:/feeduciary.loc/email/verify?token='{{$data['token']}}])
-    	Click here to verify your email address
-	@endcomponent
-
+Hello {{ $data['name']   }}, <br />
+to access Feeduciary's free fee-based advisor search features<br />
+<a href="{{ $data['server_name'] }}/email/verify?token='{{$data['token']}}">
+click here to verify your email address
+</a>.
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer', ['url' => config('app.url').'/contact'])
-            [Review your info @ Feeduciary.com](http://{{ $data['server_name'] }}/advisors/{{ $data['id'] }} "Feeduciary.com")
+            [Feeduciary.com]({{ $data['server_name'] }})
         @endcomponent
     @endslot
 @endcomponent
