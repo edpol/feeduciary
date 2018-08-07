@@ -22,7 +22,7 @@ class AdvisorsController extends Controller
     public function __construct()
     {
 //      $this->middleware('auth')->except(['index', 'show', 'advisorFee', 'calculateFee', 'page']);
-        $this->middleware('auth')->only(['create','delete']); // is this just logged in?
+        $this->middleware('auth')->only(['create','delete']); // this just logged in, not checking admin
     }
 
     //
@@ -142,9 +142,13 @@ class AdvisorsController extends Controller
     }
 
     /* this is the initialization function */
-    public function calculateFee() {
+    public function calculateFee(Request $request) {
 
-        $this->validate(request(), ['amount'=>'required']);
+        $requestData = $request->all();
+        $requestData['amount'] = substr($requestData['amount'],2);
+        $request->replace($requestData);
+
+        $this->validate(request(), ['amount'=>'required|numeric|min:1']);
         $tmp = implode('',request(['amount'])); // array to string
         $amount = cleanMoney($tmp);
         session(compact('amount'));
