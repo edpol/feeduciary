@@ -145,7 +145,7 @@ class AdvisorsController extends Controller
     public function calculateFee(Request $request) {
 
         $requestData = $request->all();
-        $requestData['amount'] = substr($requestData['amount'],2);
+        $requestData['amount'] = preg_replace('/[\s+,\$]/', '', $requestData['amount']);
         $request->replace($requestData);
 
         $this->validate(request(), ['amount'=>'required|numeric|min:1']);
