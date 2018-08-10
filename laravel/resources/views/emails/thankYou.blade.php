@@ -1,4 +1,4 @@
-<?php $tab = "Thank You"; ?>
+<?php $tab = "Thanks | Email"; ?>
 @extends('layouts.master')
 
 @section('box1')
@@ -10,7 +10,6 @@
 <!-- Page Content -->
 <section>
 	<div class="container">
-thankYou.blade.php
 		<div class="row">
 			<div class="col-sm-2"> </div>
 			<div class="col-sm-8">

@@ -3,29 +3,14 @@ use feeduciary\Advisor;
 
 Route::get('/cookie/set/{email}',        'CookieController@setCookie');
 Route::get('/cookie/set/{email}/{name}', 'CookieController@setCookie');
-Route::get('/cookie/get/{cookie}',       'CookieController@show');
+Route::get('/cookie/get/{cookie}',       'CookieController@showCookie');
 Route::get('/cookie/clear/{cookie}',     'CookieController@clear');
+Route::get('/getall',                    'CookieController@getAll');
 Route::get('/',                          'CookieController@index');
 
-Route::post('/signup/store',             'SignupsController@store')->middleware('guest');
-
-/*
-lookup email, if exists
-    if verified 
-        save email cookie
-        goto results
-    else
-        ask if they want us to resend email
-            send verification email
-        or change the email address
-            call the popup window to get email address (put it in it's own file so you can include it in both places)
-else
-    call the popup window to get email address
-        save in DB
-        save in cookie
-        send verification email
- */
-
+Route::get('/signup/store',              'SignupsController@store')->middleware('guest');
+Route::get('/signup/thankyou',           'SignupsController@thankyou')->middleware('guest');
+Route::get('/email/verify/{token}',      'SignupsController@update')->middleware('guest');
 
 
 Route::get('/about',                  'CasualController@about');

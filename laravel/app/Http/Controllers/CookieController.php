@@ -8,7 +8,17 @@ use Illuminate\Http\Response;
 
 class CookieController extends Controller
 {
-	public $cookie_name = "email";
+	public $cookie_name;
+
+	public function __construct() {
+		$this->cookie_name = env('COOKIE_NAME','signup');
+	}
+
+	public function getAll() {
+		$cookies = Cookie::get();
+		var_dump($cookies);
+		dd();
+	}
 
 	public function setCookie2($email, $name="") {
 		$data = ["email"=>htmlentities($email), "name"=>htmlentities($name), "verified"=>false];
@@ -22,30 +32,36 @@ class CookieController extends Controller
 		return $response;
 	}
 
+	public function showCookie($cookie) {
+		$data = $this->show($cookie);
+		var_dump($data);
+		dd();
+	}
+
 	public function foundCookie() {
 		$value = $this->show($this->cookie_name);
 		return is_null($value) ? false : true;
 	}
-//----------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
 
-	public function show($cookie_name) {
-		$value = request()->cookie($cookie_name);
-		if (gettype($value)=="string") {
-			$value = json_decode($value,true);
+	public function show($cookie) {
+		$signup = request()->cookie($cookie);
+		if (gettype($signup)=="string") {
+			$signup = json_decode($signup,false);
 		}
-		return $value;
+		return $signup;
 	}
 
-	public function clear($cookie_name) {
-		$cookie = Cookie::forget($cookie_name);
-		return response('forgot cookie '.$cookie_name)->withCookie($cookie);
+	public function clear($cookie) {
+		$cookie = Cookie::forget($cookie);
+		return response('forgot cookie '.$cookie)->withCookie($cookie);
 	}
 
-	public function store($cookie_name, $data) {
-		$response = new Response('Added Cookie '.$cookie_name);
-		$response->withCookie(cookie()->forever($cookie_name,json_encode($data)));
+	public function store($cookie, $data) {
+		$response = new Response('Added Cookie '.$cookie);
+		$response->withCookie(cookie()->forever($cookie,json_encode($data)));
 		return $response;
-//		return response('Added Cookie '.$cookie_name)->withCookie(cookie()->forever($cookie_name,json_encode($data)));
+//		return response('Added Cookie '.$cookie)->withCookie(cookie()->forever($cookie,json_encode($data)));
 	}
 
 	/*
@@ -53,21 +69,19 @@ class CookieController extends Controller
 	 */
 	public function index() {
 
-//session(['signedUp'=>5]);
-
-		$ask_for_email = true;
-
-		//	are you signed in , normal
-		if (auth()->check()) $ask_for_email = false;
-
 		//	do you have a cookie, normal 
-		if ($this->foundCookie()) $ask_for_email = false;
+		$signup = $this->show($this->cookie_name);
+		$verified = "";
+		$email = "";
+		$name = "";
+		if (!is_null($signup) && gettype($signup)=="object" && !is_null($signup->verified)) {
+			$verified = ($signup->verified==1) ? true : false;
+			$email = $signup->email;
+			$name = $signup->name;
+		}
+		/* null, true, false */
 
-		//	save a flag for the other pages to access
-		$this->store('ask_for_email',$ask_for_email);
-
-		//	send to popup window on submit
-		return view('casual.index');
+		return view('casual.index',compact('verified','email','name'));
 
 	}
 

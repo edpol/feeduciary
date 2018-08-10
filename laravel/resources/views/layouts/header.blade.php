@@ -7,64 +7,60 @@
                 <h4>Let The Annual Fee Set You Free</h4>
                 <hr class="intro-divider" />
 
-                <div class="bluebox" style="margin:0 auto; text-align:left; width:40%; min-width:280px;">
+                @if (auth()->check() || $verified===true)
                     <form method="GET" action="{{url('/calculateFee')}}">
-                        {{ csrf_field() }}
-                        <div class="mb-3 text-center"> Please enter investment amount to calculate fees</div>
-                        <div class="form-group mb-2 mb-md-3 row">
-                            <label class="col-md-2 pt-2 px-0 text-right" for="amount">amount*&nbsp;</label>
-                            <input type="text" class="form-control col-md-9 comma" name="amount" autofocus/>
+                    {{ csrf_field() }}
+                @else
+                    <form method="get" action="{{url('/signup/store')}}">
+                    {{ csrf_field() }}
+                @endif
+                    <div class="bluebox text-left" style="margin:0 auto; width:40%; min-width:280px;">
+                        <h4 class="mb-3 text-center"> Please enter investment amount to calculate fees</h4>
+                        <div class="form-group">
+                            <label for="amount">Amount*</label>
+                            <input type="text" class="form-control comma" id="amount"  name="amount"  placeholder="Amount" autofocus/>
                         </div>
-                        <div class="form-group mb-2 mb-md-3 row">
-                            <label class="col-md-2 pt-2 px-0 text-right" for="zipcode">zip code&nbsp;</label>
-                            <input type="text" class="form-control col-md-9" id="zipcode" name="zipcode" />
+                        <div class="form-group">
+                            <label for="zipcode">Zip Code</label>
+                            <input type="text" class="form-control"       id="zipcode" name="zipcode" placeholder="Zip Code" />
                         </div>
                         <div class="form-group row">
 
                             <div class="col-md-6">
-                                @if (auth()->check() or request()->cookie('email') )
+                                @if (auth()->check() || $verified===true)
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 @else
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#yourModal">popup</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#yourModal">
+                                        @if ($verified==="") 
+                                            Ask for Email
+                                        @else
+                                            @if ($verified===false) 
+                                                Want to Resend?
+                                            @else
+                                                @if ($verified===true) 
+                                                    Submit
+                                                @else
+                                                    None {{ $verified }}
+                                                @endif
+                                            @endif
+                                        @endif
+                                    </button>
                                 @endif
                             </div>
-                            <div class="col-md-5 pr-0">
+                            <div class="col-md-6">
                                 <a href="https://twitter.com/feeduciary" target="_blank">
                                     <img align="right" src="{{ url('/images/social-twitter.png') }}" alt="twitter find advisor" />
                                 </a>
                             </div>
                         </div>
                         @include ('layouts.errors') 
-                    </form>
-@if (auth()->check())
-    advisor logged in
-@else
-    Not logged in
-@endif
-<br />
-<!-- this is set to true or false before we get to this page -->
-@if (request()->cookie('ask_for_email')===true)
-    cookie ask_for_email is TRUE {{ session('ask_for_email') }}
-@else
-    cookie ask_for_email is NOT TRUE {{ session('ask_for_email') }}
-@endif
-<br />
-@if (request()->cookie('email'))
-    found cookie email {{ request()->cookie('email') }}
-@else
-    did NOT find cookie email
-@endif
-<br />
-<?php
-$number_of_bytes = 64;
-$token = bin2hex(random_bytes($number_of_bytes));
-echo strlen($token);
-    echo "<pre>{$token}<br />";
-    echo "123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 12345678 </pre>";
 
-?>
-                </div>
-                @include('layouts.ask4email')
+@include('signup.debug')
+
+                    </div>
+<!-- if its true the submit button will not call this, this will never execute -->
+                    @include('signup.ask4email')
+                </form>
             </div>
         </div>
     </header>

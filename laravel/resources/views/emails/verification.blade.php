@@ -9,7 +9,7 @@
     <br />
 Hello {{ $data['name']   }}, <br />
 to access Feeduciary's free fee-based advisor search features<br />
-<a href="{{ $data['server_name'] }}/email/verify?token='{{$data['token']}}">
+<a href="{{ $data['server_name'] }}/email/verify/{{$data['token']}}">
 click here to verify your email address
 </a>.
     {{-- Footer --}}
