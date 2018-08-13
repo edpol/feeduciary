@@ -6,7 +6,11 @@
                 <h1>Feeduciary</h1>
                 <h4>Let The Annual Fee Set You Free</h4>
                 <hr class="intro-divider" />
-
+<?php 
+if (!isset($verified)) $verified = ""; 
+if (!isset($name))  $name  = ""; 
+if (!isset($email)) $email = ""; 
+?>
                 @if (auth()->check() || $verified===true)
                     <form method="GET" action="{{url('/calculateFee')}}">
                     {{ csrf_field() }}
@@ -14,6 +18,7 @@
                     <form method="get" action="{{url('/signup/store')}}">
                     {{ csrf_field() }}
                 @endif
+
                     <div class="bluebox text-left" style="margin:0 auto; width:40%; min-width:280px;">
                         <h4 class="mb-3 text-center"> Please enter investment amount to calculate fees</h4>
                         <div class="form-group">
@@ -54,7 +59,9 @@
                             </div>
                         </div>
                         @include ('layouts.errors') 
-
+Verified: @if ($verified) true @else false @endif <br />
+Name: {{ $name }} <br />
+Email: {{ $email }} <br />
 @include('signup.debug')
 
                     </div>

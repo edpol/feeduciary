@@ -15,10 +15,10 @@ class CreateSignupsTable extends Migration
     {
         Schema::create('signups', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('token',128)->unique();
             $table->string('email')->index();
             $table->string('name')->nullable();
             $table->boolean('verified')->default(false);
+            $table->string('token',128)->unique();
             $table->dateTime('unsubscribe')->nullable();
             $table->timestamps();
         });

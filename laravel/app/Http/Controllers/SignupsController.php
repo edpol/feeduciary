@@ -5,6 +5,8 @@ namespace feeduciary\Http\Controllers;
 use Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use feeduciary\Http\Requests;
+use feeduciary\Http\Controllers\Controller;
 use feeduciary\Signup;
 use feeduciary\Mail;
 use feeduciary\Mail\Verification;
@@ -93,16 +95,20 @@ class SignupsController extends Controller
         return redirect('/signup/thankyou')->with('email',$email)
                                            ->with('name',$name)
                                            ->with('verified',$signup->verified);
-
-//        return $response; // this works
-//        return redirect()->route('thankyou', ['name'=>$name]);
+/*                               is this a route or view?
+        return response()->view('checkout/order', compact('plans', 'selectedPlan', 'right_now'))
+        ->withCookie(Cookie::forever('store_currency', $currency));
+*/
     } 
 
     public function storeCookie($email, $name, $verified) {
-        $data = ["email"=>htmlentities($email), "name"=>htmlentities($name), "verified"=>$verified];
+        $v = ($verified==true) ? 1 : 0;
+        $array = ["email"=>htmlentities($email), "name"=>htmlentities($name), "verified"=>$v];
+        $string = json_encode($array);
         $response = new Response('Added Cookie '.$this->cookie_name);
         // with queue the cookie is set when you leave controller
-        Cookie::queue($this->cookie_name, json_encode($data), 525600);
+//        $response->withCookie(cookie()->forever($this->cookie_name,json_encode($data)));
+        Cookie::queue(Cookie::forever($this->cookie_name, $string));
         return $response;
     }
 
@@ -142,10 +148,9 @@ class SignupsController extends Controller
 
     public function thankyou() {
         $name  = session('name');
-        $email = request()->session()->get('email');
-        $verified = request()->session()->get('verified');
-        $email_sent = request()->session()->get('email_sent');
-        return view('signup.thankyou', compact('name','email','verified','email_sent'));
+        $email = session('email');
+        $verified = session('verified');
+        return view('signup.thankyou', compact('name','email','verified'));
     }
 
     public function update($token) {
@@ -159,17 +164,18 @@ class SignupsController extends Controller
         if(is_null($signup)) {
             return view('signup.notfound',['token'=>$token]);
         }
+
         // if it is found update the verification flag in the database and cookie
         $signup->verified = true;
         $signup->save();
 
         // update cookie 
-        $cookie = $this->show($this->cookie_name);
-        $response = $this->storeCookie($cookie['email'],$cookie['name'],true);
+        $response = $this->storeCookie($signup->email,$signup->name,true);
 
-        return redirect('/');
+        return redirect('/')->with('email',$signup->email)
+                            ->with('name',$signup->name)
+                            ->with('verified',$signup->verified);
     }
-
 
     public function show($cookie) {
         $signup = request()->cookie($cookie);
@@ -178,4 +184,27 @@ class SignupsController extends Controller
         }
         return $signup;
     }
+
+    public function index() {
+
+        //  do you have a cookie, normal 
+        $signup = $this->show($this->cookie_name);
+        $verified = "";
+        $email = "";
+        $name = "";
+        if (!is_null($signup) && gettype($signup)=="object" && !is_null($signup->verified)) {
+            $verified = ($signup->verified==1) ? true : false;
+            $email = $signup->email;
+            $name = $signup->name;
+        }
+        /* null, true, false 
+        i think if there is an entry in the database, we should get it and override the cookie
+        but, why is the cookie changing? 
+        */
+        return view('casual.index',compact('verified','email','name'));
+
+    }
+
+
+
 }

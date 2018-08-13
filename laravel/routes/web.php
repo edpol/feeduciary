@@ -3,11 +3,11 @@ use feeduciary\Advisor;
 
 Route::get('/cookie/set/{email}',        'CookieController@setCookie');
 Route::get('/cookie/set/{email}/{name}', 'CookieController@setCookie');
-Route::get('/cookie/get/{cookie}',       'CookieController@showCookie');
+Route::get('/cookie/get/{cookie}',       'CookieController@getCookie');
 Route::get('/cookie/clear/{cookie}',     'CookieController@clear');
 Route::get('/getall',                    'CookieController@getAll');
-Route::get('/',                          'CookieController@index');
 
+Route::get('/',                          'SignupsController@index');
 Route::get('/signup/store',              'SignupsController@store')->middleware('guest');
 Route::get('/signup/thankyou',           'SignupsController@thankyou')->middleware('guest');
 Route::get('/email/verify/{token}',      'SignupsController@update')->middleware('guest');
@@ -27,10 +27,9 @@ Route::get('/search',                 'AdvisorsController@search');
 Route::view('/terms',                 'casual.terms');
 Route::view('/privacy',               'casual.privacy');
 
-Route::get('/advisors/results',       'AdvisorsController@facebookPixel');
-
 Route::prefix('advisors')->group(function () {
-    Route::get('/',                   'AdvisorsController@index');
+    Route::get('/',                   'AdvisorsController@index')->middleware('verified');
+    Route::get('/results',            'AdvisorsController@facebookPixel');
     Route::get('/{advisor}',          'AdvisorsController@show'); 
     Route::get('/page/{page}',        'AdvisorsController@page');   // this also works for /page/search
     Route::get('/resort/{order}',     'AdvisorsController@resort'); 

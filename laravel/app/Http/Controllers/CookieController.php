@@ -5,6 +5,8 @@ namespace feeduciary\Http\Controllers;
 use Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use feeduciary\Http\Requests;
+use feeduciary\Http\Controllers\Controller;
 
 class CookieController extends Controller
 {
@@ -20,29 +22,23 @@ class CookieController extends Controller
 		dd();
 	}
 
-	public function setCookie2($email, $name="") {
-		$data = ["email"=>htmlentities($email), "name"=>htmlentities($name), "verified"=>false];
- 		$array_json=json_encode($data);
-		return redirect('/')->withCookie(cookie()->forever($this->cookie_name,$array_json));
-	}
-
 	public function setCookie($email, $name="") {
 		$data = ["email"=>htmlentities($email), "name"=>htmlentities($name), "verified"=>false];
 		$response = $this->store($this->cookie_name,$data);
 		return $response;
 	}
 
-	public function showCookie($cookie) {
-		$data = $this->show($cookie);
-		var_dump($data);
-		dd();
+	public function getCookie($cookie) {
+		$value = request()->cookie($cookie);
+		$value = json_decode($value,true);
+		return $value;
 	}
 
 	public function foundCookie() {
 		$value = $this->show($this->cookie_name);
 		return is_null($value) ? false : true;
 	}
-//-------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
 
 	public function show($cookie) {
 		$signup = request()->cookie($cookie);
@@ -61,7 +57,9 @@ class CookieController extends Controller
 		$response = new Response('Added Cookie '.$cookie);
 		$response->withCookie(cookie()->forever($cookie,json_encode($data)));
 		return $response;
-//		return response('Added Cookie '.$cookie)->withCookie(cookie()->forever($cookie,json_encode($data)));
+// cookie()->queue($name, $value, $minutes);
+// Cookie::queue($name, $value, $minutes);
+// response('Added Cookie '.$cookie)->withCookie(cookie()->forever($cookie,json_encode($data)));
 	}
 
 	/*
@@ -79,8 +77,10 @@ class CookieController extends Controller
 			$email = $signup->email;
 			$name = $signup->name;
 		}
-		/* null, true, false */
-
+		/* null, true, false 
+		i think if there is an entry in the database, we should get it and override the cookie
+		but, why is the cookie changing? 
+		*/
 		return view('casual.index',compact('verified','email','name'));
 
 	}
