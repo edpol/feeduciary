@@ -59,9 +59,7 @@ if (!isset($email)) $email = "";
                             </div>
                         </div>
                         @include ('layouts.errors') 
-Verified: @if ($verified) true @else false @endif <br />
-Name: {{ $name }} <br />
-Email: {{ $email }} <br />
+
 @include('signup.debug')
 
                     </div>

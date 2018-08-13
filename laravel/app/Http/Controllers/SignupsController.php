@@ -16,7 +16,7 @@ class SignupsController extends Controller
     public $cookie_name;
 
     public function __construct() {
-        $this->cookie_name = env('COOKIE_NAME','signup');
+        $this->cookie_name = COOKIE_NAME;
     }
 
     /**
@@ -59,7 +59,7 @@ class SignupsController extends Controller
                /*
                 *   (2) Verified
                 */
-               if (isset($data['amount'])) {
+               if (isset($data['amount']) && $data['amount']>0) {
                     $amount = $data['amount'];
                 } else {
                     return redirect('/');                    
@@ -105,10 +105,9 @@ class SignupsController extends Controller
         $v = ($verified==true) ? 1 : 0;
         $array = ["email"=>htmlentities($email), "name"=>htmlentities($name), "verified"=>$v];
         $string = json_encode($array);
-        $response = new Response('Added Cookie '.$this->cookie_name);
+        $response = new Response('Added Cookie ' . COOKIE_NAME);
         // with queue the cookie is set when you leave controller
-//        $response->withCookie(cookie()->forever($this->cookie_name,json_encode($data)));
-        Cookie::queue(Cookie::forever($this->cookie_name, $string));
+        Cookie::queue(Cookie::forever(COOKIE_NAME, $string));
         return $response;
     }
 
@@ -188,7 +187,7 @@ class SignupsController extends Controller
     public function index() {
 
         //  do you have a cookie, normal 
-        $signup = $this->show($this->cookie_name);
+        $signup = $this->show(COOKIE_NAME);
         $verified = "";
         $email = "";
         $name = "";

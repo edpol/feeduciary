@@ -13,7 +13,7 @@ class CookieController extends Controller
 	public $cookie_name;
 
 	public function __construct() {
-		$this->cookie_name = env('COOKIE_NAME','signup');
+		$this->cookie_name = COOKIE_NAME;
 	}
 
 	public function getAll() {
