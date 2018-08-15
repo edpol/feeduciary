@@ -1,0 +1,81 @@
+<?php $tab = "Verified List"; ?>
+@extends('layouts.master')
+
+@section('box1')
+<div class="paddingForHeader">
+</div>
+@endsection
+
+@section('box2')
+<!-- Page Content -->
+<section>
+    <div class="container">
+
+        <form method="post" action="{{url('/signup/csv/create')}}">
+            {{ csrf_field() }}
+            <table class="table table-striped">
+@if (count($list)>0)
+                <tr><th colspan="4"> List of verified email addresses</th></tr>
+                <tr><th>Select</th>
+                    <th class="text-left">
+                        <button type="submit" class="link" formaction="{{url('/signup/download/email')}}/{{$done}}">email</button>
+                    </th>
+                    <th class="text-left">
+                        <button type="submit" class="link" formaction="{{url('/signup/download/name')}}/{{$done}}">name</button>
+                    </th>
+                    <th class="text-left">
+                        <button type="submit" class="link" formaction="{{url('/signup/download/updated')}}/{{$done}}">updated</button>
+                    </th>
+                </tr>
+@else
+    <tr><td class="text-left"> There are no emails to download</td></tr>
+@endif
+
+@foreach($list as $row)
+                <tr @if($row->downloaded) class="text-success" @endif >
+                    <td class="text-center">
+                        <input type="checkbox" id="id{{$row->id}}" name="check_list[]" value="{{$row->id}},{{ $row->email }},{{ $row->name }},{{ $row->updated_at }}" @if(!$row->downloaded) checked="checked" @endif /></td>
+                    <td class="text-left">{{ $row->email }}</td>
+                    <td class="text-left">{{ $row->name }} </td>
+                    <td class="text-left">{{ $row->updated_at }}</td>
+                </tr>
+@endforeach
+
+            </table>
+@if($key=="old")
+            <div class="row">
+                <div style="margin:10px auto" class="pagination pagination-sm text-center">
+                    {{ $list->render() }}
+                </div>
+            </div>
+@endif
+<!--
+            <button class="btn btn-primary" type="submit">Download selected</button>
+-->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#yourModal">
+    Download
+</button>
+
+<?php
+if ($done==1) {
+    $use = 0;
+    $c = "btn-warning";
+    $msg = "NOT Downloaded";
+} else {
+    $use = 1;
+    $c = "btn-success";
+    $msg = "View Downloaded";
+}
+$use = ($done==1) ? 0 : 1; ?>
+<button type="submit" class="btn {{$c}}" value="x" name="flag"
+formaction="{{ url('/signup/download/name')}}/{{$use}}">
+{{ $msg }}
+</button>
+
+
+@include('signup.popup')
+        </form>
+@include('layouts.errors')
+    </div>
+</section>
+@endsection

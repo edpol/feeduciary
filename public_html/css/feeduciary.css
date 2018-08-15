@@ -1,4 +1,4 @@
-.paddingForHeader { padding-top: 70px; }
+.paddingForHeader { padding-top: 74px; }
 
 th { border-bottom: 1px solid black; text-align: center; }
 td { padding: 2px 10px; text-align: right; }
@@ -158,4 +158,18 @@ a img { border: 0; }
     .font18 { font-size: 18px; }
     .font12 { font-size: 12px; }
     .font11 { font-size: 11px; }
+}
+
+.link {
+	background:none!important;
+	border:none; 
+	padding:0!important;
+
+	/*optional*/
+	font-family:arial,sans-serif; /*input has OS specific font-family*/
+	color:#069;
+	cursor:pointer;
+}
+.link:hover {
+	text-decoration:underline;
 }

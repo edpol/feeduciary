@@ -13,11 +13,6 @@ use feeduciary\Mail\Verification;
 
 class SignupsController extends Controller
 {
-    public $cookie_name;
-
-    public function __construct() {
-        $this->cookie_name = COOKIE_NAME;
-    }
 
     /**
      * Store a newly created resource in storage.

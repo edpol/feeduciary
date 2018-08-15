@@ -78,6 +78,7 @@
 -->                                 @if (auth()->user()->isAdmin())
                                         <a class="nav-link" href="{{ url('/admin/advisors/list') }}">Update Advisors</a>
                                         <a class="nav-link" href="{{ url('/admin/create') }}">Create Advisor</a>
+                                        <a class="nav-link" href="{{ url('/signup/download') }}">Signup Download</a>
                                     @else
                                         <a class="nav-link" href="{{ url('/update') }}">Update</a>
                                     @endif

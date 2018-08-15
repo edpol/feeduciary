@@ -10,8 +10,14 @@ Route::get('/getall',                    'CookieController@getAll');
 Route::get('/',                          'SignupsController@index');
 Route::get('/signup/store',              'SignupsController@store')->middleware('guest');
 Route::get('/signup/thankyou',           'SignupsController@thankyou')->middleware('guest');
-Route::get('/email/verify/{token}',      'SignupsController@update')->middleware('guest');
+Route::get('/signup/verify/{token}',     'SignupsController@update')->middleware('guest');
 
+Route::group(['middleware' => ['auth','admin']], function () {
+    Route::get('/signup/download',               'DownloadsController@index');
+    Route::post('/signup/download/{key}/{done}', 'DownloadsController@index');
+    Route::post('/signup/csv/list',      'DownloadsController@list');
+    Route::get('/signup/csv/create/{update}',    'DownloadsController@create');
+});
 
 Route::get('/about',                  'CasualController@about');
 Route::get('/blog',                   'CasualController@blog');

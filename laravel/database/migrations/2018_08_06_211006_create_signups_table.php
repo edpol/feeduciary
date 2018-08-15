@@ -18,6 +18,7 @@ class CreateSignupsTable extends Migration
             $table->string('email')->index();
             $table->string('name')->nullable();
             $table->boolean('verified')->default(false);
+            $table->boolean('downloaded')->default(false);
             $table->string('token',128)->unique();
             $table->dateTime('unsubscribe')->nullable();
             $table->timestamps();

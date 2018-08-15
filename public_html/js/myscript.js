@@ -175,13 +175,26 @@ function chkenter(target) {
         }
     });
 }
-function enter2tab() {
+function enterToTab() {
     var inputs = document.getElementsByTagName('input');
     for (var x = 0; x < inputs.length; x++) {
-            chkenter(inputs[x]);
+        chkenter(inputs[x]);
     }
 }
+//------------------------------------
 
+function countDown() {
+    target = document.getElementById("countdowntimer");
+    if (target !== null) {
+        var timeleft = 5; // matches time in meta tag signup.redirect
+        var downloadTimer = setInterval(function(){
+            timeleft--;
+            document.getElementById("countdowntimer").textContent = timeleft;
+            if(timeleft <= 0)
+                clearInterval(downloadTimer);
+            },1000);
+    }
+}
 
 window.onload = function () {
     greyout();
@@ -190,5 +203,6 @@ window.onload = function () {
     feeSlider();
     comma();
     phone();
-    enter2tab();
+    enterToTab();
+    countDown();
 };
