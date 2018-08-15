@@ -2,10 +2,8 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 
-
-
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ env('APP_URL') }}">
 
                 <div class="row m-0 p-0">
                     <div    class="col-md-2  col-2 px-0 mx-0">
