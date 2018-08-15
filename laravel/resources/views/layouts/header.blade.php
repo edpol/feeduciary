@@ -54,7 +54,7 @@ if (!isset($email)) $email = "";
                             </div>
                             <div class="col-md-6">
                                 <a href="https://twitter.com/feeduciary" target="_blank">
-                                    <img align="right" src="{{ env('APP_URL') . '/images/social-twitter.png') }}" alt="twitter find advisor" />
+<img align="right" src="{{ env('APP_URL') }}/images/social-twitter.png" alt="twitter find advisor" />
                                 </a>
                             </div>
                         </div>
