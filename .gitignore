@@ -40,3 +40,5 @@ www
 feeduciary_project.*
 .gitconfig
 *.php-tmp
+.subaccounts/
+public_html/.sucuriquarantine/

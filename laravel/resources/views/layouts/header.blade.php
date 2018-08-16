@@ -3,8 +3,8 @@
     <header class="intro-header">
         <div class="container">
             <div class="intro-message">
-                <h1>Feeduciary</h1>
-                <h4>Let The Annual Fee Set You Free</h4>
+                <h1 class="d-none d-sm-block">Feeduciary</h1>
+                <h4 class="font18 pt-4 pt-sm-0">Let The Annual Fee Set You Free</h4>
                 <hr class="intro-divider" />
 <?php 
 if (!isset($verified)) $verified = ""; 
@@ -20,7 +20,7 @@ if (!isset($email)) $email = "";
                 @endif
 
                     <div class="bluebox text-left" style="margin:0 auto; width:40%; min-width:280px;">
-                        <h4 class="mb-3 text-center"> Please enter investment amount to calculate fees</h4>
+                        <h4 class="mb-3 text-center font18"> Please enter investment amount to calculate fees</h4>
                         <div class="form-group">
                             <label for="amount" class="d-none d-sm-block">Amount*</label>
                             <input type="text" class="form-control comma" id="amount"  name="amount"  placeholder="Amount" autofocus/>
