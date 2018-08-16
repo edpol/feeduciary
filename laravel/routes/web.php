@@ -34,7 +34,7 @@ Route::view('/terms',                 'casual.terms');
 Route::view('/privacy',               'casual.privacy');
 
 Route::prefix('advisors')->group(function () {
-    Route::get('/',                   'AdvisorsController@index')->middleware('verified');
+    Route::get('/',                   'AdvisorsController@index');
     Route::get('/results',            'AdvisorsController@facebookPixel');
     Route::get('/{advisor}',          'AdvisorsController@show'); 
     Route::get('/page/{page}',        'AdvisorsController@page');   // this also works for /page/search

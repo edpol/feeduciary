@@ -10,12 +10,6 @@ use feeduciary\Http\Controllers\Controller;
 
 class CookieController extends Controller
 {
-	public $cookie_name;
-
-	public function __construct() {
-		$this->cookie_name = COOKIE_NAME;
-	}
-
 	public function getAll() {
 		$cookies = Cookie::get();
 		var_dump($cookies);
@@ -24,7 +18,7 @@ class CookieController extends Controller
 
 	public function setCookie($email, $name="") {
 		$data = ["email"=>htmlentities($email), "name"=>htmlentities($name), "verified"=>false];
-		$response = $this->store($this->cookie_name,$data);
+		$response = $this->store(COOKIE_NAME,$data);
 		return $response;
 	}
 
@@ -35,7 +29,7 @@ class CookieController extends Controller
 	}
 
 	public function foundCookie() {
-		$value = $this->show($this->cookie_name);
+		$value = $this->show(COOKIE_NAME);
 		return is_null($value) ? false : true;
 	}
 //---------------------------------------------------------------------------------------
@@ -68,7 +62,7 @@ class CookieController extends Controller
 	public function index() {
 
 		//	do you have a cookie, normal 
-		$signup = $this->show($this->cookie_name);
+		$signup = $this->show(COOKIE_NAME);
 		$verified = "";
 		$email = "";
 		$name = "";
