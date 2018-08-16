@@ -85,6 +85,7 @@ class SignupsController extends Controller
         }
 
         // send email
+        $data['scheme'] = scheme();
         \Mail::to($data['email'],$data['name'])->send(new Verification($data));
 
         return redirect('/signup/thankyou')->with('email',$email)

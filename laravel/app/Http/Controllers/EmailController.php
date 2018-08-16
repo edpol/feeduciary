@@ -28,7 +28,7 @@ class EmailController extends Controller
                 'id' => 7,
                 ];
         \Mail::to($data['email'],$data['name'])->send(new Verification($data));
-        return view('email.thankYou', compact('data'));
+        return view('email.thankyou', compact('data'));
     }
 
     public function contactUs(Request $request)
@@ -47,9 +47,8 @@ class EmailController extends Controller
                     );
 
         \Mail::to($company)->send(new ContactUs($data));
-        return view('email.thankYou', compact('data'));
+        return view('email.thankyou', compact('data'));
     }
-
 
     public function contactAdvisor(Advisor $advisor) { 
         return view('advisors.contact', compact('advisor'));

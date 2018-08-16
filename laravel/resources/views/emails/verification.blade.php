@@ -7,10 +7,15 @@
 
     To:		{{ $data['name']  }} ({{ $data['email'] }})<br />
     <br />
-Hello {{ $data['name']   }}, <br />
-to access Feeduciary's free fee-based advisor search features<br />
-<a href="http://{{ env('APP_URL') }}/signup/verify/{{$data['token']}}">
-click here to verify your email address</a>.
+    <p>
+        Hello {{ $data['name']   }}, <br />
+        to access Feeduciary's free fee-based advisor search features<br />
+        <a href="{{ env('APP_URL') }}/signup/verify/{{$data['token']}}">
+        click here to verify your email address</a>.
+    </p>
+    <p>
+        If the email does not arrive, please remember to check your spam folder for the email.
+    </p>
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer', ['url' => config('app.url').'/contact'])

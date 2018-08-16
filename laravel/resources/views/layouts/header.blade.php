@@ -22,16 +22,16 @@ if (!isset($email)) $email = "";
                     <div class="bluebox text-left" style="margin:0 auto; width:40%; min-width:280px;">
                         <h4 class="mb-3 text-center"> Please enter investment amount to calculate fees</h4>
                         <div class="form-group">
-                            <label for="amount">Amount*</label>
+                            <label for="amount" class="d-none d-sm-block">Amount*</label>
                             <input type="text" class="form-control comma" id="amount"  name="amount"  placeholder="Amount" autofocus/>
                         </div>
                         <div class="form-group">
-                            <label for="zipcode">Zip Code</label>
+                            <label for="zipcode" class="d-none d-sm-block">Zip Code</label>
                             <input type="text" class="form-control"       id="zipcode" name="zipcode" placeholder="Zip Code" />
                         </div>
                         <div class="form-group row">
 
-                            <div class="col-md-6">
+                            <div class="col-6 pl-3">
                                 @if (auth()->check() || $verified===true)
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 @else
@@ -52,7 +52,7 @@ if (!isset($email)) $email = "";
                                     </button>
                                 @endif
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <a href="https://twitter.com/feeduciary" target="_blank">
 <img align="right" src="{{ env('APP_URL') }}/images/social-twitter.png" alt="twitter find advisor" />
                                 </a>

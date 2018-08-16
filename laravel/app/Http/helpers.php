@@ -1,4 +1,11 @@
 <?php
+    function scheme() {
+        if(!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] != 'off') {
+            return "https://";
+        } else {
+            return "http://";
+        }
+    }
 
     // remove everything except numbers and first period
     // or should we just remove dollar signs, commas and periods (except first) and let it error otherwise

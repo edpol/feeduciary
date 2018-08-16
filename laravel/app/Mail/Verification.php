@@ -32,6 +32,7 @@ class Verification extends Mailable
      */
     public function build()
     {
+        $scheme = scheme();
         return $this->subject($this->subject)->markdown('emails.verification')->with("data",$this->data);
     }
 }
