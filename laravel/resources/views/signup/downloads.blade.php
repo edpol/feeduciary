@@ -16,7 +16,7 @@
             <table class="table table-striped">
 @if (count($list)>0)
                 <tr>
-                    <th colspan="4"> 
+                    <th colspan="5"> 
                         List of verified email addresses that were
                         @if($downloaded==1)
                         already downloaded
@@ -33,7 +33,10 @@
                         <button type="submit" class="link" formaction="{{url('/signup/download/name')}}/{{$downloaded}}">name</button>
                     </th>
                     <th class="text-left">
-                        <button type="submit" class="link" formaction="{{url('/signup/download/updated')}}/{{$downloaded}}">updated</button>
+                        <button type="submit" class="link" formaction="{{url('/signup/download/updated_at')}}/{{$downloaded}}">updated</button>
+                    </th>
+                    <th class="text-left">
+                        <button type="submit" class="link" formaction="{{url('/signup/download/unsubscribe')}}/{{$downloaded}}">unsubscribed</button>
                     </th>
                 </tr>
 @else
@@ -41,12 +44,16 @@
 @endif
 
 @foreach($list as $row)
-                <tr @if($row->downloaded) class="text-success" @endif >
+                <tr @if($row->downloaded && !$row->unsubscribe) class="text-success" @endif @if($row->unsubscribe) class="text-danger" style="background-color:#fee;" @endif >
                     <td class="text-center">
-                        <input type="checkbox" id="id{{$row->id}}" name="check_list[]" value="{{$row->id}},{{ $row->email }},{{ $row->name }},{{ $row->updated_at }}" @if(!$row->downloaded) checked="checked" @endif /></td>
+                        <input type="checkbox" id="id{{$row->id}}" name="check_list[]" 
+                        value="{{$row->id}},{{ $row->email }},{{ $row->name }},{{ $row->updated_at }}" 
+                        @if(!$row->downloaded && !$row->unsubscribe) checked="checked" @endif />
+                    </td>
                     <td class="text-left">{{ $row->email }}</td>
                     <td class="text-left">{{ $row->name }} </td>
                     <td class="text-left">{{ $row->updated_at }}</td>
+                    <td class="text-left">{{ $row->unsubscribe }}</td>
                 </tr>
 @endforeach
 

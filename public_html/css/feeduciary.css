@@ -175,3 +175,7 @@ a img { border: 0; }
 .link:hover {
 	text-decoration:underline;
 }
+
+.bg-pink {
+	background-color: pink;
+}
