@@ -1,10 +1,11 @@
-    <!-- Navigation -->
 
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 
         <div class="container">
-            <a class="navbar-brand" href="{{ env('APP_URL') }}">
 
+            <!-- Left Side Of Navbar -->
+            <a class="navbar-brand" href="{{ env('APP_URL') }}">
                 <div class="row m-0 p-0">
                     <div    class="col-md-2  col-2 px-0 mx-0">
                         <img class="col-md-12 px-0" src="{{ asset('images/logo.png') }}" />
@@ -21,10 +22,12 @@
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
 
-                    <!-- Right Side Of Navbar -->
+                <!-- Middle and Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
+
+<!-- if we are displaying advisors, we show the search option -->
 @if ($tab == "Display Advisor")
+                        <!-- Search Section -->
                         <form id='myform' action="{{ url('/search') }}" method="GET">
                             <li class="nav-item">
                                 {{ csrf_field() }}
@@ -40,6 +43,7 @@
                         </form>
 @endif
 
+                    <!-- Right Side Of Navbar -->
                     <li class="nav-item">
                         <a class="nav-link" id="home"  href="{{ url('/') }}">Home</a>
                     </li>
@@ -55,6 +59,7 @@
                             </li>
                         @endif
 
+                        <!-- Drop down menu -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle"  href="#" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
@@ -65,7 +70,6 @@
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         Logout 
                                     </a>
-
                                     <form id="logout-form" action="{{ url('/logout') }}" method="GET" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
@@ -77,6 +81,7 @@
                                         <a class="nav-link" href="{{ url('/admin/advisors/list') }}">Update Advisors</a>
                                         <a class="nav-link" href="{{ url('/admin/create') }}">Create Advisor</a>
                                         <a class="nav-link" href="{{ url('/signup/download') }}">Download Emails</a>
+                                        <a class="nav-link" href="{{ url('/advisors/download') }}">Advisors Emails</a>
                                     @else
                                         <a class="nav-link" href="{{ url('/update') }}">Update</a>
                                     @endif

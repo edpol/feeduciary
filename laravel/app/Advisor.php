@@ -9,7 +9,6 @@ class Advisor extends Model
 {
     /**
      * The attributes that are mass assignable.
-     *
      * @var array
      */
     // the user_id connects the advisor to the user table. virtual fk
@@ -33,7 +32,7 @@ class Advisor extends Model
     public function phone() {
         $phone = preg_replace("/[^[:alnum:][:space:]]/u", '', $this->phone);
         if (strlen($phone)==10) {
-            $phone = "(" . substr($phone,0,3) . ")" . substr($phone,3,3) . "-" . substr($phone,6);
+            $phone = "(" . substr($phone,0,3) . ")&nbsp;" . substr($phone,3,3) . "-" . substr($phone,6);
         } else {
             $phone = $this->phone;
         }
@@ -41,20 +40,15 @@ class Advisor extends Model
     }
 
     public function photo() {
-        if (file_exists( public_path() . '/images/advisorImages/' . $this->id . '-thumb.png')) {
-            return '/images/advisorImages/' . $this->id .'-thumb.png';
+        if (file_exists( public_path() . '/images/advisorImages/' . $this->id . '-thumb.jpg')) {
+            return '/images/advisorImages/' . $this->id .'-thumb.jpg';
         } else {
-            if (file_exists( public_path() . '/images/advisorImages/' . $this->id . '-thumb.jpg')) {
-                return '/images/advisorImages/' . $this->id .'-thumb.jpg';
-            } else {
-                return '/images/placeholder.png';
-            }
+            return '/images/placeholder.png';
         }
     }
 
    /*
     *   Is person loggedin the owner of this account
-    *   
     */
     public function owner() {
         $user = Auth::user();
@@ -66,8 +60,11 @@ class Advisor extends Model
     }
 
     public function targetSearch($search_string) {
-        $results = Self::where('name', 'like', $search_string.'%')->get();
+        return Self::where('name', 'like', $search_string.'%')->get();
     }
 
+    public function getAll() {
+        return Self::select('name', 'email', 'phone', 'company', 'is_active')->get();
+    }
 
 }

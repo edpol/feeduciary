@@ -15,16 +15,25 @@
             {{ csrf_field() }}
             <table class="table table-striped">
 @if (count($list)>0)
-                <tr><th colspan="4"> List of verified email addresses</th></tr>
+                <tr>
+                    <th colspan="4"> 
+                        List of verified email addresses that were
+                        @if($downloaded==1)
+                        already downloaded
+                        @else
+                        never downloaded
+                        @endif
+                    </th>
+                </tr>
                 <tr><th>Select</th>
                     <th class="text-left">
-                        <button type="submit" class="link" formaction="{{url('/signup/download/email')}}/{{$done}}">email</button>
+                        <button type="submit" class="link" formaction="{{url('/signup/download/email')}}/{{$downloaded}}">email</button>
                     </th>
                     <th class="text-left">
-                        <button type="submit" class="link" formaction="{{url('/signup/download/name')}}/{{$done}}">name</button>
+                        <button type="submit" class="link" formaction="{{url('/signup/download/name')}}/{{$downloaded}}">name</button>
                     </th>
                     <th class="text-left">
-                        <button type="submit" class="link" formaction="{{url('/signup/download/updated')}}/{{$done}}">updated</button>
+                        <button type="submit" class="link" formaction="{{url('/signup/download/updated')}}/{{$downloaded}}">updated</button>
                     </th>
                 </tr>
 @else
@@ -42,13 +51,12 @@
 @endforeach
 
             </table>
-@if($key=="old")
+
             <div class="row">
                 <div style="margin:10px auto" class="pagination pagination-sm text-center">
                     {{ $list->render() }}
                 </div>
             </div>
-@endif
 <!--
             <button class="btn btn-primary" type="submit">Download selected</button>
 -->
@@ -57,7 +65,7 @@
 </button>
 
 <?php
-if ($done==1) {
+if ($downloaded==1) {
     $use = 0;
     $c = "btn-warning";
     $msg = "NOT Downloaded";
@@ -66,7 +74,7 @@ if ($done==1) {
     $c = "btn-success";
     $msg = "View Downloaded";
 }
-$use = ($done==1) ? 0 : 1; ?>
+$use = ($downloaded==1) ? 0 : 1; ?>
 <button type="submit" class="btn {{$c}}" value="x" name="flag"
 formaction="{{ url('/signup/download/name')}}/{{$use}}">
 {{ $msg }}

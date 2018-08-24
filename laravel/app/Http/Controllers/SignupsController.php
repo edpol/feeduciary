@@ -10,6 +10,7 @@ use feeduciary\Http\Controllers\Controller;
 use feeduciary\Signup;
 use feeduciary\Mail;
 use feeduciary\Mail\Verification;
+use feeduciary\Mail\VerificationWelcome;
 
 class SignupsController extends Controller
 {
@@ -166,6 +167,9 @@ class SignupsController extends Controller
 
         // update cookie 
         $response = $this->storeCookie($signup->email,$signup->name,true);
+
+        $data['subject'] = "Address verified";
+        \Mail::to($signup->email,$signup->name)->send(new VerificationWelcome($data));
 
         return redirect('/')->with('email',$signup->email)
                             ->with('name',$signup->name)

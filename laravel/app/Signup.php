@@ -16,4 +16,12 @@ class Signup extends Model
             return false;
         }
     }
+
+    public function findId($id) {
+    	return Self::find($id);
+    }
+
+    public function getVerified($downloaded, $key, $paginate=1000) {
+		return Self::where("verified",1)->where("downloaded",$downloaded)->orderBy($key)->paginate($paginate);
+	}
 }

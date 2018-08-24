@@ -15,7 +15,7 @@
 			<div class="col-md-8 py-md-5">
 				<p>
 					Hello {{ $name }},<br />
-					An email was sent to {{ $email }} with a link to verify your email address to grant access to advisor fee information.
+					An email will be sent in a few moments to {{ $email }} with a link to verify your email address to grant access to advisor fee information.
 				</p>
 			</div>
 		</div>

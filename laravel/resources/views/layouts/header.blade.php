@@ -11,11 +11,12 @@ if (!isset($verified)) $verified = "";
 if (!isset($name))  $name  = ""; 
 if (!isset($email)) $email = ""; 
 ?>
+
                 @if (auth()->check() || $verified===true)
-                    <form method="GET" action="{{url('/calculateFee')}}">
+                    <form id="frmContact" method="GET" action="{{url('/calculateFee')}}">
                     {{ csrf_field() }}
                 @else
-                    <form method="get" action="{{url('/signup/store')}}">
+                    <form id="frmContact" method="get" action="{{url('/signup/store')}}">
                     {{ csrf_field() }}
                 @endif
 
@@ -37,7 +38,7 @@ if (!isset($email)) $email = "";
                                 @else
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#yourModal">
                                         @if ($verified==="") 
-                                            Ask for Email
+                                            Submit Email
                                         @else
                                             @if ($verified===false) 
                                                 Want to Resend?

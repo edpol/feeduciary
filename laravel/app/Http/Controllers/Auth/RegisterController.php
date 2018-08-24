@@ -145,6 +145,7 @@ class RegisterController extends Controller
         Advisor::where('id', '=', $advisor->id)->update(['user_id' => $user->id]);
         auth()->login($user);
         $rates = Rate::where("advisor_id",$advisor->id)->orderBy('roof', 'DESC')->get();
+dd('shit');
         return view('advisors.edit', compact('advisor', 'rates'));
 // maybe go to return redirect('/update'); instead?
     }

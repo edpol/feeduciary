@@ -39,9 +39,12 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout')->except('update');
     }
-
     /* index, store, show, create, edit, update, destroy */
 
+
+   /*
+    *   After login we redirect here where we check if all of the tables have been updated
+    */
     public function update() {
         // grab record from USER Table
         $user = Auth::user();

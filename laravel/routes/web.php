@@ -1,5 +1,4 @@
 <?php
-use feeduciary\Advisor;
 
 Route::get('/cookie/set/{email}',        'CookieController@setCookie');
 Route::get('/cookie/set/{email}/{name}', 'CookieController@setCookie');
@@ -13,9 +12,10 @@ Route::get('/signup/thankyou',           'SignupsController@thankyou')->middlewa
 Route::get('/signup/verify/{token}',     'SignupsController@update')->middleware('guest');
 
 Route::group(['middleware' => ['auth','admin']], function () {
+    Route::get('/advisors/download',             'DownloadsController@getAdvisors');
     Route::get('/signup/download',               'DownloadsController@index');
     Route::post('/signup/download/{key}/{done}', 'DownloadsController@index');
-    Route::post('/signup/csv/list',      'DownloadsController@list');
+    Route::post('/signup/csv/list',              'DownloadsController@list');
     Route::get('/signup/csv/create/{update}',    'DownloadsController@create');
 });
 

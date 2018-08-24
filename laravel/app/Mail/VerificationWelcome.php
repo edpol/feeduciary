@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class Verification extends Mailable
+class VerificationWelcome extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -33,6 +33,6 @@ class Verification extends Mailable
     public function build()
     {
         $scheme = scheme();
-        return $this->subject($this->subject)->markdown('emails.verification')->with("data",$this->data);
+        return $this->subject($this->subject)->markdown('emails.verificationwelcome')->with("data",$this->data);
     }
 }

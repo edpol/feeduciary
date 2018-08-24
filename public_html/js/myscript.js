@@ -184,7 +184,7 @@ function enterToTab() {
 //------------------------------------
 
 function countDown() {
-    target = document.getElementById("countdowntimer");
+    var target = document.getElementById("countdowntimer");
     if (target !== null) {
         var timeleft = 5; // matches time in meta tag signup.redirect
         var downloadTimer = setInterval(function(){
@@ -193,6 +193,23 @@ function countDown() {
             if(timeleft <= 0)
                 clearInterval(downloadTimer);
             },1000);
+    }
+}
+
+//They are pressing the submit button several times, so I'm disabling the button on the first click
+function clickOnce() {
+    var x = document.getElementsByClassName("clickOnce");
+    //on click disable button and submit
+    if (x !== null) {
+
+        for (i=0; i<x.length; i++) {
+            button = x[i];
+            button.addEventListener("click", function(event) {
+                event.preventDefault();
+                this.disabled = true;
+                document.getElementById("frmContact").submit();
+            }, false);
+        }
     }
 }
 
@@ -205,4 +222,5 @@ window.onload = function () {
     phone();
     enterToTab();
     countDown();
+    clickOnce();
 };

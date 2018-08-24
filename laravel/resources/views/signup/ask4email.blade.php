@@ -32,8 +32,7 @@ Enter your email address to access Feeduciary's free fee-based advisor search fe
                                         <div class="col-md-2 col-0"> </div>
                                         @endguest
                                         <button type="button" tabindex=4 class="btn btn-secondary mb-1 col-md-2 col-12 mr-0" data-dismiss="modal">Close</button>
-
-                                        <button type="submit" tabindex=3 class="btn btn-primary   mb-1 col-md-2 col-12 mr-0">Save</button>
+                                        <button type="submit" tabindex=3 class="btn btn-primary   mb-1 col-md-2 col-12 mr-0 clickOnce">Submit</button>
                                     </div>
                                 </div>
                             </div>
