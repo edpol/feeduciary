@@ -173,7 +173,8 @@ class SignupsController extends Controller
 
         return redirect('/')->with('email',$signup->email)
                             ->with('name',$signup->name)
-                            ->with('verified',$signup->verified);
+                            ->with('verified',$signup->verified)
+                            ->with('fb_pixel_lead',1);
     }
 
     public function show($cookie) {
@@ -196,11 +197,13 @@ class SignupsController extends Controller
             $email = $signup->email;
             $name = $signup->name;
         }
+        $fb_pixel_lead = session('fb_pixel_lead');
+
         /* null, true, false 
         i think if there is an entry in the database, we should get it and override the cookie
         but, why is the cookie changing? 
         */
-        return view('casual.index',compact('verified','email','name'));
+        return view('casual.index',compact('verified','email','name','fb_pixel_lead'));
 
     }
 

@@ -207,6 +207,7 @@ class AdvisorsController extends Controller
      */
     public function facebookPixel() {
         $this->pagePrep();
+        $fb_pixel_search = 1;
         return view('advisors.calculateFee', compact('fb_pixel_search'));
     }
 
@@ -219,10 +220,10 @@ class AdvisorsController extends Controller
         $this->slicer($page,$miles,$fee);
         return;
     }
-    public function page($page) //,$fb_pixel_search = false)
+    public function page($page) 
     {
         $this->pagePrep($page);
-        return view('advisors.calculateFee', compact('fb_pixel_search'));
+        return view('advisors.calculateFee');
     }
 
     /** the target key is always one less than the id, in this example

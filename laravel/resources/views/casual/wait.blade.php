@@ -1,6 +1,9 @@
 <?php $tab = "Working..."; 
 if (env("APP_ENV")!="production") { 
-	header("Location: /advisors/page/1");
+//	header("Location: /advisors/page/1");
+	$timeout=500;
+} else {
+	$timeout=5000;
 }
 ?>
 @extends('layouts.wait')
@@ -28,7 +31,7 @@ if (env("APP_ENV")!="production") {
 <script>
 var calc = document.getElementById("calc");
 var myVar = setInterval(myTimer, 1000);
-var clearVar = setInterval(clearTimer, 5000);
+var clearVar = setInterval(clearTimer, <?= $timeout ?>);
 
 //	add a blank space left, add a period right, stays centered
 function myTimer() {

@@ -25,7 +25,6 @@
 	}
 	$miles = session('miles',$max);  // default is max
 	$fee   = session('fee',$feeMax);
-
 ?>
 @extends('layouts.master')
 

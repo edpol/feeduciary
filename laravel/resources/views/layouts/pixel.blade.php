@@ -11,10 +11,16 @@ s.parentNode.insertBefore(t,s)}(window,document,'script',
 fbq('init', '221529688673606'); 
 fbq('track', 'PageView');
 @if (isset($fb_pixel_search) && $fb_pixel_search)
+// first time you pullup search on page 1
 	fbq('track', 'Search');
 @endif
 @if (isset($fb_pixel_view_content) && $fb_pixel_view_content)	
+// if you view details of advisor
 	fbq('track', 'ViewContent');
+@endif
+@if (isset($fb_pixel_lead) && $fb_pixel_lead)	
+// when you verify your email
+	fbq('track', 'Lead');
 @endif
 
 </script>
