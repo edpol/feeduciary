@@ -16,7 +16,7 @@
             <table class="table table-striped">
 @if (count($list)>0)
                 <tr>
-                    <th colspan="5"> 
+                    <th colspan="6"> 
                         List of verified email addresses that were
                         @if($downloaded==1)
                         already downloaded
@@ -31,6 +31,9 @@
                     </th>
                     <th class="text-left">
                         <button type="submit" class="link" formaction="{{url('/signup/download/name')}}/{{$downloaded}}">name</button>
+                    </th>
+                    <th class="text-left">
+                        <button type="submit" class="link" formaction="{{url('/signup/download/zipcode')}}/{{$downloaded}}">zipcode</button>
                     </th>
                     <th class="text-left">
                         <button type="submit" class="link" formaction="{{url('/signup/download/updated_at')}}/{{$downloaded}}">updated</button>
@@ -52,6 +55,7 @@
                     </td>
                     <td class="text-left">{{ $row->email }}</td>
                     <td class="text-left">{{ $row->name }} </td>
+                    <td class="text-left">{{ $row->zipcode }} </td>
                     <td class="text-left">{{ $row->updated_at }}</td>
                     <td class="text-left">{{ $row->unsubscribe }}</td>
                 </tr>

@@ -144,3 +144,30 @@
         }
         return $advisor;
     }
+
+    function getZipcode() {
+
+        $ip = $_SERVER['REMOTE_ADDR']?:($_SERVER['HTTP_X_FORWARDED_FOR']?:$_SERVER['HTTP_CLIENT_IP']);
+        if($ip=='127.0.0.1' || substr($ip,0,6)=='192.168'){
+            return "";
+        }
+
+        // Create a stream
+        $opts = array(
+          'http'=>array(
+            'method'=>"GET",
+            'header'=>"Accept-language: en\r\n" .
+                      "Accept: application/json\r\n" .
+                      "token: b1fb8af8d2b36d\r\n"
+          )
+        );
+
+        $context = stream_context_create($opts);
+
+        // Open the file using the HTTP headers set above
+        $file = file_get_contents("http://ipinfo.io/{$ip}", false, $context);
+
+        $response = json_decode($file,false);
+
+        return $response->postal;
+    }

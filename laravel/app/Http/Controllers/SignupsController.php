@@ -37,7 +37,8 @@ class SignupsController extends Controller
         $name  = htmlentities(request('name'));
 
         //  check that the email address is not already in the Signup table
-        $signup = $this->checkTableSignupForEmail($email,$found_in_DB);
+        $signup = new Signup();
+        $signup->checkTableSignupForEmail($email,$found_in_DB);
 
         $data = $this->buildArray($request,$found_in_DB);
         if ($found_in_DB) $data['token']=$signup->token;
@@ -49,7 +50,7 @@ class SignupsController extends Controller
         *   (1) New Guest
         */
         if (!$found_in_DB) {
-            $results = $this->processNewRecord($data);
+            $results = $signup->processNewRecord($data);
         } else {
             if ($signup->verified) {
                /*
@@ -73,7 +74,7 @@ class SignupsController extends Controller
                 */
                 if ($email!=$signup->email) {
                     // if email is different add a new record
-                    $results = $this->processNewRecord($data);
+                    $results = $signup->processNewRecord($data);
                 } else {
 
                     if ($name!=$signup->name) {
@@ -108,12 +109,6 @@ class SignupsController extends Controller
         return $response;
     }
 
-    public function processNewRecord($data) {
-        // add to DB
-        $signup = Signup::create($data);
-        return;
-    }
-
     public function buildArray(Request $request) {
         $number_of_bytes = 64;
         return [
@@ -127,21 +122,6 @@ class SignupsController extends Controller
         ]; 
     }
 
-    public function checkTableSignupForEmail($email,&$found) {
-        try { 
-            $signup = Signup::where("email",$email)->first();
-        } catch(\Illuminate\Database\QueryException $ex){ 
-            dd($ex->getMessage()); 
-        }   
-        $found = true;
-        if(is_null($signup)) {
-            $found = false;
-            $signup = new Signup();
-            $signup->verified = false;
-        }
-        return $signup;
-    }
-
     public function thankyou() {
         $name  = session('name');
         $email = session('email');
@@ -149,6 +129,7 @@ class SignupsController extends Controller
         return view('signup.thankyou', compact('name','email','verified'));
     }
 
+    // verifying email address
     public function update($token) {
         try { 
             $signup = Signup::where("token",$token)->first();
@@ -174,6 +155,7 @@ class SignupsController extends Controller
         return redirect('/')->with('email',$signup->email)
                             ->with('name',$signup->name)
                             ->with('verified',$signup->verified)
+                            ->with('zipcode',$signup->zipcode)
                             ->with('fb_pixel_lead',1);
     }
 
