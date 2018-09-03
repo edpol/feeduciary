@@ -38,7 +38,7 @@ class SignupsController extends Controller
 
         //  check that the email address is not already in the Signup table
         $signup = new Signup();
-        $signup->checkTableSignupForEmail($email,$found_in_DB);
+        $signup = $signup->checkTableSignupForEmail($email,$found_in_DB);
 
         $data = $this->buildArray($request,$found_in_DB);
         if ($found_in_DB) $data['token']=$signup->token;
