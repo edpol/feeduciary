@@ -55,15 +55,16 @@ class DownloadsController extends Controller
 			$headers = $this->buildHeaders("signuplist.csv");
 
 			$signup = new Signup;
+
 		    $callback = function() use ($list,$signup) {
 		        $FH = fopen('php://output', 'w');
 
-				$columns = array('email','name');
+				$columns = array('email','name','zipcode');
 		        fputcsv($FH, $columns);
 
 		        for($i=0; $i<count($list); $i++) {
 		        	$rec = $signup->findId($list[$i]);
-		        	$array = ["email"=>$rec->email, "name"=>$rec->name];
+		        	$array = ["email"=>$rec->email, "name"=>$rec->name, "zipcode"=>$rec->zipcode];
 			        fputcsv($FH, $array);
 		        }
 		        fclose($FH);

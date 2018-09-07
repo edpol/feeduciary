@@ -22,7 +22,7 @@ formaction="{{ url('/signup/csv/list') }}">Yes</button>
 
 <!-- data-dismiss="modal" kills url execution -->
 
-<button type="submit" class="btn btn-info mr-0" name="update" value="y" 
+<button type="submit" class="btn btn-info mr-0" name="update" value="n" 
 formaction="{{ url('/signup/csv/list') }}">No</button>
 
 

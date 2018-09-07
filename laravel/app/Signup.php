@@ -34,8 +34,8 @@ class Signup extends Model
         $found = true;
         if(is_null($signup)) {
             $found = false;
-//            $signup = new Signup();
-//            $signup->verified = false;
+            $signup = new Signup();
+            $signup->verified = false;
         }
         return $signup;
     }
