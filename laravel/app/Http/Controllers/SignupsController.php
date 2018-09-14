@@ -141,7 +141,7 @@ class SignupsController extends Controller
         $signup->save();
 
         // update cookie 
-        $response = $this->storeCookie($signup->email,$signup->name,true);
+        $response = $this->storeCookie($signup->id,$signup->email,$signup->name,true);
 
         $data['subject'] = "Address verified";
         \Mail::to($signup->email,$signup->name)->send(new VerificationWelcome($data));
