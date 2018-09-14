@@ -25,6 +25,7 @@ class CreateRatesTable extends Migration
             $table->timestamps();
         });
 
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

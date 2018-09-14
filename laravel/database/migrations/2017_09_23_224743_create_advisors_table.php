@@ -44,6 +44,8 @@ class CreateAdvisorsTable extends Migration
             $table->text('bio')->nullable();
             $table->integer('user_id')->unsigned()->default(0);
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
