@@ -13,6 +13,14 @@
 
         @if ($verified==="")
             verified is null, no cookie
+        @else
+<?php
+$json_cookie = Cookie::get('signup');
+$cookie = json_decode($json_cookie,true);
+foreach ($cookie as $key => $value) {
+    echo "\$cookie[{$key}] = $value <br />\n";
+}
+?>
         @endif
 
         @if ($verified===true)

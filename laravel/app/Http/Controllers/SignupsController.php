@@ -30,8 +30,7 @@ class SignupsController extends Controller
             'email' => 'required|email',
         ]);
 
-// if they exist i shouldnt use new token
-// howe should i handle this? put it here or in buildArray
+// if they exist i shouldn't generate new token, put it in buildArray
 
         $email = htmlentities(request('email'));
         $name  = htmlentities(request('name'));
@@ -40,51 +39,45 @@ class SignupsController extends Controller
         $signup = new Signup();
         $signup = $signup->checkTableSignupForEmail($email,$found_in_DB);
 
-        $data = $this->buildArray($request,$found_in_DB);
-        if ($found_in_DB) $data['token']=$signup->token;
-
-        // Store cookie - we would not be here if we found the cookie
-        $response = $this->storeCookie($email,$name,$signup->verified);
+        $data = $this->buildArray($request,$signup->token);
 
        /*
         *   (1) New Guest
         */
-        if (!$found_in_DB) {
-            $results = $signup->processNewRecord($data);
+        if (!$found_in_DB || $email!=$signup->email) {
+            $signup = $signup->processNewRecord($data);
         } else {
             if ($signup->verified) {
                /*
                 *   (2) Verified
                 */
-               if (isset($data['amount']) && $data['amount']>0) {
+                $response = $this->storeCookie($signup->id,$email,$name,$signup->verified);
+
+                if (isset($data['amount']) && $data['amount']>0) {
                     $amount = $data['amount'];
                 } else {
                     return redirect('/');                    
                 }
-               if (isset($data['zipcode'])) {
+                if (isset($data['zipcode'])) {
                     $zipcode = $data['zipcode'];
                 } else {
                     $zipcode = "";
                 }
+
                 return redirect('/calculateFee')->with('amount',  $amount)
                                                 ->with('zipcode', $zipcode);
             } else {
                /*
                 *   (3) NOT Verified
                 */
-                if ($email!=$signup->email) {
-                    // if email is different add a new record
-                    $results = $signup->processNewRecord($data);
-                } else {
-
-                    if ($name!=$signup->name) {
-                        // if name is different update name in DB
-                        $signup->name = $name;
-                        $signup->save();
-                    }
+                if ($name!=$signup->name) {
+                    // if name is different update name in DB
+                    $signup->name = $name;
+                    $signup->save();
                 }
             }
         }
+        $response = $this->storeCookie($signup->id,$email,$name,$signup->verified);
 
         // send email
         $data['scheme'] = scheme();
@@ -99,9 +92,9 @@ class SignupsController extends Controller
 */
     } 
 
-    public function storeCookie($email, $name, $verified) {
+    public function storeCookie($id, $email, $name, $verified) {
         $v = ($verified==true) ? 1 : 0;
-        $array = ["email"=>htmlentities($email), "name"=>htmlentities($name), "verified"=>$v];
+        $array = ["id"=>$id,"email"=>htmlentities($email), "name"=>htmlentities($name), "verified"=>$v];
         $string = json_encode($array);
         $response = new Response('Added Cookie ' . COOKIE_NAME);
         // with queue the cookie is set when you leave controller
@@ -109,12 +102,13 @@ class SignupsController extends Controller
         return $response;
     }
 
-    public function buildArray(Request $request) {
+    public function buildArray(Request $request,$token_maybe) {
         $number_of_bytes = 64;
+        $token = (is_null($token_maybe)) ? bin2hex(random_bytes($number_of_bytes)) : $token_maybe;
         return [
             'name'    => htmlentities(request('name')),
             'email'   => htmlentities(request('email')),
-            'token'   => bin2hex(random_bytes($number_of_bytes)),
+            'token'   => $token,
             'amount'  => htmlentities(request('amount')),
             'zipcode' => htmlentities(request('zipcode')),
             'subject' => 'Email verification',
