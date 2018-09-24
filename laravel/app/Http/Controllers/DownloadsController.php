@@ -7,9 +7,15 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use feeduciary\Advisor;
 use feeduciary\Signup;
+use feeduciary\History;
 
 class DownloadsController extends Controller
 {
+	public $signup;
+
+	public function __construct(Signup $signup) {
+		$this->signup = $signup;
+	}
 
 	public function index($key="name", $downloaded=0) { 
 		//get all of the rows from signup table
@@ -29,21 +35,6 @@ class DownloadsController extends Controller
 		return $array_of_objects;
 	}
 
-
-	public function getVerified($key="name",$downloaded=0) {
-		$array_of_objects="";
-		if ($key=="updated") { $key="updated_at"; }
-		try { 
-			$perpage = ($downloaded==0) ? 10 : 10;
-			$signup = new Signup; 
-			$array_of_objects = $signup->getVerified($downloaded, $key); // where do we paginate here ???
-
-		} catch(\Illuminate\Database\QueryException $ex) { 
-			dd($ex->getMessage()); 
-		}
-		return $array_of_objects;
-	}
-
     public function create(Request $request, $update="n") {
 
     	$list = session('list');//request('check_list');
@@ -54,7 +45,7 @@ class DownloadsController extends Controller
 
 			$headers = $this->buildHeaders("signuplist.csv");
 
-			$signup = new Signup;
+			$signup = $this->signup;
 
 		    $callback = function() use ($list,$signup) {
 		        $FH = fopen('php://output', 'w');
@@ -81,6 +72,7 @@ class DownloadsController extends Controller
 	}
 
     private function buildHeaders($outfile) {
+    	// text/csv or json or pdf
 		$headers = [
 	            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0'
 	        ,   'Content-type'        => 'text/csv'
@@ -92,9 +84,8 @@ class DownloadsController extends Controller
 	}
 
 	private function updateDownloaded($list) {
-		$signup = new Signup; 
 		for($i=0; $i<count($list); $i++) {
-			$rec = $signup->findId($list[$i]);
+			$rec = $this->signup->findId($list[$i]);
 			if ($rec->downloaded == 0) {
 				$rec->downloaded = 1;
 				$rec->save();
@@ -142,6 +133,30 @@ class DownloadsController extends Controller
 		        $FH = fopen('php://output', 'w');
 
 				$columns = array('email','name');
+		        fputcsv($FH, $columns);
+		        foreach($list as $rec) {
+		        	$array = $rec->toArray();
+			        fputcsv($FH, $array);
+		        }
+		        fclose($FH);
+		    };
+			return response()->stream($callback, 200, $headers);
+	    } else {
+	    	return "List empty";
+	    }
+	}
+
+	public function getHistory(History $history) {
+		$list = "";
+		$list = $history->getAll();
+
+	   	if(count($list)>0) {
+			$headers = $this->buildHeaders("HistoryList.csv");
+
+		    $callback = function() use ($list) {
+		        $FH = fopen('php://output', 'w');
+
+				$columns = array('zipcode','amount','signup_id','created_at');
 		        fputcsv($FH, $columns);
 		        foreach($list as $rec) {
 		        	$array = $rec->toArray();

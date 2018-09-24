@@ -9,6 +9,8 @@ use feeduciary\User;
 use feeduciary\Pages;
 use feeduciary\Advisor;
 use feeduciary\Zipcode;
+use feeduciary\Signup;
+use feeduciary\History;
 use Illuminate\Http\Request;
 
 class AdvisorsController extends Controller
@@ -200,12 +202,49 @@ class AdvisorsController extends Controller
 //      return view('advisors.calculateFee');
     }
 
+   /*
+    *   get the zipcode and id from cookie, 
+    *   if zipcode is not in cookie check table Signup
+    *   then try the input saved in session
+    *   if cookie did not have values update cookie
+    *   if Signup table did not have a zipcode update it with search
+    */
+    public function saveHistory() {
+        $value = request()->cookie(COOKIE_NAME);
+        $value = json_decode($value,true);
+
+        //  zipcode from cookie, input or Signup table
+        //  if cookie doesnt have zipcode or id get it from Signup table
+        if (!isset($value['zipcode']) || empty($value['zipcode'])
+        ||  !isset($value['id'])      || empty($value['id'])) {
+            $signup = Signup::where("email",$value['email'])->first();
+            $value['id'] = $signup->id;
+            if ($signup->zipcode===null || empty($signup->zipcode)) {
+                $signup->zipcode = $value['zipcode'] = session('zip');
+                if (isset($value['zipcode']) && !empty($value['zipcode'])) {
+                    $signup->save();
+                }
+            } else {
+                $value['zipcode'] = $signup->zipcode;    
+            }
+            $signup->saveCookie($signup->id, $signup->email, $signup->name, $signup->zipcode, $signup->verified);
+        }
+
+        $id = (isset($value['id'])) ? $value['id'] : 0;  // in case it does not exist, I added it after cookies were created
+        $zipcode = (!isset($value['zipcode']) || empty($value['zipcode'])) ? '00000' : $value['zipcode'];
+
+        $amount = session('amount');
+        $history = History::insertRecord($id, $zipcode, $amount);
+        return;
+    }
+
     /*
      *  I only use /advisors/results exiting the wait page.
      *  This way we only call the facebook pixel the first time they go to page 1
      *  on other calls it uses /advisors/page/1
      */
     public function facebookPixel() {
+        if (!auth()->check()) $this->saveHistory();
         $this->pagePrep();
         $fb_pixel_search = 1;
         return view('advisors.calculateFee', compact('fb_pixel_search'));

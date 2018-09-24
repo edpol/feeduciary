@@ -4,7 +4,7 @@
 @section('box1')
     <div class="bg-faded p-4 my-4">
         <div class="card card-inverse">
-            <img class="card-img img-fluid w-100" src="images/slide-1.jpg" alt="" />
+            <img class="card-img img-fluid w-100" src="{{ asset('images/slide-1.jpg') }}" alt="" />
             <div class="card-img-overlay bg-overlay">
                 <h2 class="card-title text-shadow text-white text-uppercase mb-0">Post Title</h2>
                 <h4 class="text-shadow text-white">March 1, 2017</h4>
@@ -20,7 +20,7 @@
 @section('box2')
 <div class="bg-faded p-4 my-4">
 <div class="card card-inverse">
-<img class="card-img img-fluid w-100" src="images/slide-2.jpg" alt="">
+<img class="card-img img-fluid w-100" src="{{ asset('images/slide-2.jpg') }}" alt="">
 <div class="card-img-overlay bg-overlay">
 <h2 class="card-title text-shadow text-white text-uppercase mb-0">Post Title</h2>
 <h4 class="text-shadow text-white">March 1, 2017</h4>
@@ -34,7 +34,7 @@
 @section('box3')
 <div class="bg-faded p-4 my-4">
 <div class="card card-inverse">
-<img class="card-img img-fluid w-100" src="images/slide-3.jpg" alt="">
+<img class="card-img img-fluid w-100" src="{{ asset('images/slide-3.jpg') }}" alt="">
 <div class="card-img-overlay bg-overlay">
 <h2 class="card-title text-shadow text-white text-uppercase mb-0">Post Title</h2>
 <h4 class="text-shadow text-white">March 1, 2017</h4>

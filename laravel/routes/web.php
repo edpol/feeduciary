@@ -12,6 +12,7 @@ Route::get('/signup/thankyou',           'SignupsController@thankyou')->middlewa
 Route::get('/signup/verify/{token}',     'SignupsController@update')->middleware('guest');
 
 Route::group(['middleware' => ['auth','admin']], function () {
+    Route::get('/history/download',              'DownloadsController@getHistory');
     Route::get('/advisors/download',             'DownloadsController@getAdvisors');
     Route::get('/signup/download',               'DownloadsController@index');
     Route::post('/signup/download/{key}/{done}', 'DownloadsController@index');

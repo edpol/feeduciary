@@ -16,6 +16,8 @@
                     </div>
                 </div>
             </a>
+
+            <!-- the navigation bar is hidden on small screens and replaced by a button in the top right corner -->
             <button class="navbar-toggler px-0 mr-1" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -24,12 +26,11 @@
 
                 <!-- Middle and Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
-
-<!-- if we are displaying advisors, we show the search option -->
-@if ($tab == "Display Advisor")
+                    <!-- if we are displaying advisors, we show the search option -->
+                    @if ($tab == "Display Advisor")
                         <!-- Search Section -->
                         <form id='myform' action="{{ url('/search') }}" method="GET">
-                            <li class="nav-item">
+<!--                            <li class="nav-item"> -->
                                 {{ csrf_field() }}
 <?php                           if (auth()->check() && auth()->user()->isAdmin()) {
                                     $target='/admin/advisors/list';
@@ -39,9 +40,9 @@
 ?>                              <button type="submit" class="btn btn-primary" formaction="{{ url($target) }}">Reset Search</button> 
                                 <button type="submit" class="btn btn-primary"><image src="{{ asset('/images/search.png')}}"/></button>
                                 <input class="search" type="text" name="search" placeholder="search" />
-                            </li>
+<!--                            </li>  -->
                         </form>
-@endif
+                    @endif
 
                     <!-- Right Side Of Navbar -->
                     <li class="nav-item">
@@ -52,13 +53,13 @@
                     </li>
 -->
                     @if (auth()->check())
-
+<!--
                         @if (auth()->user()->isAdmin())
                             <li class="nav-item">
                                 <a class="nav-link" id="updateAdvisors" href="{{ url('/admin/advisors/list') }}">Update Advisors</a>
                             </li>
                         @endif
-
+-->
                         <!-- Drop down menu -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle"  href="#" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -79,9 +80,10 @@
                                      if   (Auth::user()->isAdmin()) this works too
 -->                                 @if (auth()->user()->isAdmin())
                                         <a class="nav-link" href="{{ url('/admin/advisors/list') }}">Update Advisors</a>
-                                        <a class="nav-link" href="{{ url('/admin/create') }}">Create Advisor</a>
-                                        <a class="nav-link" href="{{ url('/signup/download') }}">Download Emails</a>
-                                        <a class="nav-link" href="{{ url('/advisors/download') }}">Advisors Emails</a>
+                                        <a class="nav-link" href="{{ url('/admin/create')        }}">Create Advisor </a>
+                                        <a class="nav-link" href="{{ url('/signup/download')     }}">Download Emails</a>
+                                        <a class="nav-link" href="{{ url('/advisors/download')   }}">Advisors Emails</a>
+                                        <a class="nav-link" href="{{ url('/history/download')    }}">Search History </a>
                                     @else
                                         <a class="nav-link" href="{{ url('/update') }}">Update</a>
                                     @endif

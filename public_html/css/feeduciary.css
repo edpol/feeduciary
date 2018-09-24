@@ -179,3 +179,7 @@ a img { border: 0; }
 .bg-pink {
 	background-color: pink;
 }
+
+.no-js [data-responsive-menu] ul {
+  display: none;
+}

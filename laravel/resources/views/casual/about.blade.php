@@ -20,7 +20,7 @@
 				</p>
 			</div>
 			<div class="col-lg-5 mr-auto">
-				<img class="img-fluid" src="images/ipad.png" alt="">
+				<img class="img-fluid" src="{{ asset('images/ipad.png') }}" alt="">
 			</div>
 		</div>
 	</div>
@@ -41,7 +41,7 @@
 				</p>
 			</div>
 			<div class="col-lg-5 mr-auto">
-				<img class="img-fluid" src="images/ipad.png" alt="">
+				<img class="img-fluid" src="{{ asset('images/ipad.png') }}" alt="">
 			</div>
 		</div>
 	</div>
@@ -63,7 +63,7 @@
 				</p>
 			</div>
 			<div class="col-lg-5 mr-auto">
-				<img class="img-fluid" src="images/ipad.png" alt="">
+				<img class="img-fluid" src="{{ asset('images/ipad.png') }}" alt="">
 			</div>
 		</div>
 	</div>
