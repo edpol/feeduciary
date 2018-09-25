@@ -20,6 +20,7 @@ class CreateHistoryTable extends Migration
             $table->char('zipcode',5)->index();
             $table->bigInteger('amount')->nullable(false)->unsigned();
             $table->integer('signup_id')->nullable(false)->unsigned();
+            $table->boolean('downloaded')->default(false);
             $table->foreign('signup_id')->references('id')->on('signups')->onDelete('cascade');
             $table->timestamps();
         });

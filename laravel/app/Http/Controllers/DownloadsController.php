@@ -43,7 +43,7 @@ class DownloadsController extends Controller
     	// it at least sends 1 row, the header 
     	if(count($list)>0) {
 
-			$headers = $this->buildHeaders("signuplist.csv");
+			$headers = csvHeaders("signuplist.csv");
 
 			$signup = $this->signup;
 
@@ -71,18 +71,6 @@ class DownloadsController extends Controller
 		}
 	}
 
-    private function buildHeaders($outfile) {
-    	// text/csv or json or pdf
-		$headers = [
-	            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0'
-	        ,   'Content-type'        => 'text/csv'
-	        ,   'Content-Disposition' => "attachment; filename={$outfile}"
-	        ,   'Expires'             => '0'
-	        ,   'Pragma'              => 'public'
-	    	];
-		return $headers;
-	}
-
 	private function updateDownloaded($list) {
 		for($i=0; $i<count($list); $i++) {
 			$rec = $this->signup->findId($list[$i]);
@@ -99,19 +87,19 @@ class DownloadsController extends Controller
     public function list(Request $request) {
     	$list = request('check_list');
     	$update = strtolower(request('update'));
-    	$output = "";
+    	$id_list = "";
     	if(count($list)>0) {
 	        foreach ($list as $row) { 
 	        	$array = explode(",",$row);
-	        	$output .= "," . $array[0];
+	        	$id_list .= "," . $array[0];
 	  		}
-	  		$output = substr($output, 1);
+	  		$id_list = substr($id_list, 1);
 		    $link = url("/signup/csv/create/" . $update);
 		    $back = url("/signup/download");
-	//	    session(['list' => $output]);
+	//	    session(['list' => $id_list]);
 			// this is supposed to last for one request
-			$request->session()->flash('list', $output);	    
-		    return view('signup.blank',compact("link","back"));
+			$request->session()->flash('list', $id_list);	    
+		    return view('layouts.blank',compact("link","back")); // goes to countdown page to start download
     	} else {
     		return redirect('/signup/download')->withErrors(['No Emails to Download']);
     	}

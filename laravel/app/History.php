@@ -3,6 +3,7 @@
 namespace feeduciary;
 
 use Illuminate\Database\Eloquent\Model;
+use feeduciary\Signup;
 
 class History extends Model
 {
@@ -27,4 +28,16 @@ class History extends Model
         return Self::select('zipcode','amount','signup_id','created_at')->get();
     }
 
+    public function findId($id) {
+    	return Self::find($id);
+    }
+
+    public function getRec($id) {
+		$rec = \DB::table('history')
+			->select('history.*','signups.name')
+            ->leftJoin('signups', 'history.signup_id', '=', 'signups.id')
+            ->where("history.id",$id)
+            ->first();
+        return $rec;
+    }
 }

@@ -1,5 +1,5 @@
 <?php $tab = "Download"; ?>
-@extends('signup.redirect')
+@extends('layouts.master')
 
 @section('box1')
 	<div class="paddingForHeader">

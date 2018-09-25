@@ -12,12 +12,17 @@ Route::get('/signup/thankyou',           'SignupsController@thankyou')->middlewa
 Route::get('/signup/verify/{token}',     'SignupsController@update')->middleware('guest');
 
 Route::group(['middleware' => ['auth','admin']], function () {
-    Route::get('/history/download',              'DownloadsController@getHistory');
-    Route::get('/advisors/download',             'DownloadsController@getAdvisors');
-    Route::get('/signup/download',               'DownloadsController@index');
-    Route::post('/signup/download/{key}/{done}', 'DownloadsController@index');
-    Route::post('/signup/csv/list',              'DownloadsController@list');
-    Route::get('/signup/csv/create/{update}',    'DownloadsController@create');
+    Route::get('/history/download',               'HistoryController@index');
+    Route::post('/history/download/{key}/{done}', 'HistoryController@index');
+    Route::post('/history/csv/list',              'HistoryController@list');
+    Route::get('/history/csv/create/{update}',    'HistoryController@create');
+
+    Route::get('/advisors/download',              'DownloadsController@getAdvisors');
+
+    Route::get('/signup/download',                'DownloadsController@index');
+    Route::post('/signup/download/{key}/{done}',  'DownloadsController@index');
+    Route::post('/signup/csv/list',               'DownloadsController@list');
+    Route::get('/signup/csv/create/{update}',     'DownloadsController@create');
 });
 
 Route::get('/about',                  'CasualController@about');
