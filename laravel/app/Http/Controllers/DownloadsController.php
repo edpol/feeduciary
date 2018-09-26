@@ -115,12 +115,12 @@ class DownloadsController extends Controller
 		$list = $advisors->getAll(); //name email phone company
 
 	   	if(count($list)>0) {
-			$headers = $this->buildHeaders("AdvisorsList.csv");
+			$headers = csvHeaders("AdvisorsList.csv");
 
 		    $callback = function() use ($list) {
 		        $FH = fopen('php://output', 'w');
 
-				$columns = array('email','name');
+				$columns = array('name','email','phone','company','active');
 		        fputcsv($FH, $columns);
 		        foreach($list as $rec) {
 		        	$array = $rec->toArray();
@@ -139,7 +139,7 @@ class DownloadsController extends Controller
 		$list = $history->getAll();
 
 	   	if(count($list)>0) {
-			$headers = $this->buildHeaders("HistoryList.csv");
+			$headers = csvHeaders("HistoryList.csv");
 
 		    $callback = function() use ($list) {
 		        $FH = fopen('php://output', 'w');

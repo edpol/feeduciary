@@ -24,7 +24,7 @@ class AdvisorsController extends Controller
     public function __construct()
     {
 //      $this->middleware('auth')->except(['index', 'show', 'advisorFee', 'calculateFee', 'page']);
-        $this->middleware('auth')->only(['create','delete']); // this just logged in, not checking admin
+        $this->middleware('auth')->only(['create']); // this just logged in, not checking admin
     }
 
     //
@@ -473,14 +473,6 @@ class AdvisorsController extends Controller
 
     public function contact(Advisor $advisor) {
         return view('advisors.contact', compact('advisor'));
-    }
-
-    public function delete($id) {
-//      Advisor::destroy($id);
-        $results = User::where('id', $id)->delete();
-        $results = Advisor::where('id', $id)->delete();
-        $results = Rate::where("advisor_id",$id)->delete();
-        return redirect('/admin/advisors/list')->with('status', "Advisor {$id} deleted!");
     }
 
     public function highlight($advisor, $findme="") {
