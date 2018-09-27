@@ -27,7 +27,7 @@
                 <!-- Middle and Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- if we are displaying advisors, we show the search option -->
-                    @if ($tab == "Display Advisor")
+                    @if (isset($tab) && $tab == "Display Advisor")
                         <!-- Search Section -->
                         <form id='myform' action="{{ url('/search') }}" method="GET">
 <!--                            <li class="nav-item"> -->
