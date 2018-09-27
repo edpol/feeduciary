@@ -1,6 +1,12 @@
-@extends('layouts.app')
+<?php $tab="Reset Password"; ?>
+@extends('layouts.master')
 
-@section('content')
+@section('box1')
+<div class="paddingForHeader">
+</div>
+@endsection
+
+@section('box2')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
