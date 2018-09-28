@@ -16,10 +16,10 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
 	<!-- Custom fonts for this template -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.min.css') }}" />
-	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" />
 	<!-- Custom styles for this template -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/landing-page.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/feeduciary.css') }}" />
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" />
 
 	@if (env('APP_ENV') != 'development')
 		@include('layouts.analytics')
