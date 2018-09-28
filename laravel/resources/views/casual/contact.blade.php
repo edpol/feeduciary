@@ -1,6 +1,7 @@
 <?php $tab = "Contact Us"; 
     $key = "AIzaSyALzhEzkuqN7XpucdVcJUxR12p2X0W5LnE"; 
-    $q="2719+Hollywood+Blvd,+Hollywood,+FL+33020+United+States";
+    $key = "AIzaSyAWOL3Onr0xG3zs0U_vNDk15XOm82qb5wE";
+    $q = "2719+Hollywood+Blvd,+Hollywood,+FL+33020+United+States";
 
     if (App::environment('local')) {
         // local captcha
