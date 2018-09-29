@@ -29,16 +29,6 @@ class Advisor extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function phone() {
-        $phone = preg_replace("/[^[:alnum:][:space:]]/u", '', $this->phone);
-        if (strlen($phone)==10) {
-            $phone = "(" . substr($phone,0,3) . ")&nbsp;" . substr($phone,3,3) . "-" . substr($phone,6);
-        } else {
-            $phone = $this->phone;
-        }
-        return $phone;
-    }
-
     public function photo() {
         if (file_exists( public_path() . '/images/advisorImages/' . $this->id . '-thumb.jpg')) {
             return '/images/advisorImages/' . $this->id .'-thumb.jpg';

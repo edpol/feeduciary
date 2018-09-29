@@ -3,6 +3,7 @@
 namespace feeduciary\Http\Controllers;
 
 use feeduciary\Rate;
+use feeduciary\User;
 use feeduciary\Advisor;
 use Illuminate\Http\Request;
 
@@ -109,5 +110,14 @@ class AdminController extends Controller
         $advisor->save();
 //$this->show($id);
         return redirect("/admin/advisor/{$id}");
+    }
+
+
+    public function delete($id) {
+//      Advisor::destroy($id);
+        $user    = User::where('id', $id)->delete();
+        $advisor = Advisor::where('id', $id)->delete();
+        $rate    = Rate::where("advisor_id",$id)->delete();
+        return redirect('/admin/advisors/list')->with('status', "Advisor {$id} deleted!");
     }
 }

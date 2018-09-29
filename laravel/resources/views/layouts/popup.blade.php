@@ -13,18 +13,19 @@
 
                             <div class="modal-body text-left bg-light text-dark">
                                 <div class="m-3">
-                                     <div class="modal-footer row text-left pr-0">
+                                    <div class="modal-footer row text-left pr-0">
 
-<div class="ml-0">Do you want to mark records as downloaded?</div>
+                                        <div class="ml-0">Do you want to mark records as downloaded?</div>
+@php
+                                        $formaction = url("/{$table}/csv/list");
+@endphp
+                                        <button type="submit" class="btn btn-info mr-1" name="update" value="y" 
+                                        formaction="<?= $formaction; ?>">Yes</button>
 
-<button type="submit" class="btn btn-info mr-1" name="update" value="y" 
-formaction="{{ url('/signup/csv/list') }}">Yes</button>
+                                        <!-- data-dismiss="modal" kills url execution -->
 
-<!-- data-dismiss="modal" kills url execution -->
-
-<button type="submit" class="btn btn-info mr-0" name="update" value="n" 
-formaction="{{ url('/signup/csv/list') }}">No</button>
-
+                                        <button type="submit" class="btn btn-info mr-0" name="update" value="n" 
+                                        formaction="<?= $formaction; ?>">No</button>
 
                                     </div>
                                 </div>

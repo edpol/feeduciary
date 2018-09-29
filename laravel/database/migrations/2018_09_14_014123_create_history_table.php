@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRatesTable extends Migration
+class CreateHistoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,13 +15,13 @@ class CreateRatesTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('rates', function (Blueprint $table) {
+        Schema::create('history', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('roof')->unsigned();
-            $table->decimal('rate',10,6)->nullable(false);
-            $table->integer('advisor_id')->nullable(false)->unsigned();
-            $table->foreign('advisor_id')->references('id')->on('advisors')->onDelete('cascade');
-            $table->unique(['advisor_id','roof']);
+            $table->char('zipcode',5)->index();
+            $table->bigInteger('amount')->nullable(false)->unsigned();
+            $table->integer('signup_id')->nullable(false)->unsigned();
+            $table->boolean('downloaded')->default(false);
+            $table->foreign('signup_id')->references('id')->on('signups')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -35,6 +35,6 @@ class CreateRatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rates');
+        Schema::dropIfExists('history');
     }
 }

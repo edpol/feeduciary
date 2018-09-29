@@ -10,6 +10,7 @@
     <title>Feeduciary <?php if (isset($tab)) { echo " | {$tab}"; } ?></title>
 
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,400,600" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -17,6 +18,18 @@
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
+                    <!-- Branding Image -->
+                    <a class="navbar-brand" href="{{ env('APP_URL') }}">
+                        <div class="row m-0 p-0">
+                            <div    class="col-md-2  col-2 px-0 mx-0">
+                                <img class="col-md-12 px-0" src="{{ asset('images/logo.png') }}" />
+                            </div>
+                            <div    class="col-md-10 col-10 p-0  m-0" style="line-height: 90%;">
+                                <h4 class="col-md-12   pt-1 px-0 m-0">Feeduciary</h4>
+                                <h6 class="p-0 m-0 font11" style="color:green;">Let The Annual Fee Set You Free</h6>
+                            </div>
+                        </div>
+                    </a>
 
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
@@ -26,10 +39,6 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="{{ asset('images/Black-logo.png') }}" style="height:50px;"/> 
-                    </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

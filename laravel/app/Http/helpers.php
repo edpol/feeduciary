@@ -7,6 +7,28 @@
         }
     }
 
+    function csvHeaders($outfile) {
+        // text/csv or json or pdf
+        $headers = [
+                'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0'
+            ,   'Content-type'        => 'text/csv'
+            ,   'Content-Disposition' => "attachment; filename={$outfile}"
+            ,   'Expires'             => '0'
+            ,   'Pragma'              => 'public'
+            ];
+        return $headers;
+    }
+
+    function formatPhone($rawPhone) {
+        $phone = preg_replace("/[^[:alnum:][:space:]]/u", '', $rawPhone);
+        if (strlen($phone)==10) {
+            $phone = "(" . substr($phone,0,3) . ")&nbsp;" . substr($phone,3,3) . "-" . substr($phone,6);
+        } else {
+            $phone = $rawPhone;
+        }
+        return $phone;
+    }
+
     // remove everything except numbers and first period
     // or should we just remove dollar signs, commas and periods (except first) and let it error otherwise
     function cleanMoney ($price_string) {

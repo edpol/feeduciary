@@ -12,11 +12,17 @@ Route::get('/signup/thankyou',           'SignupsController@thankyou')->middlewa
 Route::get('/signup/verify/{token}',     'SignupsController@update')->middleware('guest');
 
 Route::group(['middleware' => ['auth','admin']], function () {
-    Route::get('/advisors/download',             'DownloadsController@getAdvisors');
-    Route::get('/signup/download',               'DownloadsController@index');
-    Route::post('/signup/download/{key}/{done}', 'DownloadsController@index');
-    Route::post('/signup/csv/list',              'DownloadsController@list');
-    Route::get('/signup/csv/create/{update}',    'DownloadsController@create');
+    Route::get('/history/download',               'HistoryController@index');
+    Route::post('/history/download/{key}/{done}', 'HistoryController@index');
+    Route::post('/history/csv/list',              'HistoryController@list');
+    Route::get('/history/csv/create/{update}',    'HistoryController@create');
+
+    Route::get('/advisors/download',              'DownloadsController@getAdvisors');
+
+    Route::get('/signup/download',                'DownloadsController@index');
+    Route::post('/signup/download/{key}/{done}',  'DownloadsController@index');
+    Route::post('/signup/csv/list',               'DownloadsController@list');
+    Route::get('/signup/csv/create/{update}',     'DownloadsController@create');
 });
 
 Route::get('/about',                  'CasualController@about');
@@ -99,8 +105,10 @@ Route::group(['middleware' => ['auth','admin']], function () {
     	return view('advisors.entry');
     });
 
+    Route::get('/admin/advisor',                'AdvisorsController@index');
+
     Route::get('/admin/advisor/{id}',           'AdminController@show');
     Route::post('/admin/advisor/{id}/inactive', 'AdminController@inactive');
-    Route::post('/admin/advisor/{id}/delete',   'AdvisorsController@delete');
+    Route::post('/admin/advisor/{id}/delete',   'AdminController@delete');
 
 });

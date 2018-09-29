@@ -62,7 +62,7 @@
 			</div>
 		</div>
 
-
+<!--
 @if( auth()->check() && auth()->user()->isAdmin() )
 		<div class="row">
 			<div class="text-center col-sm-12">
@@ -75,7 +75,7 @@
 			</div>
 		</div>
 @endif
-
+-->
 	</div>
 <!-- /.container -->
 </section>

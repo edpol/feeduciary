@@ -1,4 +1,4 @@
-<?php $tab = "Verified List"; ?>
+<?php $tab = "History"; ?>
 @extends('layouts.master')
 
 @section('box1')
@@ -11,13 +11,13 @@
 <section>
     <div class="container">
 
-        <form method="post" action="{{url('/signup/csv/create')}}">
+        <form method="post" action="{{url('/history/csv/create')}}">
             {{ csrf_field() }}
             <table class="table table-striped">
 @if (count($list)>0)
                 <tr>
-                    <th colspan="6"> 
-                        List of verified email addresses that were
+                    <th colspan="5"> 
+                        History of searches that were
                         @if($downloaded==1)
                         already downloaded
                         @else
@@ -28,37 +28,33 @@
                 <tr>
                     <th>Select</th>
                     <th class="text-left">
-                        <button type="submit" class="link" formaction="{{url('/signup/download/email')}}/{{$downloaded}}">email</button>
+                        <button type="submit" class="link" formaction="{{url('/history/download/zipcode')}}/{{$downloaded}}"  >zipcode</button>
+                    </th>
+                    <th class="text-right">
+                        <button type="submit" class="link" formaction="{{url('/history/download/amount')}}/{{$downloaded}}"   >amount</button>
                     </th>
                     <th class="text-left">
-                        <button type="submit" class="link" formaction="{{url('/signup/download/name')}}/{{$downloaded}}">name</button>
+                        <button type="submit" class="link" formaction="{{url('/history/download/signup_id')}}/{{$downloaded}}">Signup ID</button>
                     </th>
                     <th class="text-left">
-                        <button type="submit" class="link" formaction="{{url('/signup/download/zipcode')}}/{{$downloaded}}">zipcode</button>
-                    </th>
-                    <th class="text-left">
-                        <button type="submit" class="link" formaction="{{url('/signup/download/updated_at')}}/{{$downloaded}}">updated</button>
-                    </th>
-                    <th class="text-left">
-                        <button type="submit" class="link" formaction="{{url('/signup/download/unsubscribe')}}/{{$downloaded}}">unsubscribed</button>
+                        <button type="submit" class="link" formaction="{{url('/history/download/name')}}/{{$downloaded}}"     >name</button>
                     </th>
                 </tr>
 @else
-                <tr><td class="text-left"> There are no emails to download</td></tr>
+                <tr><td class="text-left"> There is no search history to download</td></tr>
 @endif
 
 @foreach($list as $row)
-                <tr @if($row->downloaded && !$row->unsubscribe) class="text-success" @endif @if($row->unsubscribe) class="text-danger" style="background-color:#fee;" @endif >
+                <tr @if($row->downloaded) class="text-success" @endif>
                     <td class="text-center">
                         <input type="checkbox" id="id{{$row->id}}" name="check_list[]" 
-                        value="{{$row->id}},{{ $row->email }},{{ $row->name }},{{ $row->updated_at }}" 
-                        @if(!$row->downloaded && !$row->unsubscribe) checked="checked" @endif />
+                        value="{{$row->id}},{{ $row->zipcode }},{{$row->amount}}, {{$row->signup_id}}, {{ $row->name }}" 
+                        @if(!$row->downloaded) checked="checked" @endif />
                     </td>
-                    <td class="text-left">{{ $row->email       }} </td>
-                    <td class="text-left">{{ $row->name        }} </td>
-                    <td class="text-left">{{ $row->zipcode     }} </td>
-                    <td class="text-left">{{ $row->updated_at  }} </td>
-                    <td class="text-left">{{ $row->unsubscribe }} </td>
+                    <td class="text-left">{{ $row->zipcode   }} </td>
+                    <td class="text-right">{{ number_format($row->amount) }} </td>
+                    <td class="text-left">{{ $row->signup_id }} </td>
+                    <td class="text-left">{{ $row->name      }} </td>
                 </tr>
 @endforeach
 
@@ -86,11 +82,11 @@
             }
 ?>
             <button type="submit" class="btn {{$c}}" value="x" name="flag"
-            formaction="{{ url('/signup/download/name')}}/{{$use}}">
+            formaction="{{ url('/history/download/name')}}/{{$use}}">
             {{ $msg }}
             </button>
 
-@php ($table = "signup")
+@php ($table = "history")
 @include('layouts.popup')
         </form>
 @include('layouts.errors')

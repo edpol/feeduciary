@@ -6,7 +6,7 @@
                     <div class="col-8">{{ $advisor->name     }} </div>
 
                     <div class="col-4">phone:  </div> 
-                    <div class="col-8">{{ $advisor->phone()  }} </div>
+                    <div class="col-8">{{ formatPhone($advisor->phone) }} </div>
 
                     @if(isset($hideEmail) && $hideEmail==false)
                     <div class="col-4">email*: </div> 

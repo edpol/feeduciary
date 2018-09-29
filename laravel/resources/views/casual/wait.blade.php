@@ -17,7 +17,7 @@ if (env("APP_ENV")!="production") {
 		<br />
 		<div class="row">
 			<div class="col-12 col-sm-12 text-center wait">
-				<img src='images/wait.gif' alt="Wait Image" />
+				<img src="{{ asset('images/wait.gif') }}" alt="Wait Image" />
 			</div>
 		</div>
 		<div class="row">

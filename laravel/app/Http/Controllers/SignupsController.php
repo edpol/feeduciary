@@ -51,7 +51,7 @@ class SignupsController extends Controller
                /*
                 *   (2) Verified
                 */
-                $response = $this->storeCookie($signup->id,$email,$name,$signup->verified);
+                $response = $signup->saveCookie($signup->id,$email,$name,$signup->zipcode,$signup->verified);
 
                 if (isset($data['amount']) && $data['amount']>0) {
                     $amount = $data['amount'];
@@ -77,7 +77,7 @@ class SignupsController extends Controller
                 }
             }
         }
-        $response = $this->storeCookie($signup->id,$email,$name,$signup->verified);
+        $response = $signup->saveCookie($signup->id,$email,$name,$signup->zipcode,$signup->verified);
 
         // send email
         $data['scheme'] = scheme();
@@ -91,16 +91,6 @@ class SignupsController extends Controller
         ->withCookie(Cookie::forever('store_currency', $currency));
 */
     } 
-
-    public function storeCookie($id, $email, $name, $verified) {
-        $v = ($verified==true) ? 1 : 0;
-        $array = ["id"=>$id,"email"=>htmlentities($email), "name"=>htmlentities($name), "verified"=>$v];
-        $string = json_encode($array);
-        $response = new Response('Added Cookie ' . COOKIE_NAME);
-        // with queue the cookie is set when you leave controller
-        Cookie::queue(Cookie::forever(COOKIE_NAME, $string));
-        return $response;
-    }
 
     public function buildArray(Request $request,$token_maybe) {
         $number_of_bytes = 64;
@@ -141,7 +131,11 @@ class SignupsController extends Controller
         $signup->save();
 
         // update cookie 
+<<<<<<< HEAD
         $response = $this->storeCookie($signup->id,$signup->email,$signup->name,true);
+=======
+        $response = $signup->saveCookie($signup->id,$signup->email,$signup->name,$signup->zipcode,true);
+>>>>>>> history
 
         $data['subject'] = "Address verified";
         \Mail::to($signup->email,$signup->name)->send(new VerificationWelcome($data));
