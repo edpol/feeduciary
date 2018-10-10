@@ -430,8 +430,11 @@ class AdvisorsController extends Controller
         $data = $this->buildArray($request);
         $advisor = Advisor::create($data);
 
-        $user = $advisor->user;
-        $results = $user->updateId($advisor->id);
+        // if there is an entry in the User table update User.advisor_id
+		if (!is_null($advisor->user)) {
+	        $user = $advisor->user;
+    	    $results = $user->updateId($advisor->id);
+    	}
         $rates = $advisor->rate;
 
         // After creating your ADVISOR information, we need your RATES information
