@@ -3,10 +3,11 @@
 <head class="no-js">
 	<meta charset="utf-8">
 <?php 
-	if(isset($link) && !empty($link)) { 
+	if(isset($refresh) && !empty($refresh)) { 
 		//	redirect to countdown page after 5 seconds
-		echo "\t<meta http-equiv='refresh' content='5; url={$link}' />\n";
+		echo "\t<meta http-equiv='refresh' content='5; url={$refresh}' />\n";
 	} 
+
 ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="The singular focus of Feeduciary.com is to connect fee conscious investors seeking investment advice with fee-based financial advisors." />

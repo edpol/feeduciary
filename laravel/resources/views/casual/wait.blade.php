@@ -40,6 +40,7 @@ function myTimer() {
 
 function clearTimer() {
 	clearInterval(myVar);
+	clearInterval(clearVar);
 	window.location.href = "{{ url('/advisors/results') }}";
 }
 

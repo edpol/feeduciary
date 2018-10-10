@@ -94,12 +94,12 @@ class DownloadsController extends Controller
 	        	$id_list .= "," . $array[0];
 	  		}
 	  		$id_list = substr($id_list, 1);
-		    $link = url("/signup/csv/create/" . $update);
+		    $refresh = url("/signup/csv/create/" . $update);
 		    $back = url("/signup/download");
 	//	    session(['list' => $id_list]);
 			// this is supposed to last for one request
 			$request->session()->flash('list', $id_list);	    
-		    return view('layouts.blank',compact("link","back")); // goes to countdown page to start download
+		    return view('layouts.blank',compact("refresh","back")); // goes to countdown page to start download
     	} else {
     		return redirect('/signup/download')->withErrors(['No Emails to Download']);
     	}

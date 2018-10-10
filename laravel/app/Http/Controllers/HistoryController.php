@@ -45,12 +45,12 @@ class HistoryController extends Controller
 	        	$id_list .= "," . $array[0];
 	  		}
 	  		$id_list = substr($id_list, 1);
-		    $link = url("/history/csv/create/" . $update);
+		    $refresh = url("/history/csv/create/" . $update);
 		    $back = url("/history/download");
 	//	    session(['list' => $id_list]);
 			// this is supposed to last for one request
 			$request->session()->flash('list', $id_list);		 // save the contents $id_list in variable list in sessions
-		    return view('layouts.blank',compact("link","back")); // goes to countdown page to start download
+		    return view('layouts.blank',compact("refresh","back")); // goes to countdown page to start download
     	} else {
     		return redirect('/history/download')->withErrors(['No Emails to Download']);
     	}
