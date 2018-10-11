@@ -433,7 +433,9 @@ class AdvisorsController extends Controller
         // if there is an entry in the User table update User.advisor_id
         if (!is_null($advisor->user)) {
             $user = $advisor->user;
-            $results = $user->updateId($advisor->id);
+			if ($user->advisor_id==0) {
+	            $results = $user->updateId($advisor->id);
+			}
         }
         $rates = $advisor->rate;
 
