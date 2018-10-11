@@ -170,7 +170,7 @@
     function getZipcode() {
 
         $ip = $_SERVER['REMOTE_ADDR']?:($_SERVER['HTTP_X_FORWARDED_FOR']?:$_SERVER['HTTP_CLIENT_IP']);
-        if($ip=='127.0.0.1' || substr($ip,0,6)=='192.168'){
+        if($ip=='127.0.0.1' || substr($ip,0,7)=='192.168'){
             return "";
         }
 
@@ -190,6 +190,9 @@
         $file = file_get_contents("http://ipinfo.io/{$ip}", false, $context);
 
         $response = json_decode($file,false);
-
-        return $response->postal;
+        if (isset($response->postal)) {
+            return $response->postal;
+    	} else {
+    		return "";
+    	}
     }
