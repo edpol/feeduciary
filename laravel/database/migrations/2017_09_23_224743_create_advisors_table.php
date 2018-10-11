@@ -17,6 +17,7 @@ class CreateAdvisorsTable extends Migration
 
         Schema::create('advisors', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->default(0);
             $table->boolean('is_active')->default(true);
             $table->string('name')->index()->nullable();
             $table->string('phone')->nullable();
@@ -42,7 +43,6 @@ class CreateAdvisorsTable extends Migration
             $table->timestamps();
             $table->string('brochure')->nullable();
             $table->text('bio')->nullable();
-            $table->integer('user_id')->unsigned()->default(0);
         });
 
         Schema::enableForeignKeyConstraints();

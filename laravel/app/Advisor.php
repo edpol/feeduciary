@@ -29,6 +29,10 @@ class Advisor extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function robo() {
+        return $this->hasOne(Robo::class);
+    }
+
     public function photo() {
         if (file_exists( public_path() . '/images/advisorImages/' . $this->id . '-thumb.jpg')) {
             return '/images/advisorImages/' . $this->id .'-thumb.jpg';
