@@ -192,7 +192,7 @@
         $response = json_decode($file,false);
         if (isset($response->postal)) {
             return $response->postal;
-    	} else {
-    		return "";
-    	}
+        } else {
+            return "";
+        }
     }
