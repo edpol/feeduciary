@@ -29,17 +29,17 @@
 </head>
 <body>
 
-    @include('layouts.nav')
+@include('layouts.nav')
 
-    @yield('box1')
+@yield('box1')
 
-    @yield('box2')
+@yield('box2')
 
-    @yield('box3')
+@yield('box3')
 
-    @yield('box4')
+@yield('box4')
 
-    @include('layouts.footer')
+@include('layouts.footer')
 
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/myscript.js') }}"></script>

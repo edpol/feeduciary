@@ -15,7 +15,7 @@ class CreateRobosTable extends Migration
     {
         Schema::create('robos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('advisor_id')->unsigned()->default(0);
+            $table->integer('advisor_id')->index()->unsigned()->default(0);
             $table->boolean('is_robo')->default(false);
             $table->timestamps();
         });

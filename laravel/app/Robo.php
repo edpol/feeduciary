@@ -11,6 +11,17 @@ class Robo extends Model
 
     public function advisor()
     {
-        return $this->hasOne(Advisor::class);
+        return $this->belongsTo(Advisor::class);
     }
+
+    // this looks for an admin column in your users table
+    public function isRobo() {
+        if ($this->is_robo) {
+            return true;
+        } else { 
+            return false;
+        }
+    }
+
+
 }
