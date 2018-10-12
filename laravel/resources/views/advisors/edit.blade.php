@@ -2,13 +2,16 @@
 @extends('layouts.master')
 
 @section('box1')
-<div class="paddingForHeader">
-</div>
+<div class="paddingForHeader"></div>
 @endsection
 
 @section('box2')
 <section class="content-section-b" id="section">
-    <div class="container" id="container" style="border-radius: 10px; @if(!$advisor->is_active) background-color:#fee; @endif" >
+    <div class="container" id="container" style="border-radius: 10px; padding:12px; 
+@if(!$advisor->is_active) background-color:#fee; 
+@else 
+    @if(isset($advisor->robo) && $advisor->robo->is_robo==1) background-color:#ddd; @endif 
+@endif" >
 
         <div class="row">
             <!-- Column 1 -->
@@ -42,6 +45,7 @@
                             Delete Advisor
                         </button>
                         &nbsp;
+
                         <button type="submit" class="btn btn-primary mt-1" id="inactive" name="inactive" formaction="{{ url('/admin/advisor') }}/{{ $advisor->id }}/inactive">
                         @if ($advisor->is_active)
                             Deactivate Advisor
@@ -49,6 +53,13 @@
                             Activate Advisor
                         @endif
                         </button>
+                    </form>
+                </div>
+
+                <div class="col-sm-12 mt-2"> 
+                    <form id="form2" class="form-horimaximum_amtontal " method="POST" action="{{ url('/admin/advisor') }}/{{ $advisor->id }}/robo">
+                        {{ csrf_field() }}
+                        <input type="checkbox" name="robo" @if(isset($advisor->robo) && $advisor->robo->is_robo==1) checked @endif onChange="this.form.submit()" /> Robo Advisor<br />
                     </form>
                 </div>
             @endif

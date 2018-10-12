@@ -109,6 +109,7 @@ Route::group(['middleware' => ['auth','admin']], function () {
 
     Route::get('/admin/advisor/{id}',           'AdminController@show');
     Route::post('/admin/advisor/{id}/inactive', 'AdminController@inactive');
+    Route::post('/admin/advisor/{id}/robo',     'AdminController@robo');
     Route::post('/admin/advisor/{id}/delete',   'AdminController@delete');
 
 });

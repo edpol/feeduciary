@@ -4,6 +4,7 @@ namespace feeduciary\Http\Controllers;
 
 use feeduciary\Rate;
 use feeduciary\User;
+use feeduciary\Robo;
 use feeduciary\Advisor;
 use Illuminate\Http\Request;
 
@@ -101,6 +102,23 @@ class AdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+   /*
+    *   check if there is a robo entry
+    *   if it does not create a record, set to true
+    *   else if check mark set 
+    */
+    public function robo(Request $request, $id)
+    {
+        $checkbox = request(['robo']);
+
+        // Retrieve by advisor_id, or instantiate...
+        $robo = Robo::firstOrNew(['advisor_id'=>$id]);
+        $robo->is_robo = (count($checkbox)==0) ? false : true;
+        $robo->save();
+
+        return redirect("/admin/advisor/{$id}");
     }
 
     public function inactive($id)

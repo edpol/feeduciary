@@ -117,8 +117,13 @@ class AdvisorsController extends Controller
         $advisors = session('advisors');
         foreach ($advisors as $advisor) {
             if ($advisor->is_active && $this->found_zipcode) {
+
+if (isset($advisor->robo) && $advisor->robo->is_robo==1) {
+    $data = 1;
+} else {
                 $data = GeocodeController::distance($this->lat, $this->lng, $advisor->lat, $advisor->lng,"M",$advisor->id, $advisor->zip);
                 $data = round($data,0);
+}
                 if ($data!==false) {
                     $advisor->distance = $data;
                     if ($data > $max) {$max = $data;}

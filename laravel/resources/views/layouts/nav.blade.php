@@ -53,8 +53,10 @@
                     </li>
 -->
                     @if (auth()->check())
+
 <!--
                         @if (auth()->user()->isAdmin())
+
                             <li class="nav-item">
                                 <a class="nav-link" id="updateAdvisors" href="{{ url('/admin/advisors/list') }}">Update Advisors</a>
                             </li>
@@ -79,6 +81,7 @@
 <!--
                                      if   (Auth::user()->isAdmin()) this works too
 -->                                 @if (auth()->user()->isAdmin())
+
                                         <a class="nav-link" href="{{ url('/admin/advisors/list') }}">Update Advisors</a>
                                         <a class="nav-link" href="{{ url('/admin/create')        }}">Create Advisor </a>
                                         <a class="nav-link" href="{{ url('/signup/download')     }}">Download Emails</a>
@@ -87,6 +90,7 @@
                                     @else
                                         <a class="nav-link" href="{{ url('/update') }}">Update</a>
                                     @endif
+
                                 </li>
                             </ul>
                         </li>
