@@ -153,19 +153,26 @@ class SignupsController extends Controller
 
     public function index() {
 
-        //  do you have a cookie, normal 
-        $signup = $this->show(COOKIE_NAME);
+        $fb_pixel_lead = session('fb_pixel_lead');
+
         $verified = "";
         $email = "";
         $name = "";
-        if (!is_null($signup) && gettype($signup)=="object" && !is_null($signup->verified)) {
-            $verified = ($signup->verified==1) ? true : false;
-            $email = $signup->email;
-            $name = $signup->name;
-        }
-        $fb_pixel_lead = session('fb_pixel_lead');
 
-        /* null, true, false 
+        // if this flag is set don't ask for email address
+        if (env("BYPASS_EMAIL_INQUIRY") !== null && env("BYPASS_EMAIL_INQUIRY")==true) {
+            $verified = true;
+        } else {
+            // do you have a cookie, if so pass variables to view
+            $signup = $this->show(COOKIE_NAME);
+            if (!is_null($signup) && gettype($signup) == "object" && !is_null($signup->verified)) {
+                $verified = ($signup->verified == 1) ? true : false;
+                $email = $signup->email;
+                $name = $signup->name;
+            }
+        }
+
+        /* null, true, false
         i think if there is an entry in the database, we should get it and override the cookie
         but, why is the cookie changing? 
         */

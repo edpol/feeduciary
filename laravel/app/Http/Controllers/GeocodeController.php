@@ -53,7 +53,7 @@ class GeocodeController extends Controller
         return view('geocode.store', compact('advisor', 'msg'));
     }
 
-    public static function ssl_file_get_contents($send) {
+    public static function sslFileGetContents($send) {
         $cafile = __DIR__ . DIRECTORY_SEPARATOR . "cacert.pem";
         $arrContextOptions=array(
             "ssl"=>array(
@@ -74,7 +74,7 @@ class GeocodeController extends Controller
 
         try {
 //            if (getenv('APP_ENV')=="local") {
-                $result = self::ssl_file_get_contents($send);
+                $result = self::sslFileGetContents($send);
 //            } else {
 //                $result = file_get_contents($send);
 //            }

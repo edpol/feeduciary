@@ -20,6 +20,7 @@
     }
 
     function formatPhone($rawPhone) {
+        // alphanumeric and spaces, unicode support
         $phone = preg_replace("/[^[:alnum:][:space:]]/u", '', $rawPhone);
         if (strlen($phone)==10) {
             $phone = "(" . substr($phone,0,3) . ")&nbsp;" . substr($phone,3,3) . "-" . substr($phone,6);
@@ -29,18 +30,18 @@
         return $phone;
     }
 
-    // remove everything except numbers and first period
-    // or should we just remove dollar signs, commas and periods (except first) and let it error otherwise
     function cleanMoney ($price_string) {
+        // remove everything except numbers and period
         $price = preg_replace('/[^0-9.]+/', '', $price_string);
+        // remove all periods after the first one
         if (($pos = strpos($price, '.')) !== false) {
             $price = substr($price, 0, $pos+1).str_replace('.', '', substr($price, $pos+1));
         }
         return floatval($price);
     }
 
-    // remove everything except numbers and first period
     function cleanPercent ($percent_string) {
+        // remove everything except numbers, period and percent sign
         $percent = preg_replace('/[^0-9.%]+/', '', $percent_string);
         // remove extra periods
         if (($pos = strpos($percent, '.')) !== false) {
@@ -55,6 +56,7 @@
         return floatval($percent);
     }
 
+    // remove all non alphanumerics, case insensitive
     function cleanZipcode($zip) {
         return preg_replace("/[^a-z0-9.]+/i", "", $zip);
     }

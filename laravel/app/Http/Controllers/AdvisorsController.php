@@ -152,7 +152,10 @@ if (isset($advisor->robo) && $advisor->robo->is_robo==1) {
     public function calculateFee(Request $request) {
 
         $requestData = $request->all();
+
+        // get amount from input form
         if (isset($requestData['amount'])) {
+            // remove all spaces and dollar signs, (that's all we allow to be entered)
             $requestData['amount'] = preg_replace('/[\s+,\$]/', '', $requestData['amount']);
             $request->replace($requestData);
         }
@@ -161,15 +164,16 @@ if (isset($advisor->robo) && $advisor->robo->is_robo==1) {
         $amount = cleanMoney($tmp);
         session(compact('amount'));
 
-        $zip = implode('',request(['zipcode']));
+        $zip = implode('',request(['zipcode']));  // convert array to string
         $zip = cleanZipcode($zip);
+
         $advisors = Advisor::where("minimum_amt", "<=", $amount)->get();
         session(compact('advisors'));
 
         /*
          *  Guest supplies zipcode
          *  lookup in zipcodes table
-         *  if fails ask Google and save results in zipcodes table
+         *  if lookup fails ask Google and save results in zipcodes table
          */
         $zipcode = new Zipcode();
         $guest = $zipcode->show($zip);
@@ -215,30 +219,39 @@ if (isset($advisor->robo) && $advisor->robo->is_robo==1) {
     *   if Signup table did not have a zipcode update it with search
     */
     public function saveHistory() {
-        $value = request()->cookie(COOKIE_NAME);
-        $value = json_decode($value,true);
 
-        //  zipcode from cookie, input or Signup table
-        //  if cookie doesnt have zipcode or id get it from Signup table
-        if (!isset($value['zipcode']) || empty($value['zipcode'])
-        ||  !isset($value['id'])      || empty($value['id'])) {
-            $signup = Signup::where("email",$value['email'])->first();
-            $value['id'] = $signup->id;
-            if ($signup->zipcode===null || empty($signup->zipcode)) {
-                $signup->zipcode = $value['zipcode'] = session('zip');
-                if (isset($value['zipcode']) && !empty($value['zipcode'])) {
-                    $signup->save();
+        // If bypass email collection update search history without cookie
+        if (env("BYPASS_EMAIL_INQUIRY") !== null && env("BYPASS_EMAIL_INQUIRY")==true) {
+            $id = 1;
+            $zip = session('zip');
+            $zipcode = ($zip===null || empty($zip)) ? getZipcode() : $zip;
+        } else {
+
+            $value = request()->cookie(COOKIE_NAME);
+            $value = json_decode($value, true);
+
+            //  zipcode from cookie, input or Signup table
+            //  if cookie doesnt have zipcode or id get it from Signup table
+            if (!isset($value['zipcode']) || empty($value['zipcode'])
+                || !isset($value['id']) || empty($value['id'])) {
+                $signup = Signup::where("email", $value['email'])->first();
+                $value['id'] = $signup->id;
+                if ($signup->zipcode === null || empty($signup->zipcode)) {
+                    $signup->zipcode = $value['zipcode'] = session('zip');
+                    if (isset($value['zipcode']) && !empty($value['zipcode'])) {
+                        $signup->save();
+                    }
+                } else {
+                    $value['zipcode'] = $signup->zipcode;
                 }
-            } else {
-                $value['zipcode'] = $signup->zipcode;    
+                $signup->saveCookie($signup->id, $signup->email, $signup->name, $signup->zipcode, $signup->verified);
             }
-            $signup->saveCookie($signup->id, $signup->email, $signup->name, $signup->zipcode, $signup->verified);
+
+            $id = (isset($value['id'])) ? $value['id'] : 0;  // in case it does not exist, I added it after cookies were created
+            $zipcode = (!isset($value['zipcode']) || empty($value['zipcode'])) ? '00000' : $value['zipcode'];
         }
-
-        $id = (isset($value['id'])) ? $value['id'] : 0;  // in case it does not exist, I added it after cookies were created
-        $zipcode = (!isset($value['zipcode']) || empty($value['zipcode'])) ? '00000' : $value['zipcode'];
-
         $amount = session('amount');
+
         $history = History::insertRecord($id, $zipcode, $amount);
         return;
     }
