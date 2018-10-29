@@ -8,13 +8,13 @@ public_html/whoami.php
 public_html/images/advisorImages
 /laravel/storage/*.key
 /laravel/vendor
-/laravel/.idea
 /laravel/.vagrant
 /laravel/Homestead.json
 /laravel/Homestead.yaml
 /laravel/npm-debug.log
 /laravel/yarn-error.log
 /laravel/.env
+/.idea
 .bash*
 .c*
 .ftpquota
