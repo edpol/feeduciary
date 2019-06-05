@@ -1,3 +1,5 @@
+/vendor
+/laravel/vendor
 /laravel/node_modules
 /laravel/public_html/hot
 public_html/storage
@@ -7,7 +9,6 @@ public_html/notes.pdn
 public_html/whoami.php
 public_html/images/advisorImages
 /laravel/storage/*.key
-/laravel/vendor
 /laravel/.vagrant
 /laravel/Homestead.json
 /laravel/Homestead.yaml
