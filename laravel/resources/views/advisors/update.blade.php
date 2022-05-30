@@ -271,13 +271,13 @@
                         @include('rates.info')
                         <div class="col-md-8 {{ $errors->has('feeCalculation') ? ' has-error' : '' }}">
                             <input required id="feeCalculation" type="radio" name="feeCalculation" value="0" @if ($advisor->feeCalculation == 0) checked @endif tabindex="21"/> Cumulative rates per tier 
-                            <a href="#myModal1" class="btn-xs" data-toggle="modal"><img src="{{ asset('images/information.gif') }}" alt="Rate Plans" title"information"/></a><br />
+                            <a href="#myModal1" class="btn-xs" data-toggle="modal"><img src="{{ asset('images/information.gif') }}" alt="Rate Plans" title="information"/></a><br />
 
                             <input required id="feeCalculation" type="radio" name="feeCalculation" value="1" @if ($advisor->feeCalculation == 1) checked @endif /> Total Portfolio, Single Rate
-                            <a href="#myModal2" class="btn-xs" data-toggle="modal"><img src="{{ asset('images/information.gif') }}" alt="Rate Plans" title"information"/></a><br />
+                            <a href="#myModal2" class="btn-xs" data-toggle="modal"><img src="{{ asset('images/information.gif') }}" alt="Rate Plans" title="information"/></a><br />
 
                             <input required id="feeCalculation" type="radio" name="feeCalculation" value="2" @if ($advisor->feeCalculation == 2) checked @endif /> Fee Only
-                            <a href="#myModal3" class="btn-xs" data-toggle="modal"><img src="{{ asset('images/information.gif') }}" alt="Rate Plans" title"information"/></a><br />
+                            <a href="#myModal3" class="btn-xs" data-toggle="modal"><img src="{{ asset('images/information.gif') }}" alt="Rate Plans" title="information"/></a><br />
 
                             @if ($errors->has('feeCalculation'))
                                 <span class="help-block">

@@ -1,11 +1,5 @@
 /laravel/node_modules
 /laravel/public_html/hot
-public_html/storage
-public_html/error_log
-public_html/notes.txt
-public_html/notes.pdn
-public_html/whoami.php
-public_html/images/advisorImages
 /laravel/storage/*.key
 /laravel/vendor
 /laravel/.vagrant
@@ -14,6 +8,14 @@ public_html/images/advisorImages
 /laravel/npm-debug.log
 /laravel/yarn-error.log
 /laravel/.env
+/laravel/run.sh
+public_html/storage
+public_html/error_log
+public_html/notes.txt
+public_html/notes.pdn
+public_html/whoami.php
+public_html/images/advisorImages
+public_html/adminer/
 /.idea
 .bash*
 .c*

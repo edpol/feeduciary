@@ -2,7 +2,6 @@
 
 namespace feeduciary\Http\Controllers;
 
-//use Illuminate\Http\Request;
 use Mail;
 use feeduciary\Rate;
 use feeduciary\User;
