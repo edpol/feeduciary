@@ -42,7 +42,7 @@ class Advisor extends Model
     }
 
    /*
-    *   Is person loggedin the owner of this account
+    *   Is person logged in the owner of this account
     */
     public function owner() {
         $user = Auth::user();
@@ -54,11 +54,11 @@ class Advisor extends Model
     }
 
     public function targetSearch($search_string) {
-        return Self::where('name', 'like', $search_string.'%')->get();
+        return self::where('name', 'like', $search_string.'%')->get();
     }
 
     public function getAll() {
-        return Self::select('name', 'email', 'phone', 'company', 'is_active')->get();
+        return self::select('name', 'email', 'phone', 'company', 'is_active')->get();
     }
 
 }
