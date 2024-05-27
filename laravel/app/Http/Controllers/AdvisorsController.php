@@ -205,7 +205,7 @@ if (isset($advisor->robo) && $advisor->robo->is_robo==1) {
         $this->slicer($page,$miles,$fee);
 
         $found_zipcode = $this->found_zipcode;
-        session(compact('page', 'zip', 'found_zipcode', 'range', 'newOrder', 'miles', 'fee'));
+        session(compact('page', 'zip', 'found_zipcode', 'range', 'miles', 'fee'));
         return view('casual.wait', compact('page'));
 //      return view('advisors.calculateFee');
     }
@@ -333,7 +333,7 @@ if (isset($advisor->robo) && $advisor->robo->is_robo==1) {
         //good starting point, now pagination
         $output = $clone->slice($start_slice, $pages->per_page);
         $displayCount = count($clone);
-        session(compact('page', 'output', 'advisors', 'displayCount', 'validAdvisorCount')); 
+        session(compact('page', 'output', 'advisors', 'displayCount'));
         // I could send count($clone) instead would save ram.
         return; //$output;
     }
